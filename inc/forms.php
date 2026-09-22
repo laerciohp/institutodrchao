@@ -72,8 +72,8 @@ function idc_forms_redirect(string $status, string $anchor = ''): void {
 }
 
 /**
- * Status final: salvou no painel = sucesso para o usuário;
- * se o e-mail falhar, usa ok_mail (ainda sucesso, com aviso leve).
+ * Status final: salvou no CPT = sucesso para o usuário.
+ * Se o e-mail falhar, ainda retorna sucesso (ok_mail) com a mesma mensagem amigável.
  */
 function idc_forms_status_after_send(bool $saved, bool $sent): string {
 	if (!$saved) {
@@ -232,7 +232,7 @@ function idc_forms_feedback_html(): string {
 	$status = isset($_GET['idc_form']) ? sanitize_key((string) $_GET['idc_form']) : '';
 	$map    = [
 		'ok'      => ['class' => 'is-success', 'text' => __('Mensagem enviada com sucesso. Em breve entraremos em contato.', 'instituto-dr-chao')],
-		'ok_mail' => ['class' => 'is-success', 'text' => __('Recebemos sua mensagem no sistema. Se o e-mail de confirmação falhar no servidor, nossa equipe já vê o envio no painel.', 'instituto-dr-chao')],
+		'ok_mail' => ['class' => 'is-success', 'text' => __('Mensagem enviada com sucesso. Em breve entraremos em contato.', 'instituto-dr-chao')],
 		'invalid' => ['class' => 'is-error', 'text' => __('Preencha os campos obrigatórios e aceite a política de privacidade.', 'instituto-dr-chao')],
 		'upload'  => ['class' => 'is-error', 'text' => __('Não foi possível anexar o currículo. Use PDF ou DOC até 5 MB.', 'instituto-dr-chao')],
 		'error'   => ['class' => 'is-error', 'text' => __('Não foi possível enviar agora. Tente novamente ou fale pelo WhatsApp.', 'instituto-dr-chao')],
