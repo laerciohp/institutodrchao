@@ -19,3 +19,6 @@ Thumbs.db
 # Logs / cache
 *.log
 node_modules/
+
+# Pacote de instalação (gerado localmente)
+instituto-dr-chao.zip
