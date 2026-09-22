@@ -62,6 +62,7 @@
 	--idc-radius-pill: 9999px;
 	--idc-radius-lg: 32px;
 	--idc-radius-md: 16px;
+	--idc-radius-sm: 8px;
 
 	/* Sombras */
 	--idc-shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.05);

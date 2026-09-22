@@ -1,6 +1,6 @@
 <?php
 /**
- * Breadcrumb — Início > Página atual.
+ * Breadcrumb — Início > [itens] > Página atual.
  *
  * @package Instituto_Dr_Chao
  *
@@ -8,9 +8,14 @@
  */
 
 $current = (string) ($args['current'] ?? '');
+$items   = $args['items'] ?? [];
 
 if ($current === '') {
 	return;
+}
+
+if (!is_array($items)) {
+	$items = [];
 }
 
 $sep_path = IDC_THEME_DIR . '/assets/icons/breadcrumb-sep.svg';
@@ -30,6 +35,31 @@ $has_sep  = is_readable($sep_path);
 				<span>&gt;</span>
 			<?php endif; ?>
 		</li>
+		<?php foreach ($items as $item) : ?>
+			<?php
+			$label = (string) ($item['label'] ?? '');
+			$url   = (string) ($item['url'] ?? '');
+			if ($label === '') {
+				continue;
+			}
+			?>
+			<li class="idc-breadcrumb__item">
+				<?php if ($url !== '') : ?>
+					<a class="idc-breadcrumb__link" href="<?php echo esc_url($url); ?>">
+						<?php echo esc_html($label); ?>
+					</a>
+				<?php else : ?>
+					<?php echo esc_html($label); ?>
+				<?php endif; ?>
+			</li>
+			<li class="idc-breadcrumb__sep" aria-hidden="true">
+				<?php if ($has_sep) : ?>
+					<img src="<?php echo esc_url(idc_asset('assets/icons/breadcrumb-sep.svg')); ?>" alt="" width="5" height="7" decoding="async">
+				<?php else : ?>
+					<span>&gt;</span>
+				<?php endif; ?>
+			</li>
+		<?php endforeach; ?>
 		<li class="idc-breadcrumb__item idc-breadcrumb__item--current" aria-current="page">
 			<?php echo esc_html($current); ?>
 		</li>

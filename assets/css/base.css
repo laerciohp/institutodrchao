@@ -10,6 +10,9 @@
 
 html {
 	scroll-behavior: smooth;
+	scroll-padding-top: calc(var(--idc-header-h) + 16px);
+	background-color: var(--idc-cream);
+	overflow-x: clip;
 }
 
 body {
@@ -18,8 +21,9 @@ body {
 	font-size: var(--idc-text-md);
 	line-height: 1.6;
 	color: var(--idc-ink);
-	background: var(--idc-cream);
+	background-color: var(--idc-cream);
 	-webkit-font-smoothing: antialiased;
+	overflow-x: clip;
 }
 
 img {
@@ -170,7 +174,53 @@ p {
 	padding: 12px 24px;
 }
 
-/* Site shell */
+.idc-btn--arrow {
+	gap: 10px;
+}
+
+.idc-btn__arrow {
+	flex-shrink: 0;
+	width: 12px;
+	height: 12px;
+}
+
+.idc-btn--primary .idc-btn__arrow {
+	filter: brightness(0) invert(1);
+}
+
+/* Site shell — bege contínuo até o rodapé (cantos do footer) */
 .site-main {
 	min-height: 40vh;
+	background-color: var(--idc-cream);
+	overflow-x: clip;
 }
+
+/* Scroll reveal */
+.idc-reveal {
+	opacity: 0;
+	transform: translateY(24px);
+	transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.idc-reveal.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.idc-reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.idc-testimonials__track,
+	.idc-team__track {
+		transition: none;
+	}
+}
+

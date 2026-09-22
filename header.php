@@ -40,8 +40,9 @@
 		</nav>
 
 		<?php
+		$header_cta = (string) idc_option('idc_header_cta_label', 'Agendar Consulta');
 		get_template_part('template-parts/components/button', null, [
-			'label'    => __('Agendar Consulta', 'instituto-dr-chao'),
+			'label'    => $header_cta !== '' ? $header_cta : __('Agendar Consulta', 'instituto-dr-chao'),
 			'variant'  => 'navy',
 			'class'    => 'idc-header__cta',
 			'origem'   => is_front_page() ? 'home' : 'header',
@@ -74,7 +75,7 @@
 			?>
 			<?php
 			get_template_part('template-parts/components/button', null, [
-				'label'    => __('Agendar Consulta', 'instituto-dr-chao'),
+				'label'    => $header_cta !== '' ? $header_cta : __('Agendar Consulta', 'instituto-dr-chao'),
 				'variant'  => 'navy',
 				'class'    => 'idc-nav-drawer__cta',
 				'origem'   => 'menu-mobile',

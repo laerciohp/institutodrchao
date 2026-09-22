@@ -52,19 +52,27 @@ if (!is_array($cards) || $cards === []) {
 				?>
 				<article class="idc-pillar <?php echo esc_attr($mod); ?>">
 					<?php if ($layout === 'cta') : ?>
-						<h3 class="idc-pillar__title"><?php echo esc_html($title); ?></h3>
-						<p class="idc-pillar__text"><?php echo esc_html($text); ?></p>
-						<?php if ($label !== '') : ?>
-							<?php
-							get_template_part('template-parts/components/button', null, [
-								'label'    => $label,
-								'variant'  => 'navy',
-								'href'     => $url,
-								'external' => $wa,
-								'class'    => 'idc-btn--sm',
-							]);
-							?>
+						<?php if ($image !== '') : ?>
+							<span class="idc-pillar__cta-bg" aria-hidden="true">
+								<img src="<?php echo esc_url($image); ?>" alt="" width="800" height="400" decoding="async" loading="lazy">
+							</span>
+							<span class="idc-pillar__cta-scrim" aria-hidden="true"></span>
 						<?php endif; ?>
+						<div class="idc-pillar__cta-inner">
+							<h3 class="idc-pillar__title"><?php echo esc_html($title); ?></h3>
+							<p class="idc-pillar__text"><?php echo esc_html($text); ?></p>
+							<?php if ($label !== '') : ?>
+								<?php
+								get_template_part('template-parts/components/button', null, [
+									'label'    => $label,
+									'variant'  => 'navy',
+									'href'     => $url,
+									'external' => $wa,
+									'class'    => 'idc-btn--sm',
+								]);
+								?>
+							<?php endif; ?>
+						</div>
 					<?php elseif ($layout === 'primary') : ?>
 						<div class="idc-pillar__body">
 							<?php if ($icon !== '') : ?>

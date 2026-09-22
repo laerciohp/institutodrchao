@@ -7,30 +7,21 @@
 
 get_header();
 
-$eyebrow = function_exists('get_field') && get_field('idc_page_eyebrow')
-	? (string) get_field('idc_page_eyebrow')
-	: 'NOSSOS TRATAMENTOS';
-
-$before = function_exists('get_field') && get_field('idc_page_title_before')
-	? (string) get_field('idc_page_title_before')
-	: '';
-
-$accent = function_exists('get_field') && get_field('idc_page_title_accent')
-	? (string) get_field('idc_page_title_accent')
-	: 'Cuidar de você';
-
-$after = function_exists('get_field') && get_field('idc_page_title_after')
-	? (string) get_field('idc_page_title_after')
-	: ' é a nossa maior missão.';
-
-$lead = function_exists('get_field') && get_field('idc_page_lead')
-	? (string) get_field('idc_page_lead')
-	: 'Cada pilar reúne especialistas que trabalham juntos para devolver movimento, bem-estar e qualidade de vida.';
+$eyebrow = (string) idc_page_field('idc_page_eyebrow', 'NOSSOS TRATAMENTOS');
+$before = (string) idc_page_field('idc_page_title_before', '');
+$accent = (string) idc_page_field('idc_page_title_accent', 'Cuidar de você');
+$after  = (string) idc_page_field('idc_page_title_after', ' é a nossa maior missão.');
+$lead   = (string) idc_page_field(
+	'idc_page_lead',
+	'Cada pilar reúne especialistas que trabalham juntos para devolver movimento, bem-estar e qualidade de vida.'
+);
 ?>
 
 <main id="main" class="site-main site-main--page">
 	<?php
 	get_template_part('template-parts/page/page-hero', null, [
+		'layout'           => 'default',
+		'decor'            => true,
 		'eyebrow'          => $eyebrow,
 		'title_before'     => $before,
 		'title_accent'     => $accent,
@@ -41,6 +32,8 @@ $lead = function_exists('get_field') && get_field('idc_page_lead')
 	get_template_part('template-parts/page/hub-cards');
 	get_template_part('template-parts/components/strip-cta', null, [
 		'origem' => 'especialidades',
+		'decor'  => true,
+		'align'  => 'center',
 	]);
 	?>
 </main>

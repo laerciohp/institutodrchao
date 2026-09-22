@@ -38,8 +38,8 @@ function idc_option(string $key, $default = '') {
  * Número WhatsApp limpo (somente dígitos, com DDI).
  */
 function idc_whatsapp_number(): string {
-	$raw = (string) idc_option('idc_whatsapp', '551122188080');
-	return preg_replace('/\D+/', '', $raw) ?: '551122188080';
+	$raw = (string) idc_option('idc_whatsapp', '5511943356377');
+	return preg_replace('/\D+/', '', $raw) ?: '5511943356377';
 }
 
 /**
@@ -54,7 +54,7 @@ function idc_whatsapp_url(array $args = []): string {
 	if ($mensagem === '') {
 		$mensagem = (string) idc_option(
 			'idc_whatsapp_mensagem',
-			'Olá! Gostaria de agendar uma consulta no Instituto Dr. Chao.'
+			'Olá, gostaria de realizar um agendamento!'
 		);
 	}
 
@@ -97,4 +97,98 @@ function idc_whatsapp_url_for_context(string $origem = ''): string {
  */
 function idc_the_whatsapp_url(string $origem = ''): void {
 	echo esc_url(idc_whatsapp_url_for_context($origem));
+}
+
+/**
+ * Lê campo ACF da página atual com fallback tipado.
+ *
+ * @param mixed $default
+ * @return mixed
+ */
+function idc_page_field(string $key, $default = '') {
+	if (!function_exists('get_field')) {
+		return $default;
+	}
+	$value = get_field($key);
+	if ($value === null || $value === false || $value === '') {
+		return $default;
+	}
+	if (is_array($value) && $value === []) {
+		return $default;
+	}
+	return $value;
+}
+
+/**
+ * Slugs de posts odontológicos (fora do escopo Figma Orto/Fisio/Integrativa).
+ *
+ * @return list<string>
+ */
+function idc_odonto_post_slugs(): array {
+	return [
+		'gengiva-inflamada-sinais-e-sintomas',
+		'bruxismo-sintomas-causas-tratamentos',
+		'dente-do-siso-inflamado',
+		'dor-de-dente-causas-e-tratamentos',
+		'gengiva-inchada-o-que-pode-ser',
+	];
+}
+
+/**
+ * Categorias exibidas nos filtros do blog (pilares Figma, sem “Sem categoria” / odonto).
+ *
+ * @return list<WP_Term>
+ */
+function idc_blog_filter_categories(): array {
+	$exclude = [];
+	$default_id = (int) get_option('default_category');
+	if ($default_id > 0) {
+		$exclude[] = $default_id;
+	}
+	foreach (['uncategorized', 'sem-categoria', 'odontologia'] as $slug) {
+		$term = get_category_by_slug($slug);
+		if ($term instanceof WP_Term) {
+			$exclude[] = (int) $term->term_id;
+		}
+	}
+	$exclude = array_values(array_unique(array_filter($exclude)));
+
+	$preferred = [];
+	foreach (idc_default_blog_categories() as $def) {
+		$term = get_category_by_slug($def['slug']);
+		if ($term instanceof WP_Term && (int) $term->count > 0) {
+			$preferred[] = $term;
+		}
+	}
+
+	$others = get_categories([
+		'hide_empty' => true,
+		'orderby'    => 'name',
+		'order'      => 'ASC',
+		'exclude'    => $exclude,
+	]);
+
+	$seen = array_map(static fn(WP_Term $t): int => (int) $t->term_id, $preferred);
+	foreach ($others as $term) {
+		if (!$term instanceof WP_Term) {
+			continue;
+		}
+		$id = (int) $term->term_id;
+		if (in_array($id, $seen, true) || in_array($id, $exclude, true)) {
+			continue;
+		}
+		$preferred[] = $term;
+		$seen[]      = $id;
+	}
+
+	return $preferred;
+}
+
+/**
+ * Normaliza ícone ACF (array image | URL string) para URL.
+ *
+ * @param mixed $icon
+ */
+function idc_icon_url($icon, string $fallback = ''): string {
+	return idc_image_url($icon, $fallback);
 }

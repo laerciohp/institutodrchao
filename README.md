@@ -63,7 +63,19 @@ instituto-dr-chao/
 - **ACF** (Advanced Custom Fields) — opções da clínica, Hero e campos dos CPTs.
 - Menu em **Aparência → Menus** (local: Menu principal).
 
+## Setup em staging / após atualizar o tema
+
+O setup cria páginas (`/instalacoes/`, especialidades, etc.), menus, seeds ACF e corpo clínico.
+
+1. Em **Aparência → Temas**, use o aviso **“Configurar páginas do Instituto”** (ou reative o tema) para rodar `idc_setup_ensure_pages` de novo.
+2. Em **Configurações → Links permanentes**, clique em **Salvar** para fazer flush das rewrite rules — necessário para `/corpo-clinico/` (CPT) e URLs novas.
+3. Confira se `/instalacoes/` e `/corpo-clinico/` respondem 200.
+
+Sem esse re-run + flush, o staging pode continuar sem Instalações no menu ou com 404 no arquivo do corpo clínico.
+
 ## Desenvolvimento (Figma → código)
 
 Ordem: tokens → componentes → templates → ACF → QA frame a frame (1280 / 390).
 Sem Elementor. Ver plano operacional no board do projeto.
+
+Páginas internas de especialidade (v1.5+) usam hero **split** (foto local em `assets/images/pages/`), blocos ricos (`treatment-cards`, `phases`, `integrativa-grid`) e copy padrão em `inc/defaults-pages.php` (fonte `_import-prod`).

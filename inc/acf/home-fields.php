@@ -44,7 +44,8 @@ function idc_register_acf_home_fields(): void {
 						'type'          => 'select',
 						'choices'       => [
 							'number' => 'Número / texto',
-							'stars'  => 'Estrelas Google',
+							'stars'  => 'Só estrelas',
+							'rating' => 'Nota + estrelas (Google)',
 						],
 						'default_value' => 'number',
 					],
@@ -264,7 +265,7 @@ function idc_register_acf_home_fields(): void {
 				'label'         => 'Badge',
 				'name'          => 'idc_testimonials_badge',
 				'type'          => 'text',
-				'default_value' => '5.0 Avaliação Média',
+				'default_value' => '5.0 · 193 avaliações',
 			],
 			[
 				'key'           => 'field_idc_testimonials_title',
@@ -337,7 +338,7 @@ function idc_register_acf_home_fields(): void {
 				'label'         => 'Lead',
 				'name'          => 'idc_team_lead',
 				'type'          => 'text',
-				'default_value' => 'Profissionais dedicados à sua recuperação.',
+				'default_value' => 'No Instituto Dr. Chao, a equipe de todos os setores abraça a missão de oferecer atendimento com cordialidade, acolhimento e empatia. Entendemos que cada pessoa carrega uma história única — e escutá-la com atenção é nossa responsabilidade.',
 			],
 			[
 				'key'           => 'field_idc_team_cta_label',
@@ -357,9 +358,23 @@ function idc_register_acf_home_fields(): void {
 				'label'         => 'Qtd. na Home',
 				'name'          => 'idc_team_count',
 				'type'          => 'number',
-				'default_value' => 3,
+				'default_value' => 7,
 				'min'           => 1,
 				'max'           => 12,
+			],
+			[
+				'key'           => 'field_idc_team_archive_eyebrow',
+				'label'         => 'Archive — Eyebrow',
+				'name'          => 'idc_team_archive_eyebrow',
+				'type'          => 'text',
+				'default_value' => 'CORPO CLÍNICO',
+			],
+			[
+				'key'           => 'field_idc_team_archive_title',
+				'label'         => 'Archive — Título',
+				'name'          => 'idc_team_archive_title',
+				'type'          => 'text',
+				'default_value' => 'Conheça nossa equipe',
 			],
 
 			// —— Blog ——

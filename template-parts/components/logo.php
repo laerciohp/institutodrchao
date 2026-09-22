@@ -1,6 +1,6 @@
 <?php
 /**
- * Logo (SVG do Figma).
+ * Logo (custom logo WP ou SVG do Figma).
  *
  * @package Instituto_Dr_Chao
  *
@@ -9,6 +9,13 @@
 
 $variant = $args['variant'] ?? 'dark'; // dark | light
 $suffix  = $variant === 'light' ? '-light' : '';
+
+if (has_custom_logo()) {
+	echo '<div class="idc-logo idc-logo--custom">';
+	the_custom_logo();
+	echo '</div>';
+	return;
+}
 ?>
 <a class="idc-logo" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?>">
 	<span class="idc-logo__mark">

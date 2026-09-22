@@ -22,3 +22,9 @@ node_modules/
 
 # Pacote de instalação (gerado localmente)
 instituto-dr-chao.zip
+instituto-dr-chao-wp.zip
+
+# Scrap / auditoria local (não versionar)
+_import-prod/
+assets/images/_figma-audit/
+assets/images/import/

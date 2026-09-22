@@ -1,12 +1,17 @@
 /**
  * Footer — Shared Component (Figma 177:2952)
+ * Cantos superiores arredondados revelam o bege da última seção (nunca branco).
  */
 
 .idc-footer {
+	position: relative;
+	z-index: 2;
 	background: var(--idc-azul-900);
 	color: var(--idc-sand);
 	border-radius: var(--idc-radius-lg) var(--idc-radius-lg) 0 0;
-	padding: var(--idc-space-16) var(--idc-gutter-mobile) var(--idc-space-8);
+	/* Sobrepõe a última seção para os raios cortarem o bege, não o branco */
+	margin-top: calc(var(--idc-radius-lg) * -1);
+	padding: var(--idc-space-16) var(--idc-gutter-mobile) calc(var(--idc-space-8) + 72px);
 }
 
 @media (min-width: 768px) {
@@ -117,3 +122,45 @@
 .idc-footer .idc-logo__wordmark-inst {
 	filter: none;
 }
+
+/* WhatsApp FAB */
+.idc-whatsapp-fab {
+	position: fixed;
+	z-index: 1100;
+	right: max(16px, env(safe-area-inset-right));
+	bottom: max(16px, env(safe-area-inset-bottom));
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: #25d366;
+	color: #fff;
+	box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+	transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.idc-whatsapp-fab:hover {
+	opacity: 1;
+	transform: translateY(-2px) scale(1.04);
+	box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
+}
+
+.idc-whatsapp-fab:focus-visible {
+	outline: 2px solid var(--idc-azul-900);
+	outline-offset: 3px;
+}
+
+.idc-whatsapp-fab__icon {
+	display: block;
+	width: 28px;
+	height: 28px;
+}
+
+@media print {
+	.idc-whatsapp-fab {
+		display: none !important;
+	}
+}
+

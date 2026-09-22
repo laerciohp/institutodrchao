@@ -16,8 +16,8 @@ if (!defined('ABSPATH')) {
  */
 function idc_default_trust_items(): array {
 	return [
+		['type' => 'rating', 'value' => '4.9', 'label' => '742 avaliações no Google'],
 		['type' => 'number', 'value' => '38+', 'label' => 'ANOS DE HISTÓRIA'],
-		['type' => 'stars', 'value' => '5.0', 'label' => '5.0 GOOGLE REVIEWS'],
 		['type' => 'number', 'value' => '7', 'label' => 'ESPECIALISTAS TITULADOS'],
 		['type' => 'number', 'value' => '3', 'label' => 'FRENTES INTEGRADAS'],
 	];
@@ -63,6 +63,7 @@ function idc_default_pillars_cards(): array {
 			'link_label'   => 'Falar agora',
 			'tone'         => 'cream',
 			'use_whatsapp' => true,
+			'image'        => idc_asset('assets/images/why-choose.jpg'),
 		],
 	];
 }
@@ -104,19 +105,37 @@ function idc_default_testimonials(): array {
 			'rating' => 5,
 			'quote'  => 'Atendimento excepcional desde a recepção até o consultório. A equipe de fisioterapia me ajudou a recuperar os movimentos que achei que tinha perdido para sempre.',
 			'name'   => 'Maria Silva',
-			'role'   => 'Paciente Ortopedia',
+			'role'   => 'Paciente de Fisioterapia',
 		],
 		[
 			'rating' => 5,
 			'quote'  => 'O Instituto mudou minha visão sobre tratamento de dor crônica. A acupuntura junto com a fisioterapia fizeram milagres na minha coluna.',
-			'name'   => 'João Mendes',
-			'role'   => 'Paciente Medicina Integrativa',
+			'name'   => 'Carlos Mendes',
+			'role'   => 'Paciente de Medicina Integrativa',
 		],
 		[
 			'rating' => 5,
 			'quote'  => 'A cirurgia foi um sucesso e todo o acompanhamento pós-operatório me deu muita segurança. Profissionais extremamente competentes.',
-			'name'   => 'Ana Costa',
-			'role'   => 'Paciente Cirurgia',
+			'name'   => 'Ana Paula',
+			'role'   => 'Paciente de Ortopedia',
+		],
+		[
+			'rating' => 5,
+			'quote'  => 'Ótimo espaço. Desde a pessoa que te recebe até o médico que finaliza o atendimento, todos muito atenciosos! Recomendo',
+			'name'   => 'André Fagundes Cabral',
+			'role'   => 'Google Reviews',
+		],
+		[
+			'rating' => 5,
+			'quote'  => 'Ambiente acolhedor, excelentes funcionários e médicos. Super recomendo, faço aplicações no meu joelho, com o Dr. Luiz. Mudou a qualidade da minha vida.',
+			'name'   => 'Cida Rocha',
+			'role'   => 'Google Reviews',
+		],
+		[
+			'rating' => 5,
+			'quote'  => 'Sempre fui muito bem atendido… Passo há anos com o Dr Daniel, especialista em joelhos… Recomendo!',
+			'name'   => 'Triguinho zaga',
+			'role'   => 'Google Reviews',
 		],
 	];
 }

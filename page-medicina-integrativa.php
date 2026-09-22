@@ -7,41 +7,69 @@
 
 get_header();
 
-$eyebrow = function_exists('get_field') && get_field('idc_page_eyebrow')
-	? (string) get_field('idc_page_eyebrow')
-	: 'MEDICINA INTEGRATIVA';
+$before = (string) idc_page_field('idc_page_title_before', 'Medicina ');
+$accent = (string) idc_page_field('idc_page_title_accent', 'Integrativa');
+$after  = (string) idc_page_field('idc_page_title_after', ' e Regenerativa.');
+$lead   = (string) idc_page_field(
+	'idc_page_lead',
+	'Uma abordagem que enxerga o paciente como um todo. A medicina integrativa atua em sinergia com os tratamentos ortopédicos, buscando equilibrar o organismo, reduzir inflamações sistêmicas e otimizar a capacidade natural de cura e regeneração celular do corpo.'
+);
 
-$before = function_exists('get_field') && get_field('idc_page_title_before')
-	? (string) get_field('idc_page_title_before')
-	: 'Cuidado sistêmico para';
+$hero_image = idc_image_url(
+	idc_page_field('idc_page_hero_image', null),
+	idc_asset('assets/images/pages/hub-integrativa.jpg')
+);
 
-$accent = function_exists('get_field') && get_field('idc_page_title_accent')
-	? (string) get_field('idc_page_title_accent')
-	: 'bem-estar contínuo';
-
-$after = function_exists('get_field') && get_field('idc_page_title_after')
-	? (string) get_field('idc_page_title_after')
-	: '';
-
-$lead = function_exists('get_field') && get_field('idc_page_lead')
-	? (string) get_field('idc_page_lead')
-	: 'Acupuntura, controle da dor crônica e suporte nutricional integrados ao seu plano de tratamento ortopédico e fisioterapêutico.';
+$grid_title = (string) idc_page_field('idc_integrativa_grid_title', __('Tratamentos Integrativos', 'instituto-dr-chao'));
+$grid_raw   = idc_page_field('idc_integrativa_grid', null);
+$defaults   = idc_default_integrativa_grid();
+$grid       = [];
+if (is_array($grid_raw) && $grid_raw !== []) {
+	foreach ($grid_raw as $index => $item) {
+		if (!is_array($item)) {
+			continue;
+		}
+		$fallback_icon = (string) ($defaults[$index]['icon'] ?? '');
+		$grid[] = [
+			'title' => (string) ($item['title'] ?? ''),
+			'text'  => (string) ($item['text'] ?? ''),
+			'icon'  => idc_icon_url($item['icon'] ?? null, $fallback_icon),
+		];
+	}
+}
+if ($grid === []) {
+	$grid = $defaults;
+}
 ?>
 
 <main id="main" class="site-main site-main--page idc-specialty">
 	<?php
 	get_template_part('template-parts/page/page-hero', null, [
-		'eyebrow'          => $eyebrow,
+		'layout'           => 'split',
+		'modifier'         => 'integrativa',
+		'eyebrow'          => (string) idc_page_field('idc_page_eyebrow', ''),
 		'title_before'     => $before,
 		'title_accent'     => $accent,
 		'title_after'      => $after,
 		'lead'             => $lead,
 		'breadcrumb_label' => __('Medicina Integrativa', 'instituto-dr-chao'),
+		'breadcrumb_items' => [
+			[
+				'label' => __('Especialidades', 'instituto-dr-chao'),
+				'url'   => home_url('/especialidades/'),
+			],
+		],
+		'image'            => $hero_image,
+		'image_alt'        => __('Medicina Integrativa e Regenerativa — Instituto Dr. Chao', 'instituto-dr-chao'),
 	]);
-	get_template_part('template-parts/page/specialty-sections', null, ['slug' => 'integrativa']);
-	get_template_part('template-parts/page/faq-accordion');
+	get_template_part('template-parts/page/integrativa-grid', null, [
+		'title' => $grid_title,
+		'items' => $grid,
+	]);
 	get_template_part('template-parts/components/strip-cta', null, [
 		'origem' => 'medicina-integrativa',
+		'decor'  => true,
+		'align'  => 'center',
 	]);
 	?>
 </main>

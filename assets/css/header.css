@@ -12,6 +12,10 @@
 	border-bottom: 1px solid var(--idc-border-soft);
 }
 
+body.idc-nav-open {
+	overflow: hidden;
+}
+
 .idc-header__inner {
 	display: flex;
 	align-items: center;
@@ -75,6 +79,22 @@
 	height: 100%;
 }
 
+.idc-logo--custom {
+	display: inline-flex;
+	align-items: center;
+}
+
+.idc-logo--custom .custom-logo-link {
+	display: inline-flex;
+	line-height: 0;
+}
+
+.idc-logo--custom .custom-logo {
+	height: 40px;
+	width: auto;
+	max-width: 200px;
+}
+
 /* Nav desktop */
 .idc-nav {
 	display: none;
@@ -90,6 +110,70 @@
 	display: flex;
 	align-items: center;
 	gap: var(--idc-space-8);
+	/* Só itens de topo — submenu fora do fluxo */
+	flex-wrap: nowrap;
+}
+
+.idc-nav__list > .idc-nav__item,
+.idc-nav__list > .menu-item {
+	flex: 0 0 auto;
+}
+
+.idc-nav__list .sub-menu {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.idc-nav__list > .menu-item-has-children {
+	position: relative;
+}
+
+/* Desktop dropdown — especificidade alta vs. regras do drawer */
+.idc-nav .idc-nav__list > .menu-item-has-children > .sub-menu {
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 50%;
+	transform: translateX(-50%);
+	min-width: 220px;
+	padding: 12px 0;
+	margin: 0;
+	background: #fff;
+	border: 1px solid var(--idc-border-soft);
+	border-radius: 12px;
+	box-shadow: var(--idc-shadow-md);
+	display: none;
+	flex-direction: column;
+	gap: 0;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: 50;
+}
+
+.idc-nav .idc-nav__list > .menu-item-has-children:hover > .sub-menu,
+.idc-nav .idc-nav__list > .menu-item-has-children:focus-within > .sub-menu {
+	display: flex;
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.idc-nav__list .sub-menu .idc-nav__link {
+	padding: 10px 16px;
+	border-bottom: 0;
+	white-space: nowrap;
+	width: 100%;
+	justify-content: flex-start;
+}
+
+.idc-nav__list .sub-menu .idc-nav__link:hover {
+	background: var(--idc-cream);
+	opacity: 1;
+}
+
+.idc-nav__list .sub-menu .idc-nav__item {
+	width: 100%;
 }
 
 .idc-nav__link {
@@ -161,6 +245,9 @@
 	display: none;
 	position: absolute;
 	inset: var(--idc-header-h) 0 auto 0;
+	max-height: calc(100dvh - var(--idc-header-h));
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 	background: var(--idc-white);
 	border-bottom: 1px solid var(--idc-border-soft);
 	padding: var(--idc-space-6) var(--idc-gutter-mobile) var(--idc-space-8);
@@ -180,6 +267,26 @@
 .idc-nav-drawer__list .idc-nav__link {
 	font-size: var(--idc-text-md);
 	padding: var(--idc-space-2) 0;
+}
+
+.idc-nav-drawer__list .sub-menu {
+	display: flex;
+	flex-direction: column;
+	gap: var(--idc-space-2);
+	list-style: none;
+	margin: var(--idc-space-2) 0 0;
+	padding: 0 0 0 var(--idc-space-5);
+	border-left: 2px solid var(--idc-border-soft);
+}
+
+.idc-nav-drawer__list .sub-menu .idc-nav__link {
+	font-size: var(--idc-text-sm);
+	font-weight: 500;
+	padding: var(--idc-space-1) 0;
+}
+
+.idc-nav-drawer__list .idc-nav__chevron {
+	display: none;
 }
 
 .idc-nav-drawer__cta {

@@ -13,100 +13,141 @@ if (!defined('ABSPATH')) {
 
 /**
  * Campos comuns de hero de página.
+ * Nome dos campos permanece idc_page_*; keys usam $key_suffix para unicidade.
  *
  * @return list<array<string,mixed>>
  */
-function idc_acf_page_hero_fields(string $prefix = 'idc_page'): array {
-	return [
+function idc_acf_page_hero_fields(string $key_suffix, bool $with_media = true): array {
+	$fields = [
 		[
-			'key'   => "field_{$prefix}_eyebrow",
+			'key'   => "field_idc_page_eyebrow_{$key_suffix}",
 			'label' => 'Eyebrow',
-			'name'  => "{$prefix}_eyebrow",
+			'name'  => 'idc_page_eyebrow',
 			'type'  => 'text',
 		],
 		[
-			'key'   => "field_{$prefix}_title_before",
+			'key'   => "field_idc_page_title_before_{$key_suffix}",
 			'label' => 'Título (antes)',
-			'name'  => "{$prefix}_title_before",
+			'name'  => 'idc_page_title_before',
 			'type'  => 'text',
 		],
 		[
-			'key'   => "field_{$prefix}_title_accent",
+			'key'   => "field_idc_page_title_accent_{$key_suffix}",
 			'label' => 'Título (destaque serif)',
-			'name'  => "{$prefix}_title_accent",
+			'name'  => 'idc_page_title_accent',
 			'type'  => 'text',
 		],
 		[
-			'key'   => "field_{$prefix}_title_after",
+			'key'   => "field_idc_page_title_after_{$key_suffix}",
 			'label' => 'Título (depois)',
-			'name'  => "{$prefix}_title_after",
+			'name'  => 'idc_page_title_after',
 			'type'  => 'text',
 		],
 		[
-			'key'   => "field_{$prefix}_lead",
+			'key'   => "field_idc_page_lead_{$key_suffix}",
 			'label' => 'Lead',
-			'name'  => "{$prefix}_lead",
+			'name'  => 'idc_page_lead',
 			'type'  => 'textarea',
 			'rows'  => 3,
 		],
 	];
+
+	if ($with_media) {
+		$fields[] = [
+			'key'           => "field_idc_page_hero_image_{$key_suffix}",
+			'label'         => 'Imagem do hero',
+			'name'          => 'idc_page_hero_image',
+			'type'          => 'image',
+			'return_format' => 'array',
+			'preview_size'  => 'medium',
+			'instructions'  => 'Se vazio, o tema usa a imagem padrão do layout.',
+		];
+		$fields[] = [
+			'key'   => "field_idc_page_hero_cta_{$key_suffix}",
+			'label' => 'Label CTA do hero (WhatsApp)',
+			'name'  => 'idc_page_hero_cta_label',
+			'type'  => 'text',
+			'instructions' => 'Opcional — exibido no hero split.',
+		];
+	}
+
+	return $fields;
 }
 
 /**
  * Campos de strip CTA (opcionais por página).
+ * Nomes permanecem idc_strip_*; keys usam $suffix para unicidade.
  *
  * @return list<array<string,mixed>>
  */
-function idc_acf_strip_cta_fields(): array {
+function idc_acf_strip_cta_fields(string $suffix = ''): array {
+	$s = $suffix !== '' ? "_{$suffix}" : '';
+
 	return [
 		[
-			'key'   => 'field_idc_strip_tab',
+			'key'   => "field_idc_strip_tab{$s}",
 			'label' => 'Faixa CTA',
 			'type'  => 'tab',
 		],
 		[
-			'key'   => 'field_idc_strip_title',
+			'key'   => "field_idc_strip_title{$s}",
 			'label' => 'Título da faixa',
 			'name'  => 'idc_strip_title',
 			'type'  => 'text',
 		],
 		[
-			'key'   => 'field_idc_strip_lead',
+			'key'   => "field_idc_strip_lead{$s}",
 			'label' => 'Texto da faixa',
 			'name'  => 'idc_strip_lead',
 			'type'  => 'textarea',
 			'rows'  => 2,
 		],
 		[
-			'key'   => 'field_idc_strip_label',
-			'label' => 'Label do botão',
+			'key'   => "field_idc_strip_label{$s}",
+			'label' => 'Label do botão WhatsApp',
 			'name'  => 'idc_strip_label',
 			'type'  => 'text',
+		],
+		[
+			'key'   => "field_idc_strip_secondary_label{$s}",
+			'label' => 'Link secundário (label)',
+			'name'  => 'idc_strip_secondary_label',
+			'type'  => 'text',
+		],
+		[
+			'key'   => "field_idc_strip_secondary_url{$s}",
+			'label' => 'Link secundário (URL)',
+			'name'  => 'idc_strip_secondary_url',
+			'type'  => 'text',
+			'instructions' => 'URL absoluta, relativa ou âncora (#id).',
 		],
 	];
 }
 
 /**
  * FAQ repeater.
+ * Nomes permanecem idc_faq_*; keys usam $suffix para unicidade.
  *
  * @return list<array<string,mixed>>
  */
-function idc_acf_faq_fields(): array {
+function idc_acf_faq_fields(string $suffix = ''): array {
+	$s = $suffix !== '' ? "_{$suffix}" : '';
+
 	return [
 		[
-			'key'   => 'field_idc_faq_tab',
+			'key'   => "field_idc_faq_tab{$s}",
 			'label' => 'FAQ',
 			'type'  => 'tab',
 		],
 		[
-			'key'   => 'field_idc_faq_title',
-			'label' => 'Título da seção',
-			'name'  => 'idc_faq_title',
-			'type'  => 'text',
+			'key'           => "field_idc_faq_title{$s}",
+			'label'         => 'Título da seção',
+			'name'          => 'idc_faq_title',
+			'type'          => 'text',
 			'default_value' => 'Dúvidas frequentes',
 		],
 		[
-			'key'          => 'field_idc_faq_items',
+			'key'          => "field_idc_faq_items{$s}",
 			'label'        => 'Perguntas',
 			'name'         => 'idc_faq_items',
 			'type'         => 'repeater',
@@ -114,13 +155,13 @@ function idc_acf_faq_fields(): array {
 			'button_label' => 'Adicionar pergunta',
 			'sub_fields'   => [
 				[
-					'key'   => 'field_idc_faq_question',
+					'key'   => "field_idc_faq_question{$s}",
 					'label' => 'Pergunta',
 					'name'  => 'question',
 					'type'  => 'text',
 				],
 				[
-					'key'   => 'field_idc_faq_answer',
+					'key'   => "field_idc_faq_answer{$s}",
 					'label' => 'Resposta',
 					'name'  => 'answer',
 					'type'  => 'textarea',
@@ -147,7 +188,7 @@ function idc_register_acf_page_fields(): void {
 			[
 				['key' => 'field_idc_hub_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
 			],
-			idc_acf_page_hero_fields(),
+			idc_acf_page_hero_fields('especialidades'),
 			[
 				['key' => 'field_idc_hub_tab_cards', 'label' => 'Cards', 'type' => 'tab'],
 				[
@@ -173,7 +214,7 @@ function idc_register_acf_page_fields(): void {
 					],
 				],
 			],
-			idc_acf_strip_cta_fields()
+			idc_acf_strip_cta_fields('especialidades')
 		),
 		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-especialidades.php']]],
 	]);
@@ -186,7 +227,7 @@ function idc_register_acf_page_fields(): void {
 			[
 				['key' => 'field_idc_inst_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
 			],
-			idc_acf_page_hero_fields(),
+			idc_acf_page_hero_fields('instituto'),
 			[
 				['key' => 'field_idc_inst_tab_essencia', 'label' => 'Essência', 'type' => 'tab'],
 				['key' => 'field_idc_instituto_essencia_eyebrow', 'label' => 'Eyebrow essência', 'name' => 'idc_instituto_essencia_eyebrow', 'type' => 'text'],
@@ -207,48 +248,205 @@ function idc_register_acf_page_fields(): void {
 				],
 				['key' => 'field_idc_instituto_image', 'label' => 'Imagem interior', 'name' => 'idc_instituto_image', 'type' => 'image', 'return_format' => 'array'],
 			],
-			idc_acf_strip_cta_fields()
+			idc_acf_strip_cta_fields('instituto')
 		),
 		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-o-instituto.php']]],
 	]);
 
-	// —— Especialidades (ortopedia, fisio, integrativa) ——
-	$specialty_templates = [
-		'page-ortopedia.php'            => 'Ortopedia Regenerativa',
-		'page-fisioterapia.php'         => 'Fisioterapia',
-		'page-medicina-integrativa.php' => 'Medicina Integrativa',
-	];
-
-	foreach ($specialty_templates as $template => $label) {
-		acf_add_local_field_group([
-			'key'    => 'group_idc_page_' . sanitize_key(str_replace(['page-', '.php'], '', $template)),
-			'title'  => 'Página — ' . $label,
-			'fields' => array_merge(
+	// —— Instalações ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_instalacoes',
+		'title'  => 'Página — Instalações',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_instal_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('instalacoes'),
+			[
+				['key' => 'field_idc_instal_tab_gallery', 'label' => 'Galeria', 'type' => 'tab'],
 				[
-					['key' => 'field_idc_spec_tab_hero_' . md5($template), 'label' => 'Hero', 'type' => 'tab'],
+					'key'           => 'field_idc_instalacoes_section_title',
+					'label'         => 'Título da seção',
+					'name'          => 'idc_instalacoes_section_title',
+					'type'          => 'text',
+					'default_value' => 'Conheça nossos espaços',
 				],
-				idc_acf_page_hero_fields(),
 				[
-					['key' => 'field_idc_spec_tab_sections_' . md5($template), 'label' => 'Conteúdo', 'type' => 'tab'],
-					[
-						'key'          => 'field_idc_specialty_sections_' . md5($template),
-						'label'        => 'Seções',
-						'name'         => 'idc_specialty_sections',
-						'type'         => 'repeater',
-						'layout'       => 'block',
-						'button_label' => 'Adicionar seção',
-						'sub_fields'   => [
-							['key' => 'field_idc_spec_sec_title_' . md5($template), 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
-							['key' => 'field_idc_spec_sec_text_' . md5($template), 'label' => 'Texto', 'name' => 'text', 'type' => 'textarea', 'rows' => 4],
+					'key'           => 'field_idc_instalacoes_section_lead',
+					'label'         => 'Lead da seção',
+					'name'          => 'idc_instalacoes_section_lead',
+					'type'          => 'textarea',
+					'rows'          => 2,
+					'default_value' => 'Da recepção às salas de fisioterapia e cuidados integrativos.',
+				],
+				[
+					'key'          => 'field_idc_instalacoes_gallery',
+					'label'        => 'Galeria de imagens',
+					'name'         => 'idc_instalacoes_gallery',
+					'type'         => 'repeater',
+					'layout'       => 'block',
+					'button_label' => 'Adicionar imagem',
+					'instructions' => 'Se vazio, o tema usa as fotos padrão em assets/images/instalacoes/.',
+					'sub_fields'   => [
+						[
+							'key'           => 'field_idc_instal_gallery_image',
+							'label'         => 'Imagem',
+							'name'          => 'image',
+							'type'          => 'image',
+							'return_format' => 'array',
+							'preview_size'  => 'medium',
+						],
+						[
+							'key'   => 'field_idc_instal_gallery_caption',
+							'label' => 'Legenda',
+							'name'  => 'caption',
+							'type'  => 'text',
 						],
 					],
 				],
-				idc_acf_faq_fields(),
-				idc_acf_strip_cta_fields()
-			),
-			'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => $template]]],
-		]);
-	}
+			],
+			idc_acf_strip_cta_fields('instalacoes')
+		),
+		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-instalacoes.php']]],
+	]);
+
+	// —— Ortopedia Regenerativa ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_ortopedia',
+		'title'  => 'Página — Ortopedia Regenerativa',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_spec_tab_hero_ortopedia', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('ortopedia'),
+			[
+				['key' => 'field_idc_orto_tab_treatments', 'label' => 'Tratamentos', 'type' => 'tab'],
+				[
+					'key'           => 'field_idc_orto_treatments_title',
+					'label'         => 'Título da seção',
+					'name'          => 'idc_orto_treatments_title',
+					'type'          => 'text',
+					'default_value' => 'Tratamentos regenerativos',
+				],
+				[
+					'key'          => 'field_idc_orto_treatments',
+					'label'        => 'Cards de tratamento (com FAQ)',
+					'name'         => 'idc_orto_treatments',
+					'type'         => 'repeater',
+					'layout'       => 'block',
+					'button_label' => 'Adicionar tratamento',
+					'sub_fields'   => [
+						['key' => 'field_idc_orto_tx_title', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+						['key' => 'field_idc_orto_tx_intro', 'label' => 'Introdução', 'name' => 'intro', 'type' => 'textarea', 'rows' => 3],
+						[
+							'key'          => 'field_idc_orto_tx_faqs',
+							'label'        => 'Perguntas frequentes',
+							'name'         => 'faqs',
+							'type'         => 'repeater',
+							'layout'       => 'table',
+							'button_label' => 'Adicionar pergunta',
+							'sub_fields'   => [
+								['key' => 'field_idc_orto_tx_faq_q', 'label' => 'Pergunta', 'name' => 'question', 'type' => 'text'],
+								['key' => 'field_idc_orto_tx_faq_a', 'label' => 'Resposta', 'name' => 'answer', 'type' => 'textarea', 'rows' => 2],
+							],
+						],
+					],
+				],
+			],
+			idc_acf_strip_cta_fields('ortopedia')
+		),
+		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-ortopedia.php']]],
+	]);
+
+	// —— Fisioterapia ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_fisioterapia',
+		'title'  => 'Página — Fisioterapia',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_spec_tab_hero_fisioterapia', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('fisioterapia'),
+			[
+				['key' => 'field_idc_fisio_tab_phases', 'label' => 'Fases', 'type' => 'tab'],
+				[
+					'key'           => 'field_idc_fisio_phases_title',
+					'label'         => 'Título da seção',
+					'name'          => 'idc_fisio_phases_title',
+					'type'          => 'text',
+					'default_value' => 'As 4 fases da recuperação',
+				],
+				[
+					'key'          => 'field_idc_fisio_phases',
+					'label'        => 'Fases da recuperação',
+					'name'         => 'idc_fisio_phases',
+					'type'         => 'repeater',
+					'layout'       => 'block',
+					'button_label' => 'Adicionar fase',
+					'sub_fields'   => [
+						['key' => 'field_idc_fisio_phase_number', 'label' => 'Número', 'name' => 'number', 'type' => 'text', 'instructions' => 'Ex.: 1'],
+						['key' => 'field_idc_fisio_phase_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text', 'instructions' => 'Ex.: FASE 1'],
+						['key' => 'field_idc_fisio_phase_title', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+						['key' => 'field_idc_fisio_phase_text', 'label' => 'Texto', 'name' => 'text', 'type' => 'textarea', 'rows' => 3],
+						[
+							'key'           => 'field_idc_fisio_phase_icon',
+							'label'         => 'Ícone',
+							'name'          => 'icon',
+							'type'          => 'image',
+							'return_format' => 'array',
+							'preview_size'  => 'thumbnail',
+						],
+					],
+				],
+			],
+			idc_acf_strip_cta_fields('fisioterapia')
+		),
+		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-fisioterapia.php']]],
+	]);
+
+	// —— Medicina Integrativa ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_integrativa',
+		'title'  => 'Página — Medicina Integrativa',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_spec_tab_hero_integrativa', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('integrativa'),
+			[
+				['key' => 'field_idc_integ_tab_grid', 'label' => 'Tratamentos', 'type' => 'tab'],
+				[
+					'key'           => 'field_idc_integrativa_grid_title',
+					'label'         => 'Título da seção',
+					'name'          => 'idc_integrativa_grid_title',
+					'type'          => 'text',
+					'default_value' => 'Tratamentos Integrativos',
+				],
+				[
+					'key'          => 'field_idc_integrativa_grid',
+					'label'        => 'Grade de tratamentos',
+					'name'         => 'idc_integrativa_grid',
+					'type'         => 'repeater',
+					'layout'       => 'block',
+					'button_label' => 'Adicionar tratamento',
+					'sub_fields'   => [
+						['key' => 'field_idc_integ_item_title', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+						['key' => 'field_idc_integ_item_text', 'label' => 'Texto', 'name' => 'text', 'type' => 'textarea', 'rows' => 2],
+						[
+							'key'           => 'field_idc_integ_item_icon',
+							'label'         => 'Ícone',
+							'name'          => 'icon',
+							'type'          => 'image',
+							'return_format' => 'array',
+							'preview_size'  => 'thumbnail',
+						],
+					],
+				],
+			],
+			idc_acf_strip_cta_fields('integrativa')
+		),
+		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-medicina-integrativa.php']]],
+	]);
 
 	// —— Contato ——
 	acf_add_local_field_group([
@@ -258,14 +456,37 @@ function idc_register_acf_page_fields(): void {
 			[
 				['key' => 'field_idc_cont_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
 			],
-			idc_acf_page_hero_fields(),
+			idc_acf_page_hero_fields('contato'),
 			[
 				['key' => 'field_idc_cont_tab_info', 'label' => 'Informações', 'type' => 'tab'],
 				['key' => 'field_idc_contato_telefone', 'label' => 'Telefone (override)', 'name' => 'idc_contato_telefone', 'type' => 'text', 'instructions' => 'Deixe vazio para usar IDC Opções.'],
-				['key' => 'field_idc_contato_whatsapp_label', 'label' => 'WhatsApp exibição (override)', 'name' => 'idc_contato_whatsapp_label', 'type' => 'text'],
+				['key' => 'field_idc_contato_whatsapp_label', 'label' => 'Label botão WhatsApp', 'name' => 'idc_contato_whatsapp_label', 'type' => 'text', 'default_value' => 'Conversar no WhatsApp'],
 				['key' => 'field_idc_contato_endereco', 'label' => 'Endereço (override)', 'name' => 'idc_contato_endereco', 'type' => 'textarea', 'rows' => 3],
+				['key' => 'field_idc_contato_aside_title', 'label' => 'Título do aside', 'name' => 'idc_contato_aside_title', 'type' => 'text', 'default_value' => 'Fale diretamente'],
 				['key' => 'field_idc_contato_form_title', 'label' => 'Título do formulário', 'name' => 'idc_contato_form_title', 'type' => 'text'],
 				['key' => 'field_idc_contato_form_lead', 'label' => 'Lead do formulário', 'name' => 'idc_contato_form_lead', 'type' => 'textarea', 'rows' => 2],
+				[
+					'key'          => 'field_idc_contato_assuntos',
+					'label'        => 'Assuntos do formulário',
+					'name'         => 'idc_contato_assuntos',
+					'type'         => 'repeater',
+					'layout'       => 'table',
+					'button_label' => 'Adicionar assunto',
+					'sub_fields'   => [
+						['key' => 'field_idc_contato_assunto_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text'],
+						['key' => 'field_idc_contato_assunto_value', 'label' => 'Value', 'name' => 'value', 'type' => 'text'],
+					],
+				],
+				['key' => 'field_idc_cont_tab_labels', 'label' => 'Labels do formulário', 'type' => 'tab'],
+				['key' => 'field_idc_contato_label_nome', 'label' => 'Label — Nome', 'name' => 'idc_contato_label_nome', 'type' => 'text', 'default_value' => 'Nome completo'],
+				['key' => 'field_idc_contato_label_email', 'label' => 'Label — E-mail', 'name' => 'idc_contato_label_email', 'type' => 'text', 'default_value' => 'E-mail'],
+				['key' => 'field_idc_contato_label_telefone', 'label' => 'Label — Telefone', 'name' => 'idc_contato_label_telefone', 'type' => 'text', 'default_value' => 'Telefone'],
+				['key' => 'field_idc_contato_label_assunto', 'label' => 'Label — Assunto', 'name' => 'idc_contato_label_assunto', 'type' => 'text', 'default_value' => 'Assunto de interesse'],
+				['key' => 'field_idc_contato_label_mensagem', 'label' => 'Label — Mensagem', 'name' => 'idc_contato_label_mensagem', 'type' => 'text', 'default_value' => 'Mensagem'],
+				['key' => 'field_idc_contato_label_submit', 'label' => 'Botão enviar', 'name' => 'idc_contato_label_submit', 'type' => 'text', 'default_value' => 'Enviar mensagem'],
+				['key' => 'field_idc_contato_label_endereco', 'label' => 'Aside — Endereço', 'name' => 'idc_contato_label_endereco', 'type' => 'text', 'default_value' => 'Endereço'],
+				['key' => 'field_idc_contato_label_horario', 'label' => 'Aside — Horário', 'name' => 'idc_contato_label_horario', 'type' => 'text', 'default_value' => 'Horário de atendimento'],
+				['key' => 'field_idc_contato_label_maps', 'label' => 'Aside — Maps', 'name' => 'idc_contato_label_maps', 'type' => 'text', 'default_value' => 'Ver no Google Maps'],
 			]
 		),
 		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-contato.php']]],
@@ -279,15 +500,61 @@ function idc_register_acf_page_fields(): void {
 			[
 				['key' => 'field_idc_carr_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
 			],
-			idc_acf_page_hero_fields(),
+			idc_acf_page_hero_fields('carreiras'),
 			[
 				['key' => 'field_idc_carr_tab_form', 'label' => 'Formulário', 'type' => 'tab'],
 				['key' => 'field_idc_carreiras_form_title', 'label' => 'Título do formulário', 'name' => 'idc_carreiras_form_title', 'type' => 'text'],
 				['key' => 'field_idc_carreiras_form_lead', 'label' => 'Lead do formulário', 'name' => 'idc_carreiras_form_lead', 'type' => 'textarea', 'rows' => 2],
 				['key' => 'field_idc_carreiras_email', 'label' => 'E-mail RH (mailto)', 'name' => 'idc_carreiras_email', 'type' => 'email', 'default_value' => 'rh@institutodrchao.com.br'],
+				[
+					'key'          => 'field_idc_carreiras_areas',
+					'label'        => 'Áreas / vagas',
+					'name'         => 'idc_carreiras_areas',
+					'type'         => 'repeater',
+					'layout'       => 'table',
+					'button_label' => 'Adicionar área',
+					'sub_fields'   => [
+						['key' => 'field_idc_carreiras_area_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text'],
+					],
+				],
+				['key' => 'field_idc_carr_tab_labels', 'label' => 'Labels do formulário', 'type' => 'tab'],
+				['key' => 'field_idc_carreiras_label_nome', 'label' => 'Label — Nome', 'name' => 'idc_carreiras_label_nome', 'type' => 'text', 'default_value' => 'Nome completo'],
+				['key' => 'field_idc_carreiras_label_email', 'label' => 'Label — E-mail', 'name' => 'idc_carreiras_label_email', 'type' => 'text', 'default_value' => 'E-mail'],
+				['key' => 'field_idc_carreiras_label_telefone', 'label' => 'Label — Telefone', 'name' => 'idc_carreiras_label_telefone', 'type' => 'text', 'default_value' => 'Telefone / WhatsApp'],
+				['key' => 'field_idc_carreiras_label_area', 'label' => 'Label — Área', 'name' => 'idc_carreiras_label_area', 'type' => 'text', 'default_value' => 'Área de atuação ou vaga desejada'],
+				['key' => 'field_idc_carreiras_label_cv', 'label' => 'Label — Currículo', 'name' => 'idc_carreiras_label_cv', 'type' => 'text', 'default_value' => 'Anexe seu currículo (PDF ou DOC, máx 5MB)'],
+				['key' => 'field_idc_carreiras_label_mensagem', 'label' => 'Label — Mensagem', 'name' => 'idc_carreiras_label_mensagem', 'type' => 'text', 'default_value' => 'Mensagem'],
+				['key' => 'field_idc_carreiras_label_submit', 'label' => 'Botão enviar', 'name' => 'idc_carreiras_label_submit', 'type' => 'text', 'default_value' => 'Enviar candidatura'],
 			]
 		),
 		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-carreiras.php']]],
+	]);
+
+	// —— Privacidade ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_privacidade',
+		'title'  => 'Página — Privacidade',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_priv_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('privacidade')
+		),
+		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-privacidade.php']]],
+	]);
+
+	// —— Blog (página de posts) ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_blog',
+		'title'  => 'Página — Blog (arquivo)',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_blog_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('blog', false),
+			idc_acf_strip_cta_fields('blog')
+		),
+		'location' => [[['param' => 'page_type', 'operator' => '==', 'value' => 'posts_page']]],
 	]);
 }
 add_action('acf/init', 'idc_register_acf_page_fields');

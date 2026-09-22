@@ -22,9 +22,12 @@ require_once IDC_THEME_DIR . '/inc/cpt/tratamento.php';
 require_once IDC_THEME_DIR . '/inc/acf/options.php';
 require_once IDC_THEME_DIR . '/inc/acf/home-fields.php';
 require_once IDC_THEME_DIR . '/inc/defaults-pages.php';
+require_once IDC_THEME_DIR . '/inc/seed-data-blog.php';
 require_once IDC_THEME_DIR . '/inc/acf/page-fields.php';
+require_once IDC_THEME_DIR . '/inc/acf/tratamento-fields.php';
 require_once IDC_THEME_DIR . '/inc/forms.php';
 require_once IDC_THEME_DIR . '/inc/setup-pages.php';
+require_once IDC_THEME_DIR . '/inc/redirects.php';
 
 /**
  * Setup do tema.
@@ -53,8 +56,10 @@ function idc_setup(): void {
 	add_theme_support('responsive-embeds');
 
 	register_nav_menus([
-		'primary' => __('Menu principal', 'instituto-dr-chao'),
-		'footer'  => __('Menu rodapé', 'instituto-dr-chao'),
+		'primary'              => __('Menu principal', 'instituto-dr-chao'),
+		'footer_tratamentos'   => __('Rodapé — Tratamentos', 'instituto-dr-chao'),
+		'footer_institucional' => __('Rodapé — Institucional', 'instituto-dr-chao'),
+		'footer_contato'       => __('Rodapé — Contato', 'instituto-dr-chao'),
 	]);
 }
 add_action('after_setup_theme', 'idc_setup');
@@ -126,6 +131,23 @@ function idc_nav_link_attributes(array $atts, $item, $args): array {
 	return $atts;
 }
 add_filter('nav_menu_link_attributes', 'idc_nav_link_attributes', 10, 3);
+
+/**
+ * Classes nos <li> do menu principal.
+ *
+ * @param list<string> $classes
+ * @param WP_Post      $item
+ * @param stdClass     $args
+ * @param int          $depth
+ * @return list<string>
+ */
+function idc_nav_menu_css_class(array $classes, $item, $args, int $depth = 0): array {
+	if (isset($args->theme_location) && $args->theme_location === 'primary') {
+		$classes[] = 'idc-nav__item';
+	}
+	return $classes;
+}
+add_filter('nav_menu_css_class', 'idc_nav_menu_css_class', 10, 4);
 
 /**
  * Chevron em itens com filhos (Especialidades).
@@ -228,3 +250,51 @@ function idc_register_theme_updater(): void {
 	}
 }
 add_action('after_setup_theme', 'idc_register_theme_updater', 20);
+
+/**
+ * Exclui posts odontológicos do arquivo do blog (escopo Figma: Orto/Fisio/Integrativa).
+ *
+ * @param WP_Query $query
+ */
+function idc_exclude_odonto_from_blog(WP_Query $query): void {
+	if (is_admin() || !$query->is_main_query()) {
+		return;
+	}
+	if (!$query->is_home() && !$query->is_category() && !$query->is_tag()) {
+		return;
+	}
+
+	$slugs = idc_odonto_post_slugs();
+	if ($slugs === []) {
+		return;
+	}
+
+	$exclude_ids = get_posts([
+		'post_type'              => 'post',
+		'post_status'            => 'publish',
+		'posts_per_page'         => 50,
+		'post_name__in'          => $slugs,
+		'fields'                 => 'ids',
+		'no_found_rows'          => true,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+	]);
+
+	if ($exclude_ids === []) {
+		return;
+	}
+
+	$not_in = array_map('intval', (array) $query->get('post__not_in'));
+	$query->set('post__not_in', array_values(array_unique(array_merge($not_in, $exclude_ids))));
+
+	// Esconde categoria Odontologia dos filtros se existir.
+	if ($query->is_home()) {
+		$odonto = get_category_by_slug('odontologia');
+		if ($odonto instanceof WP_Term) {
+			$exclude_cats = array_map('intval', (array) $query->get('category__not_in'));
+			$exclude_cats[] = (int) $odonto->term_id;
+			$query->set('category__not_in', array_values(array_unique($exclude_cats)));
+		}
+	}
+}
+add_action('pre_get_posts', 'idc_exclude_odonto_from_blog');
