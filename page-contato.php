@@ -13,11 +13,11 @@ $eyebrow = function_exists('get_field') && get_field('idc_page_eyebrow')
 
 $before = function_exists('get_field') && get_field('idc_page_title_before')
 	? (string) get_field('idc_page_title_before')
-	: 'Estamos prontos para';
+	: 'Vamos conversar sobre o';
 
 $accent = function_exists('get_field') && get_field('idc_page_title_accent')
 	? (string) get_field('idc_page_title_accent')
-	: 'ouvir você';
+	: 'seu cuidado?';
 
 $after = function_exists('get_field') && get_field('idc_page_title_after')
 	? (string) get_field('idc_page_title_after')
@@ -25,7 +25,7 @@ $after = function_exists('get_field') && get_field('idc_page_title_after')
 
 $lead = function_exists('get_field') && get_field('idc_page_lead')
 	? (string) get_field('idc_page_lead')
-	: 'Entre em contato por telefone, WhatsApp ou preencha o formulário abaixo.';
+	: 'Nossa equipe está pronta para te receber com a atenção e precisão que sua saúde merece. Entre em contato para agendar uma consulta ou tirar dúvidas.';
 ?>
 
 <main id="main" class="site-main site-main--page">

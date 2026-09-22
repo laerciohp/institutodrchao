@@ -8,7 +8,7 @@
 $title = (string) idc_option('idc_team_title', 'Nosso Corpo Clínico');
 $lead  = (string) idc_option('idc_team_lead', 'Profissionais dedicados à sua recuperação.');
 $cta_l = (string) idc_option('idc_team_cta_label', 'Conheça toda a equipe');
-$cta_u = (string) idc_option('idc_team_cta_url', home_url('/o-instituto/#corpo-clinico'));
+$cta_u = (string) idc_option('idc_team_cta_url', home_url('/#corpo-clinico'));
 $count = (int) idc_option('idc_team_count', 3);
 
 $query = new WP_Query([

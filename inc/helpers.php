@@ -38,8 +38,8 @@ function idc_option(string $key, $default = '') {
  * Número WhatsApp limpo (somente dígitos, com DDI).
  */
 function idc_whatsapp_number(): string {
-	$raw = (string) idc_option('idc_whatsapp', '5511999999999');
-	return preg_replace('/\D+/', '', $raw) ?: '5511999999999';
+	$raw = (string) idc_option('idc_whatsapp', '551122188080');
+	return preg_replace('/\D+/', '', $raw) ?: '551122188080';
 }
 
 /**

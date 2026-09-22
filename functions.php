@@ -23,6 +23,8 @@ require_once IDC_THEME_DIR . '/inc/acf/options.php';
 require_once IDC_THEME_DIR . '/inc/acf/home-fields.php';
 require_once IDC_THEME_DIR . '/inc/defaults-pages.php';
 require_once IDC_THEME_DIR . '/inc/acf/page-fields.php';
+require_once IDC_THEME_DIR . '/inc/forms.php';
+require_once IDC_THEME_DIR . '/inc/setup-pages.php';
 
 /**
  * Setup do tema.

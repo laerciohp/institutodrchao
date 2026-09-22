@@ -47,17 +47,3 @@
 		});
 	});
 })();
-
-/**
- * Formulário stub — previne submit real em contato.
- */
-(function () {
-	'use strict';
-
-	document.querySelectorAll('[data-idc-form-stub]').forEach(function (form) {
-		form.addEventListener('submit', function (e) {
-			e.preventDefault();
-			alert('Formulário ilustrativo — integração pendente.');
-		});
-	});
-})();

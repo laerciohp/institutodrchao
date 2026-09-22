@@ -13,7 +13,7 @@ $lead   = (string) idc_option(
 );
 $pri = (string) idc_option('idc_cta_primary_label', 'Agendar Consulta');
 $sec = (string) idc_option('idc_cta_secondary_label', 'Dúvidas Frequentes');
-$sec_url = (string) idc_option('idc_cta_secondary_url', home_url('/contato/#faq'));
+$sec_url = (string) idc_option('idc_cta_secondary_url', home_url('/contato/'));
 ?>
 <section class="idc-final-cta" aria-labelledby="idc-final-cta-title">
 	<div class="idc-container">
