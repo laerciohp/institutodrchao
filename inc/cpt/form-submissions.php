@@ -311,3 +311,107 @@ function idc_save_curriculo_submission(array $data): int {
 
 	return (int) $post_id;
 }
+
+/**
+ * Contagem de envios não lidos (sem meta _idc_lido).
+ */
+function idc_form_unread_count_meta(string $post_type): int {
+	$q = new WP_Query([
+		'post_type'              => $post_type,
+		'post_status'            => ['private', 'publish'],
+		'posts_per_page'         => 1,
+		'fields'                 => 'ids',
+		'no_found_rows'          => false,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+		'meta_query'             => [
+			[
+				'key'     => '_idc_lido',
+				'compare' => 'NOT EXISTS',
+			],
+		],
+	]);
+	return (int) $q->found_posts;
+}
+
+/**
+ * Badge no menu Contatos / Currículos.
+ */
+function idc_form_menu_badges_meta(): void {
+	global $menu;
+	if (!is_array($menu)) {
+		return;
+	}
+
+	$counts = [
+		'edit.php?post_type=idc_contato'   => idc_form_unread_count_meta('idc_contato'),
+		'edit.php?post_type=idc_curriculo' => idc_form_unread_count_meta('idc_curriculo'),
+	];
+
+	foreach ($menu as $i => $item) {
+		if (empty($item[2]) || !isset($counts[$item[2]])) {
+			continue;
+		}
+		$menu[$i][0] = preg_replace('/\s*<span class="awaiting-mod">.*?<\/span>/', '', (string) $menu[$i][0]);
+		$n           = $counts[$item[2]];
+		if ($n < 1) {
+			continue;
+		}
+		$menu[$i][0] .= sprintf(
+			' <span class="awaiting-mod"><span class="pending-count">%d</span></span>',
+			$n
+		);
+	}
+}
+add_action('admin_menu', 'idc_form_menu_badges_meta', 9999);
+
+/**
+ * Ao abrir um envio no editor, marca como lido.
+ */
+function idc_form_mark_read_on_edit(): void {
+	$screen = function_exists('get_current_screen') ? get_current_screen() : null;
+	if (!$screen || $screen->base !== 'post') {
+		return;
+	}
+	if (!in_array($screen->post_type, ['idc_contato', 'idc_curriculo'], true)) {
+		return;
+	}
+	$post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
+	if ($post_id < 1) {
+		return;
+	}
+	update_post_meta($post_id, '_idc_lido', 1);
+}
+add_action('current_screen', 'idc_form_mark_read_on_edit');
+
+/**
+ * Widget no Painel WP.
+ */
+function idc_form_dashboard_widget(): void {
+	wp_add_dashboard_widget(
+		'idc_form_inbox',
+		__('IDC — Contatos e Currículos', 'instituto-dr-chao'),
+		'idc_form_dashboard_widget_render'
+	);
+}
+add_action('wp_dashboard_setup', 'idc_form_dashboard_widget');
+
+/**
+ * Conteúdo do widget.
+ */
+function idc_form_dashboard_widget_render(): void {
+	$c = idc_form_unread_count_meta('idc_contato');
+	$v = idc_form_unread_count_meta('idc_curriculo');
+	echo '<p>';
+	printf(
+		esc_html(_n('%d contato novo', '%d contatos novos', $c, 'instituto-dr-chao')),
+		$c
+	);
+	echo ' — <a href="' . esc_url(admin_url('edit.php?post_type=idc_contato')) . '">' . esc_html__('Ver Contatos', 'instituto-dr-chao') . '</a></p>';
+	echo '<p>';
+	printf(
+		esc_html(_n('%d currículo novo', '%d currículos novos', $v, 'instituto-dr-chao')),
+		$v
+	);
+	echo ' — <a href="' . esc_url(admin_url('edit.php?post_type=idc_curriculo')) . '">' . esc_html__('Ver Currículos', 'instituto-dr-chao') . '</a></p>';
+}

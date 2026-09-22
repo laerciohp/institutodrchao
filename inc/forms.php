@@ -1,6 +1,6 @@
 <?php
 /**
- * Formulários nativos — Contato e Carreiras (wp_mail + upload CV).
+ * Formulários nativos — Contato e Carreiras (CPT + wp_mail/SMTP).
  *
  * @package Instituto_Dr_Chao
  */
@@ -20,7 +20,7 @@ function idc_forms_recipient(string $fallback = 'atendimento@institutodrchao.com
 }
 
 /**
- * Processa POST dos formulários no init.
+ * Processa POST dos formulários.
  */
 function idc_forms_handle_submit(): void {
 	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -63,6 +63,17 @@ function idc_forms_redirect(string $status, string $anchor = ''): void {
 }
 
 /**
+ * Status final: salvou no painel = sucesso para o usuário;
+ * se o e-mail falhar, usa ok_mail (ainda sucesso, com aviso leve).
+ */
+function idc_forms_status_after_send(bool $saved, bool $sent): string {
+	if (!$saved) {
+		return 'error';
+	}
+	return $sent ? 'ok' : 'ok_mail';
+}
+
+/**
  * Contato.
  */
 function idc_forms_handle_contato(): void {
@@ -81,6 +92,18 @@ function idc_forms_handle_contato(): void {
 		idc_forms_redirect('invalid', 'idc-contato-form');
 	}
 
+	$saved = false;
+	if (function_exists('idc_save_contato_submission')) {
+		$saved = idc_save_contato_submission([
+			'nome'     => $nome,
+			'email'    => $email,
+			'telefone' => $telefone,
+			'assunto'  => $assunto,
+			'mensagem' => $mensagem,
+			'lgpd'     => $lgpd,
+		]) > 0;
+	}
+
 	$to      = idc_forms_recipient();
 	$subject = sprintf('[Contato IDC] %s', $assunto !== '' ? $assunto : 'Nova mensagem');
 	$body    = "Nome: {$nome}\nE-mail: {$email}\nTelefone: {$telefone}\nAssunto: {$assunto}\n\nMensagem:\n{$mensagem}\n";
@@ -89,20 +112,8 @@ function idc_forms_handle_contato(): void {
 		'Reply-To: ' . $nome . ' <' . $email . '>',
 	];
 
-	// Persistência no painel (CPT Contatos) — independente do e-mail.
-	if (function_exists('idc_save_contato_submission')) {
-		idc_save_contato_submission([
-			'nome'     => $nome,
-			'email'    => $email,
-			'telefone' => $telefone,
-			'assunto'  => $assunto,
-			'mensagem' => $mensagem,
-			'lgpd'     => $lgpd,
-		]);
-	}
-
 	$sent = wp_mail($to, $subject, $body, $headers);
-	idc_forms_redirect($sent ? 'ok' : 'error', 'idc-contato-form');
+	idc_forms_redirect(idc_forms_status_after_send($saved, $sent), 'idc-contato-form');
 }
 
 /**
@@ -169,6 +180,19 @@ function idc_forms_handle_carreiras(): void {
 		}
 	}
 
+	$saved = false;
+	if (function_exists('idc_save_curriculo_submission')) {
+		$saved = idc_save_curriculo_submission([
+			'nome'          => $nome,
+			'email'         => $email,
+			'telefone'      => $telefone,
+			'area'          => $area,
+			'mensagem'      => $mensagem,
+			'lgpd'          => $lgpd,
+			'attachment_id' => $attach_id,
+		]) > 0;
+	}
+
 	$to = function_exists('get_field') && get_field('idc_carreiras_email')
 		? (string) get_field('idc_carreiras_email')
 		: (string) idc_option('idc_email_rh', 'rh@institutodrchao.com.br');
@@ -184,22 +208,8 @@ function idc_forms_handle_carreiras(): void {
 		'Reply-To: ' . $nome . ' <' . $email . '>',
 	];
 
-	// Persistência no painel (CPT Currículos) — arquivo permanece na Biblioteca.
-	if (function_exists('idc_save_curriculo_submission')) {
-		idc_save_curriculo_submission([
-			'nome'          => $nome,
-			'email'         => $email,
-			'telefone'      => $telefone,
-			'area'          => $area,
-			'mensagem'      => $mensagem,
-			'lgpd'          => $lgpd,
-			'attachment_id' => $attach_id,
-		]);
-	}
-
 	$sent = wp_mail($to, $subject, $body, $headers, $attachments);
-	// Não apaga o arquivo: fica vinculado ao CPT / mídia.
-	idc_forms_redirect($sent ? 'ok' : 'error', 'idc-carreiras-form');
+	idc_forms_redirect(idc_forms_status_after_send($saved, $sent), 'idc-carreiras-form');
 }
 
 /**
@@ -213,6 +223,7 @@ function idc_forms_feedback_html(): string {
 	$status = isset($_GET['idc_form']) ? sanitize_key((string) $_GET['idc_form']) : '';
 	$map    = [
 		'ok'      => ['class' => 'is-success', 'text' => __('Mensagem enviada com sucesso. Em breve entraremos em contato.', 'instituto-dr-chao')],
+		'ok_mail' => ['class' => 'is-success', 'text' => __('Recebemos sua mensagem no sistema. Se o e-mail de confirmação falhar no servidor, nossa equipe já vê o envio no painel.', 'instituto-dr-chao')],
 		'invalid' => ['class' => 'is-error', 'text' => __('Preencha os campos obrigatórios e aceite a política de privacidade.', 'instituto-dr-chao')],
 		'upload'  => ['class' => 'is-error', 'text' => __('Não foi possível anexar o currículo. Use PDF ou DOC até 5 MB.', 'instituto-dr-chao')],
 		'error'   => ['class' => 'is-error', 'text' => __('Não foi possível enviar agora. Tente novamente ou fale pelo WhatsApp.', 'instituto-dr-chao')],

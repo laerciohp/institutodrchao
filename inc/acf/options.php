@@ -88,6 +88,117 @@ function idc_register_acf_field_groups(): void {
 				'default_value' => 'rh@institutodrchao.com.br',
 			],
 			[
+				'key'   => 'field_idc_tab_smtp',
+				'label' => 'E-mail / SMTP',
+				'type'  => 'tab',
+			],
+			[
+				'key'           => 'field_idc_smtp_enabled',
+				'label'         => 'Usar SMTP',
+				'name'          => 'idc_smtp_enabled',
+				'type'          => 'true_false',
+				'ui'            => 1,
+				'default_value' => 0,
+				'instructions'  => 'Ative e preencha host/usuário/senha do provedor (ex.: Hostinger, Locaweb, Gmail App Password).',
+			],
+			[
+				'key'               => 'field_idc_smtp_host',
+				'label'             => 'SMTP Host',
+				'name'              => 'idc_smtp_host',
+				'type'              => 'text',
+				'placeholder'       => 'smtp.seudominio.com.br',
+				'conditional_logic' => [
+					[
+						[
+							'field'    => 'field_idc_smtp_enabled',
+							'operator' => '==',
+							'value'    => '1',
+						],
+					],
+				],
+			],
+			[
+				'key'               => 'field_idc_smtp_port',
+				'label'             => 'Porta',
+				'name'              => 'idc_smtp_port',
+				'type'              => 'number',
+				'default_value'     => 587,
+				'conditional_logic' => [
+					[
+						[
+							'field'    => 'field_idc_smtp_enabled',
+							'operator' => '==',
+							'value'    => '1',
+						],
+					],
+				],
+			],
+			[
+				'key'               => 'field_idc_smtp_encryption',
+				'label'             => 'Criptografia',
+				'name'              => 'idc_smtp_encryption',
+				'type'              => 'select',
+				'choices'           => [
+					'tls'  => 'TLS (587)',
+					'ssl'  => 'SSL (465)',
+					'none' => 'Nenhuma',
+				],
+				'default_value'     => 'tls',
+				'conditional_logic' => [
+					[
+						[
+							'field'    => 'field_idc_smtp_enabled',
+							'operator' => '==',
+							'value'    => '1',
+						],
+					],
+				],
+			],
+			[
+				'key'               => 'field_idc_smtp_user',
+				'label'             => 'Usuário SMTP',
+				'name'              => 'idc_smtp_user',
+				'type'              => 'text',
+				'conditional_logic' => [
+					[
+						[
+							'field'    => 'field_idc_smtp_enabled',
+							'operator' => '==',
+							'value'    => '1',
+						],
+					],
+				],
+			],
+			[
+				'key'               => 'field_idc_smtp_pass',
+				'label'             => 'Senha SMTP',
+				'name'              => 'idc_smtp_pass',
+				'type'              => 'password',
+				'conditional_logic' => [
+					[
+						[
+							'field'    => 'field_idc_smtp_enabled',
+							'operator' => '==',
+							'value'    => '1',
+						],
+					],
+				],
+			],
+			[
+				'key'           => 'field_idc_smtp_from_email',
+				'label'         => 'Remetente (From e-mail)',
+				'name'          => 'idc_smtp_from_email',
+				'type'          => 'email',
+				'instructions'  => 'Deve ser um endereço autorizado no SMTP. Vazio = e-mail de atendimento.',
+			],
+			[
+				'key'           => 'field_idc_smtp_from_name',
+				'label'         => 'Remetente (nome)',
+				'name'          => 'idc_smtp_from_name',
+				'type'          => 'text',
+				'default_value' => 'Instituto Dr. Chao',
+			],
+			[
 				'key'   => 'field_idc_horario',
 				'label' => 'Horário de atendimento',
 				'name'  => 'idc_horario',

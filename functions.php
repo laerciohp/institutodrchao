@@ -27,6 +27,7 @@ require_once IDC_THEME_DIR . '/inc/seed-data-blog.php';
 require_once IDC_THEME_DIR . '/inc/acf/page-fields.php';
 require_once IDC_THEME_DIR . '/inc/acf/tratamento-fields.php';
 require_once IDC_THEME_DIR . '/inc/forms.php';
+require_once IDC_THEME_DIR . '/inc/mail.php';
 require_once IDC_THEME_DIR . '/inc/setup-pages.php';
 require_once IDC_THEME_DIR . '/inc/redirects.php';
 
@@ -299,3 +300,70 @@ function idc_exclude_odonto_from_blog(WP_Query $query): void {
 	}
 }
 add_action('pre_get_posts', 'idc_exclude_odonto_from_blog');
+
+/**
+ * Migração leve ao atualizar a Version do tema (flush CPT + sync Home page).
+ */
+function idc_maybe_run_theme_upgrade(): void {
+	$stored = (string) get_option('idc_theme_version_installed', '');
+	if ($stored === IDC_THEME_VERSION) {
+		return;
+	}
+
+	flush_rewrite_rules(false);
+
+	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0 && function_exists('get_field') && function_exists('update_field')) {
+		$keys = [
+			'idc_hero_eyebrow',
+			'idc_hero_desde',
+			'idc_hero_title_before',
+			'idc_hero_title_accent',
+			'idc_hero_title_after',
+			'idc_hero_lead',
+			'idc_hero_primary_label',
+			'idc_hero_secondary_label',
+			'idc_hero_secondary_url',
+			'idc_hero_image',
+			'idc_trust_items',
+			'idc_pillars_eyebrow',
+			'idc_pillars_title_before',
+			'idc_pillars_title_accent',
+			'idc_pillars_title_after',
+			'idc_pillars_lead',
+			'idc_pillars_cards',
+			'idc_why_eyebrow',
+			'idc_why_title',
+			'idc_why_lead',
+			'idc_why_items',
+			'idc_why_image',
+			'idc_testimonials_title',
+			'idc_testimonials',
+			'idc_team_title',
+			'idc_team_lead',
+			'idc_blog_title',
+			'idc_blog_lead',
+			'idc_cta_title_before',
+			'idc_cta_title_accent',
+			'idc_cta_lead',
+			'idc_cta_primary_label',
+			'idc_cta_secondary_label',
+			'idc_cta_secondary_url',
+		];
+		foreach ($keys as $key) {
+			$on_page = get_field($key, $front_id);
+			if ($on_page !== null && $on_page !== false && $on_page !== '' && $on_page !== []) {
+				continue;
+			}
+			$from_opt = get_field($key, 'option');
+			if ($from_opt !== null && $from_opt !== false && $from_opt !== '' && $from_opt !== []) {
+				update_field($key, $from_opt, $front_id);
+			}
+		}
+	}
+
+	update_option('idc_theme_version_installed', IDC_THEME_VERSION, false);
+}
+add_action('admin_init', 'idc_maybe_run_theme_upgrade', 5);
+add_action('init', 'idc_maybe_run_theme_upgrade', 20);
