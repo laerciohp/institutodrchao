@@ -89,6 +89,18 @@ function idc_forms_handle_contato(): void {
 		'Reply-To: ' . $nome . ' <' . $email . '>',
 	];
 
+	// Persistência no painel (CPT Contatos) — independente do e-mail.
+	if (function_exists('idc_save_contato_submission')) {
+		idc_save_contato_submission([
+			'nome'     => $nome,
+			'email'    => $email,
+			'telefone' => $telefone,
+			'assunto'  => $assunto,
+			'mensagem' => $mensagem,
+			'lgpd'     => $lgpd,
+		]);
+	}
+
 	$sent = wp_mail($to, $subject, $body, $headers);
 	idc_forms_redirect($sent ? 'ok' : 'error', 'idc-contato-form');
 }
@@ -113,8 +125,18 @@ function idc_forms_handle_carreiras(): void {
 	}
 
 	$attachments = [];
+	$attach_id   = 0;
+
 	if (!empty($_FILES['curriculo']['name'])) {
+		$file_size = (int) ($_FILES['curriculo']['size'] ?? 0);
+		if ($file_size > 5 * MB_IN_BYTES) {
+			idc_forms_redirect('upload', 'idc-carreiras-form');
+		}
+
 		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
 		$overrides = [
 			'test_form' => false,
 			'mimes'     => [
@@ -127,8 +149,23 @@ function idc_forms_handle_carreiras(): void {
 		if (!empty($upload['error'])) {
 			idc_forms_redirect('upload', 'idc-carreiras-form');
 		}
-		if (!empty($upload['file'])) {
+		if (!empty($upload['file']) && !empty($upload['url'])) {
 			$attachments[] = $upload['file'];
+			$filetype      = wp_check_filetype(basename($upload['file']), null);
+			$attach_id     = wp_insert_attachment(
+				[
+					'post_mime_type' => $filetype['type'] ?? 'application/pdf',
+					'post_title'     => sanitize_file_name(basename($upload['file'])),
+					'post_content'   => '',
+					'post_status'    => 'inherit',
+				],
+				$upload['file']
+			);
+			if (!is_wp_error($attach_id) && $attach_id) {
+				wp_update_attachment_metadata($attach_id, wp_generate_attachment_metadata($attach_id, $upload['file']));
+			} else {
+				$attach_id = 0;
+			}
 		}
 	}
 
@@ -147,16 +184,21 @@ function idc_forms_handle_carreiras(): void {
 		'Reply-To: ' . $nome . ' <' . $email . '>',
 	];
 
-	$sent = wp_mail($to, $subject, $body, $headers, $attachments);
-
-	if (!empty($attachments)) {
-		foreach ($attachments as $file) {
-			if (is_string($file) && file_exists($file)) {
-				wp_delete_file($file);
-			}
-		}
+	// Persistência no painel (CPT Currículos) — arquivo permanece na Biblioteca.
+	if (function_exists('idc_save_curriculo_submission')) {
+		idc_save_curriculo_submission([
+			'nome'          => $nome,
+			'email'         => $email,
+			'telefone'      => $telefone,
+			'area'          => $area,
+			'mensagem'      => $mensagem,
+			'lgpd'          => $lgpd,
+			'attachment_id' => $attach_id,
+		]);
 	}
 
+	$sent = wp_mail($to, $subject, $body, $headers, $attachments);
+	// Não apaga o arquivo: fica vinculado ao CPT / mídia.
 	idc_forms_redirect($sent ? 'ok' : 'error', 'idc-carreiras-form');
 }
 

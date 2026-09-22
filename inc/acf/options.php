@@ -286,6 +286,13 @@ function idc_register_acf_field_groups(): void {
 					'value'    => 'idc-opcoes-home',
 				],
 			],
+			[
+				[
+					'param'    => 'page_type',
+					'operator' => '==',
+					'value'    => 'front_page',
+				],
+			],
 		],
 	]);
 

@@ -52,12 +52,8 @@ if (!is_array($cards) || $cards === []) {
 				?>
 				<article class="idc-pillar <?php echo esc_attr($mod); ?>">
 					<?php if ($layout === 'cta') : ?>
-						<?php if ($image !== '') : ?>
-							<span class="idc-pillar__cta-bg" aria-hidden="true">
-								<img src="<?php echo esc_url($image); ?>" alt="" width="800" height="400" decoding="async" loading="lazy">
-							</span>
-							<span class="idc-pillar__cta-scrim" aria-hidden="true"></span>
-						<?php endif; ?>
+						<?php /* Figma 133:408 Decorative/Info Tile — cream + raiz orgânica, texto escuro */ ?>
+						<span class="idc-pillar__cta-decor" aria-hidden="true"></span>
 						<div class="idc-pillar__cta-inner">
 							<h3 class="idc-pillar__title"><?php echo esc_html($title); ?></h3>
 							<p class="idc-pillar__text"><?php echo esc_html($text); ?></p>
@@ -68,7 +64,7 @@ if (!is_array($cards) || $cards === []) {
 									'variant'  => 'navy',
 									'href'     => $url,
 									'external' => $wa,
-									'class'    => 'idc-btn--sm',
+									'class'    => 'idc-btn--sm idc-pillar__cta-btn',
 								]);
 								?>
 							<?php endif; ?>

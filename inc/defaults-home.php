@@ -63,7 +63,6 @@ function idc_default_pillars_cards(): array {
 			'link_label'   => 'Falar agora',
 			'tone'         => 'cream',
 			'use_whatsapp' => true,
-			'image'        => idc_asset('assets/images/why-choose.jpg'),
 		],
 	];
 }

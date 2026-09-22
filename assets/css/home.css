@@ -212,57 +212,58 @@
 	}
 }
 
+/* Figma 133:408 — Decorative/Info Tile (cream + organic roots) */
 .idc-pillar--cta {
 	position: relative;
 	overflow: hidden;
 	isolation: isolate;
+	background: #f6f3ee;
+	border: 1px solid rgba(197, 198, 205, 0.12);
+	min-height: 280px;
 }
 
-.idc-pillar__cta-bg {
+.idc-pillar__cta-decor {
 	position: absolute;
 	inset: 0;
 	z-index: 0;
-}
-
-.idc-pillar__cta-bg img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-}
-
-.idc-pillar__cta-scrim {
-	position: absolute;
-	inset: 0;
-	z-index: 1;
-	background: linear-gradient(
-		135deg,
-		rgba(51, 61, 79, 0.72) 0%,
-		rgba(89, 52, 0, 0.55) 100%
-	);
+	background: url("../icons/decor-root.svg") no-repeat center 58% / min(1300px, 160%) auto;
+	opacity: 0.22;
+	pointer-events: none;
 }
 
 .idc-pillar__cta-inner {
 	position: relative;
-	z-index: 2;
+	z-index: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: var(--idc-space-3);
+	gap: 0;
 	padding: var(--idc-space-10) var(--idc-space-8);
 	width: 100%;
 	height: 100%;
+	text-align: center;
 }
 
 .idc-pillar--cta .idc-pillar__title {
-	margin-bottom: var(--idc-space-2);
-	color: var(--idc-white);
+	margin: 0 0 12px;
+	color: var(--idc-azul-900);
+	font-size: 24px;
+	line-height: 32px;
+	font-weight: 700;
+	max-width: 26rem;
 }
 
 .idc-pillar--cta .idc-pillar__text {
-	margin-bottom: var(--idc-space-6);
-	color: rgba(255, 255, 255, 0.9);
+	margin: 0 0 24px;
+	color: var(--idc-ink);
+	font-size: var(--idc-text-lg);
+	line-height: 28px;
+	max-width: 22rem;
+}
+
+.idc-pillar__cta-btn {
+	min-width: 145px;
 }
 
 .idc-pillar__icon {

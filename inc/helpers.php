@@ -19,18 +19,32 @@ function idc_asset(string $relative): string {
 }
 
 /**
- * Lê opção ACF (com fallback).
+ * Lê campo ACF da Home (página Início) ou Options, com fallback.
+ *
+ * Prioridade: meta da front page → IDC Opções → $default.
+ * Assim “Editar página” na Home e IDC Opções → Home funcionam.
  *
  * @param mixed $default
  * @return mixed
  */
 function idc_option(string $key, $default = '') {
-	if (function_exists('get_field')) {
-		$value = get_field($key, 'option');
+	if (!function_exists('get_field')) {
+		return $default;
+	}
+
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$value = get_field($key, $front_id);
 		if ($value !== null && $value !== false && $value !== '') {
 			return $value;
 		}
 	}
+
+	$value = get_field($key, 'option');
+	if ($value !== null && $value !== false && $value !== '') {
+		return $value;
+	}
+
 	return $default;
 }
 

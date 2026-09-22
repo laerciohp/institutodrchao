@@ -19,6 +19,7 @@ require_once IDC_THEME_DIR . '/inc/helpers.php';
 require_once IDC_THEME_DIR . '/inc/defaults-home.php';
 require_once IDC_THEME_DIR . '/inc/cpt/profissional.php';
 require_once IDC_THEME_DIR . '/inc/cpt/tratamento.php';
+require_once IDC_THEME_DIR . '/inc/cpt/form-submissions.php';
 require_once IDC_THEME_DIR . '/inc/acf/options.php';
 require_once IDC_THEME_DIR . '/inc/acf/home-fields.php';
 require_once IDC_THEME_DIR . '/inc/defaults-pages.php';
