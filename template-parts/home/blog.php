@@ -98,6 +98,7 @@ if ($post_ids !== []) {
 				while ($query->have_posts()) :
 					$query->the_post();
 					get_template_part('template-parts/blog/card', null, [
+						'variant'   => 'home',
 						'show_cat'  => true,
 						'show_meta' => true,
 						'heading'   => 'h3',

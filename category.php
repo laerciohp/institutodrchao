@@ -66,6 +66,7 @@ $active_id  = ($term instanceof WP_Term) ? (string) $term->term_id : 'all';
 				while (have_posts()) :
 					the_post();
 					get_template_part('template-parts/blog/card', null, [
+						'variant'   => 'archive',
 						'show_cat'  => true,
 						'show_meta' => true,
 						'heading'   => 'h2',
