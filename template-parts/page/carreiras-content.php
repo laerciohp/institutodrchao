@@ -10,11 +10,8 @@ $form_title = function_exists('get_field') && get_field('idc_carreiras_form_titl
 	? (string) get_field('idc_carreiras_form_title')
 	: __('Envie uma mensagem', 'instituto-dr-chao');
 
-/* Figma desktop 242:16918 — sem lead sob o H2 do formulário. */
-$form_lead = function_exists('get_field') ? (string) (get_field('idc_carreiras_form_lead') ?: '') : '';
-if ($form_lead === 'Conte um pouco sobre você e anexe seu currículo.') {
-	$form_lead = '';
-}
+/* Figma 242:16918 / 242:17166 — sem lead sob o H2 (ignora override ACF legado). */
+$form_lead = '';
 
 $areas_default = [
 	['label' => __('Selecione', 'instituto-dr-chao'), 'value' => ''],

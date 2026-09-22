@@ -2190,23 +2190,77 @@ a.idc-blog-filters__btn.is-active {
 	margin-bottom: var(--idc-space-10);
 }
 
-.idc-treatment-single__faqs {
-	max-width: 720px;
-	margin-inline: auto;
+.idc-treatment-single__content :where(h2, h3) {
+	font-family: var(--idc-font-serif);
+	color: var(--idc-azul-900);
+	line-height: 1.25;
 }
 
-.idc-treatment-single__faqs .idc-specialty__block-title {
-	margin-bottom: var(--idc-space-6);
-	text-align: center;
+.idc-treatment-single__content :where(p, li) {
+	color: var(--idc-ink);
+	line-height: 1.7;
+}
+
+.idc-treatment-single-page .idc-specialty__faq {
+	padding-block: var(--idc-space-12);
+	background: var(--idc-cream);
+}
+
+.idc-tratamentos-archive {
+	position: relative;
+	padding-block: var(--idc-space-12) var(--idc-space-16);
+	overflow: hidden;
+}
+
+.idc-tratamentos-archive__decor {
+	position: absolute;
+	inset: auto -8% -20% auto;
+	width: min(420px, 55vw);
+	height: min(420px, 55vw);
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(182, 135, 59, 0.12), transparent 70%);
+	pointer-events: none;
 }
 
 .idc-tratamentos-archive__grid {
 	margin-bottom: var(--idc-space-10);
 }
 
+.idc-tratamento-card__tag {
+	margin: 0 0 var(--idc-space-2);
+	font-size: var(--idc-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--idc-ouro);
+}
+
+.idc-hub-card__media--placeholder {
+	aspect-ratio: 16 / 10;
+	background: linear-gradient(135deg, var(--idc-sand), var(--idc-cream));
+}
+
+.idc-tratamento-card__media-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.idc-tratamentos-related {
+	padding-block: var(--idc-space-12) var(--idc-space-4);
+}
+
 @media (max-width: 767px) {
+	.idc-tratamentos-archive {
+		padding-block: var(--idc-space-8) var(--idc-space-12);
+	}
+
 	.idc-tratamentos-archive__grid {
 		grid-template-columns: 1fr;
+	}
+
+	.idc-treatment-single-page .idc-specialty__faq {
+		padding-block: var(--idc-space-8);
 	}
 }
 

@@ -6,56 +6,55 @@
  */
 
 get_header();
+
+$eyebrow = (string) idc_option('idc_tx_archive_eyebrow', __('TRATAMENTOS', 'instituto-dr-chao'));
+$title   = (string) idc_option('idc_tx_archive_title', __('Conheça nossos tratamentos', 'instituto-dr-chao'));
+$lead    = (string) idc_option(
+	'idc_tx_archive_lead',
+	__('Protocolos regenerativos e de reabilitação orientados pela equipe do Instituto Dr. Chao — da avaliação ao acompanhamento contínuo.', 'instituto-dr-chao')
+);
+
+// Divide título para accent no último termo, alinhado ao padrão do hub.
+$title_parts  = preg_split('/\s+/', trim($title), -1, PREG_SPLIT_NO_EMPTY) ?: [];
+$title_accent = $title_parts !== [] ? (' ' . array_pop($title_parts)) : '';
+$title_before = $title_parts !== [] ? implode(' ', $title_parts) : $title;
+if ($title_accent === '') {
+	$title_before = __('Conheça nossos', 'instituto-dr-chao');
+	$title_accent = __(' tratamentos', 'instituto-dr-chao');
+}
 ?>
 <main id="main" class="site-main site-main--page">
 	<?php
 	get_template_part('template-parts/page/page-hero', null, [
-		'eyebrow'          => __('TRATAMENTOS', 'instituto-dr-chao'),
-		'title_before'     => __('Conheça nossos', 'instituto-dr-chao'),
-		'title_accent'     => __(' tratamentos', 'instituto-dr-chao'),
-		'lead'             => __('Protocolos regenerativos e de reabilitação orientados pela equipe do Instituto Dr. Chao.', 'instituto-dr-chao'),
+		'layout'           => 'default',
+		'decor'            => true,
+		'eyebrow'          => $eyebrow,
+		'title_before'     => $title_before,
+		'title_accent'     => $title_accent,
+		'lead'             => $lead,
 		'breadcrumb_label' => __('Tratamentos', 'instituto-dr-chao'),
-		'centered'         => true,
 	]);
 	?>
 
-	<section class="idc-blog-archive idc-container" aria-label="<?php esc_attr_e('Lista de tratamentos', 'instituto-dr-chao'); ?>">
-		<?php if (have_posts()) : ?>
-			<div class="idc-hub__grid idc-tratamentos-archive__grid">
-				<?php
-				while (have_posts()) :
-					the_post();
-					$excerpt = get_the_excerpt();
-					$thumb   = get_the_post_thumbnail_url(get_the_ID(), 'medium_large');
-					?>
-					<article class="idc-hub-card">
-						<?php if ($thumb) : ?>
-							<div class="idc-hub-card__media">
-								<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" decoding="async">
-							</div>
-						<?php endif; ?>
-						<div class="idc-hub-card__body">
-							<h2 class="idc-hub-card__title">
-								<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-							</h2>
-							<?php if ($excerpt !== '') : ?>
-								<p class="idc-hub-card__text"><?php echo esc_html($excerpt); ?></p>
-							<?php endif; ?>
-							<a class="idc-hub-card__link" href="<?php the_permalink(); ?>">
-								<?php esc_html_e('Saiba mais', 'instituto-dr-chao'); ?>
-							</a>
-						</div>
-					</article>
+	<section class="idc-tratamentos-archive" aria-label="<?php esc_attr_e('Lista de tratamentos', 'instituto-dr-chao'); ?>">
+		<span class="idc-tratamentos-archive__decor" aria-hidden="true"></span>
+		<div class="idc-container">
+			<?php if (have_posts()) : ?>
+				<div class="idc-hub__grid idc-tratamentos-archive__grid">
 					<?php
-				endwhile;
-				?>
-			</div>
-			<div class="idc-blog-archive__nav">
-				<?php the_posts_pagination(); ?>
-			</div>
-		<?php else : ?>
-			<p class="idc-blog-archive__empty"><?php esc_html_e('Nenhum tratamento publicado ainda.', 'instituto-dr-chao'); ?></p>
-		<?php endif; ?>
+					while (have_posts()) :
+						the_post();
+						get_template_part('template-parts/page/treatment-archive-card');
+					endwhile;
+					?>
+				</div>
+				<div class="idc-blog-archive__nav">
+					<?php the_posts_pagination(); ?>
+				</div>
+			<?php else : ?>
+				<p class="idc-blog-archive__empty"><?php esc_html_e('Nenhum tratamento publicado ainda.', 'instituto-dr-chao'); ?></p>
+			<?php endif; ?>
+		</div>
 	</section>
 
 	<?php

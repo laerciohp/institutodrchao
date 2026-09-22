@@ -1,6 +1,6 @@
 <?php
 /**
- * FAQ accordion (stub interativo).
+ * FAQ accordion reutilizável (especialidades / tratamentos).
  *
  * @package Instituto_Dr_Chao
  *

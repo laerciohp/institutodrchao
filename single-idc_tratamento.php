@@ -24,8 +24,34 @@ while (have_posts()) :
 	}
 
 	$thumb = get_the_post_thumbnail_url(get_the_ID(), 'large');
+	$terms = get_the_terms(get_the_ID(), 'idc_especialidade');
+	$term  = (is_array($terms) && $terms !== [] && !is_wp_error($terms)) ? $terms[0] : null;
+
+	$breadcrumb_items = [
+		[
+			'label' => __('Tratamentos', 'instituto-dr-chao'),
+			'url'   => get_post_type_archive_link('idc_tratamento') ?: home_url('/tratamentos/'),
+		],
+	];
+	if ($term instanceof WP_Term) {
+		$term_link = get_term_link($term);
+		if (!is_wp_error($term_link) && is_string($term_link) && $term_link !== '') {
+			$breadcrumb_items[] = [
+				'label' => $term->name,
+				'url'   => $term_link,
+			];
+		}
+	}
+
+	$related = new WP_Query([
+		'post_type'      => 'idc_tratamento',
+		'posts_per_page' => 3,
+		'post__not_in'   => [get_the_ID()],
+		'orderby'        => 'rand',
+		'no_found_rows'  => true,
+	]);
 	?>
-	<main id="main" class="site-main site-main--page idc-specialty">
+	<main id="main" class="site-main site-main--page idc-specialty idc-treatment-single-page">
 		<?php
 		get_template_part('template-parts/page/page-hero', null, [
 			'layout'           => $thumb ? 'split' : 'centered',
@@ -33,12 +59,7 @@ while (have_posts()) :
 			'title_accent'     => get_the_title(),
 			'lead'             => $lead,
 			'breadcrumb_label' => get_the_title(),
-			'breadcrumb_items' => [
-				[
-					'label' => __('Tratamentos', 'instituto-dr-chao'),
-					'url'   => get_post_type_archive_link('idc_tratamento') ?: home_url('/tratamentos/'),
-				],
-			],
+			'breadcrumb_items' => $breadcrumb_items,
 			'cta_label'        => $cta_label,
 			'origem'           => 'tratamento-' . get_post_field('post_name'),
 			'image'            => $thumb ?: '',
@@ -51,47 +72,39 @@ while (have_posts()) :
 				<div class="idc-treatment-single__content idc-single__content">
 					<?php the_content(); ?>
 				</div>
-
-				<?php if ($faqs !== []) : ?>
-					<div class="idc-accordion idc-treatment-single__faqs" data-idc-accordion>
-						<h2 class="idc-specialty__block-title"><?php esc_html_e('Dúvidas frequentes', 'instituto-dr-chao'); ?></h2>
-						<?php foreach ($faqs as $index => $item) :
-							$question = (string) ($item['question'] ?? '');
-							$answer   = (string) ($item['answer'] ?? '');
-							if ($question === '') {
-								continue;
-							}
-							$id = 'idc-tx-single-faq-' . ($index + 1);
-							?>
-							<div class="idc-accordion__item">
-								<h3 class="idc-accordion__heading">
-									<button
-										type="button"
-										class="idc-accordion__trigger"
-										id="<?php echo esc_attr($id); ?>-trigger"
-										aria-expanded="false"
-										aria-controls="<?php echo esc_attr($id); ?>-panel"
-										data-idc-accordion-trigger
-									>
-										<span><?php echo esc_html($question); ?></span>
-										<img class="idc-accordion__chevron" src="<?php echo esc_url(idc_asset('assets/icons/chevron-down.svg')); ?>" alt="" width="8" height="5" decoding="async" aria-hidden="true">
-									</button>
-								</h3>
-								<div
-									class="idc-accordion__panel"
-									id="<?php echo esc_attr($id); ?>-panel"
-									role="region"
-									aria-labelledby="<?php echo esc_attr($id); ?>-trigger"
-									hidden
-								>
-									<p><?php echo esc_html($answer); ?></p>
-								</div>
-							</div>
-						<?php endforeach; ?>
-					</div>
-				<?php endif; ?>
 			</div>
 		</section>
+
+		<?php if ($faqs !== []) : ?>
+			<?php
+			get_template_part('template-parts/page/faq-accordion', null, [
+				'title' => __('Dúvidas frequentes', 'instituto-dr-chao'),
+				'items' => $faqs,
+			]);
+			?>
+		<?php endif; ?>
+
+		<?php if ($related->have_posts()) : ?>
+			<section class="idc-tratamentos-related idc-specialty__block" aria-labelledby="idc-tx-related-title">
+				<div class="idc-container">
+					<header class="idc-specialty__block-header">
+						<p class="idc-eyebrow idc-eyebrow--accent"><?php esc_html_e('CONTINUE EXPLORANDO', 'instituto-dr-chao'); ?></p>
+						<h2 id="idc-tx-related-title" class="idc-specialty__block-title">
+							<?php esc_html_e('Outros tratamentos', 'instituto-dr-chao'); ?>
+						</h2>
+					</header>
+					<div class="idc-hub__grid idc-tratamentos-archive__grid">
+						<?php
+						while ($related->have_posts()) :
+							$related->the_post();
+							get_template_part('template-parts/page/treatment-archive-card');
+						endwhile;
+						wp_reset_postdata();
+						?>
+					</div>
+				</div>
+			</section>
+		<?php endif; ?>
 
 		<?php
 		get_template_part('template-parts/components/strip-cta', null, [

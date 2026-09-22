@@ -106,61 +106,6 @@ function idc_default_specialty_faq(): array {
 }
 
 /**
- * Seções de conteúdo padrão — especialidade (copy alinhada à produção, pilares Figma).
- *
- * @param string $slug Slug da especialidade (ortopedia, fisioterapia, integrativa).
- * @return list<array{title:string,text:string}>
- */
-function idc_default_specialty_sections(string $slug): array {
-	$sections = [
-		'ortopedia' => [
-			[
-				'title' => 'Cuidado musculoesquelético completo',
-				'text'  => 'A Ortopedia e Traumatologia dedica-se ao diagnóstico, tratamento, reabilitação e prevenção de lesões e doenças que afetam ossos, articulações, ligamentos, tendões, músculos e nervos — fundamentais para o movimento e a qualidade de vida.',
-			],
-			[
-				'title' => 'Abordagem individualizada',
-				'text'  => 'Cada paciente é único. Os tratamentos visam não apenas a recuperação da lesão, mas também a prevenção e a melhoria geral do bem-estar. Combinamos expertise médica, cuidado multidisciplinar e tratamentos inovadores com foco no paciente.',
-			],
-			[
-				'title' => 'Conservador primeiro; cirurgia quando necessário',
-				'text'  => 'Priorizamos tratamentos minimamente invasivos e regenerativos. Em casos de indicação cirúrgica, nosso time de cirurgiões especialistas oferece alta tecnologia, procedimentos menos invasivos e menor tempo de recuperação.',
-			],
-		],
-		'fisioterapia' => [
-			[
-				'title' => 'Especialização em dor e movimento',
-				'text'  => 'Fisioterapeutas especializados em ortopedia utilizam técnicas avançadas e conhecimento profundo de anatomia e fisiologia para tratar lesões esportivas, dor crônica e recuperação pós-operatória.',
-			],
-			[
-				'title' => 'Plano após avaliação detalhada',
-				'text'  => 'Com diagnóstico preciso e plano cuidadosamente elaborado, o cuidado visa aliviar a dor, restaurar a função, prevenir novas lesões e melhorar o bem-estar geral — com acompanhamento contínuo.',
-			],
-			[
-				'title' => 'Ambiente e recursos para reabilitar',
-				'text'  => 'Salas amplas, equipamentos modernos e protocolos personalizados em um espaço pensado para que você se sinta seguro em cada etapa da recuperação.',
-			],
-		],
-		'integrativa' => [
-			[
-				'title' => 'Visão sistêmica da saúde',
-				'text'  => 'Integramos acupuntura, controle da dor, suporte nutricional e neuromodulação ao cuidado ortopédico e fisioterapêutico. Cada corpo é único — e cada tratamento deve ser exclusivo.',
-			],
-			[
-				'title' => 'Nutrição funcional no manejo da dor',
-				'text'  => 'A nutrição funcional busca tratar as raízes das disfunções, considerando a individualidade bioquímica. Uma dieta bem planejada pode reduzir inflamação, apoiar a imunidade e favorecer a cicatrização.',
-			],
-			[
-				'title' => 'Bem-estar contínuo',
-				'text'  => 'Foco na qualidade de vida a longo prazo, com planos que vão além do alívio imediato dos sintomas e reforçam a recuperação em todas as frentes do Instituto.',
-			],
-		],
-	];
-
-	return $sections[$slug] ?? $sections['ortopedia'];
-}
-
-/**
  * Cards de tratamentos com FAQ — Ortopedia Regenerativa (Figma).
  *
  * @return list<array{title:string,intro:string,faqs:list<array{question:string,answer:string}>}>
