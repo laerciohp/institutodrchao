@@ -1,6 +1,6 @@
 <?php
 /**
- * Card do archive de tratamentos.
+ * Card do archive de tratamentos (mesmo padrão do hub Especialidades).
  *
  * @package Instituto_Dr_Chao
  *
@@ -12,19 +12,20 @@ $title   = get_the_title($post_id);
 $excerpt = get_the_excerpt($post_id);
 $thumb   = get_the_post_thumbnail_url($post_id, 'medium_large');
 $url     = get_permalink($post_id);
+$tone    = sanitize_html_class((string) ($args['tone'] ?? 'sand'));
 $terms   = get_the_terms($post_id, 'idc_especialidade');
 $term    = (is_array($terms) && $terms !== [] && !is_wp_error($terms)) ? $terms[0] : null;
 ?>
-<article class="idc-hub-card idc-tratamento-card">
-	<a class="idc-tratamento-card__media-link" href="<?php echo esc_url($url); ?>">
-		<?php if ($thumb) : ?>
-			<div class="idc-hub-card__media">
-				<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($title); ?>" loading="lazy" decoding="async">
-			</div>
-		<?php else : ?>
-			<div class="idc-hub-card__media idc-hub-card__media--placeholder" aria-hidden="true"></div>
-		<?php endif; ?>
-	</a>
+<article class="idc-hub-card idc-hub-card--<?php echo esc_attr($tone); ?> idc-tratamento-card">
+	<?php if ($thumb) : ?>
+		<a class="idc-tratamento-card__media-link" href="<?php echo esc_url($url); ?>">
+			<figure class="idc-hub-card__media">
+				<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($title); ?>" width="360" height="240" loading="lazy" decoding="async">
+			</figure>
+		</a>
+	<?php else : ?>
+		<figure class="idc-hub-card__media idc-hub-card__media--placeholder" aria-hidden="true"></figure>
+	<?php endif; ?>
 	<div class="idc-hub-card__body">
 		<?php if ($term instanceof WP_Term) : ?>
 			<p class="idc-tratamento-card__tag"><?php echo esc_html($term->name); ?></p>
@@ -37,6 +38,7 @@ $term    = (is_array($terms) && $terms !== [] && !is_wp_error($terms)) ? $terms[
 		<?php endif; ?>
 		<a class="idc-hub-card__link" href="<?php echo esc_url($url); ?>">
 			<?php esc_html_e('Saiba mais', 'instituto-dr-chao'); ?>
+			<img src="<?php echo esc_url(idc_asset('assets/icons/icon-arrow-accent.svg')); ?>" alt="" width="12" height="12" decoding="async">
 		</a>
 	</div>
 </article>

@@ -93,11 +93,16 @@ while (have_posts()) :
 							<?php esc_html_e('Outros tratamentos', 'instituto-dr-chao'); ?>
 						</h2>
 					</header>
-					<div class="idc-hub__grid idc-tratamentos-archive__grid">
+					<div class="idc-hub-cards__grid idc-tratamentos-archive__grid">
 						<?php
+						$i = 0;
 						while ($related->have_posts()) :
 							$related->the_post();
-							get_template_part('template-parts/page/treatment-archive-card');
+							$tones = ['sand', 'peach', 'cream'];
+							get_template_part('template-parts/page/treatment-archive-card', null, [
+								'tone' => $tones[$i % 3],
+							]);
+							$i++;
 						endwhile;
 						wp_reset_postdata();
 						?>

@@ -60,7 +60,6 @@ if ($secondary_url !== '' && !preg_match('#^(https?:)?//|^mailto:|^tel:|^/#|^#',
 	$secondary_url = home_url($secondary_url);
 }
 $strip_class = 'idc-strip-cta'
-	. ($decor ? ' idc-strip-cta--decor' : '')
 	. ($align === 'center' ? ' idc-strip-cta--center' : '');
 ?>
 <section class="<?php echo esc_attr($strip_class); ?>" aria-labelledby="idc-strip-cta-title">

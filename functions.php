@@ -315,6 +315,7 @@ function idc_maybe_run_theme_upgrade(): void {
 	flush_rewrite_rules(false);
 
 	idc_upgrade_183_layout_cms();
+	idc_upgrade_184_layout_cms();
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -438,6 +439,29 @@ function idc_upgrade_183_layout_cms(): void {
 		foreach ($fields as $key => $value) {
 			update_field($key, $value, (int) $page->ID);
 		}
+	}
+}
+
+/**
+ * v1.8.4 — alinha Carreiras e archive de Tratamentos aos defaults do Figma.
+ */
+function idc_upgrade_184_layout_cms(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$carreiras = get_page_by_path('carreiras');
+	if ($carreiras instanceof WP_Post) {
+		update_field('idc_page_title_before', 'Faça parte do ', (int) $carreiras->ID);
+		update_field('idc_page_title_accent', 'time', (int) $carreiras->ID);
+		update_field('idc_page_title_after', '', (int) $carreiras->ID);
+		update_field(
+			'idc_page_lead',
+			"No Instituto Dr. Chao, acreditamos que oferecer um atendimento excepcional começa por ter uma equipe movida por empatia, dedicação e excelência. Se você compartilha do nosso compromisso de acolher, cuidar e transformar a jornada de diagnóstico e reabilitação das pessoas, nós queremos conhecer você. Venha construir uma carreira com propósito.\n\nPreencha o formulário abaixo, anexe seu currículo e dê o primeiro passo para fazer a diferença em cada etapa do nosso trabalho.",
+			(int) $carreiras->ID
+		);
+		update_field('idc_carreiras_form_title', 'Envie uma mensagem', (int) $carreiras->ID);
+		update_field('idc_carreiras_form_lead', '', (int) $carreiras->ID);
 	}
 }
 

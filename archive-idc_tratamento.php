@@ -40,11 +40,16 @@ if ($title_accent === '') {
 		<span class="idc-tratamentos-archive__decor" aria-hidden="true"></span>
 		<div class="idc-container">
 			<?php if (have_posts()) : ?>
-				<div class="idc-hub__grid idc-tratamentos-archive__grid">
+				<div class="idc-hub-cards__grid idc-tratamentos-archive__grid">
 					<?php
+					$i = 0;
 					while (have_posts()) :
 						the_post();
-						get_template_part('template-parts/page/treatment-archive-card');
+						$tones = ['sand', 'peach', 'cream'];
+						get_template_part('template-parts/page/treatment-archive-card', null, [
+							'tone' => $tones[$i % 3],
+						]);
+						$i++;
 					endwhile;
 					?>
 				</div>

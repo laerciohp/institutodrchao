@@ -758,42 +758,6 @@
 	position: relative;
 }
 
-.idc-specialty__content {
-	padding: var(--idc-space-8) 0 var(--idc-space-10);
-	background: var(--idc-white);
-}
-
-@media (min-width: 768px) {
-	.idc-specialty__content {
-		padding: var(--idc-space-12) 0;
-	}
-}
-
-.idc-specialty__sections {
-	display: grid;
-	gap: var(--idc-space-8);
-	max-width: 800px;
-}
-
-@media (min-width: 768px) {
-	.idc-specialty__sections {
-		gap: var(--idc-space-10);
-	}
-}
-
-.idc-specialty__section-title {
-	font-size: var(--idc-text-xl);
-	font-weight: 600;
-	color: var(--idc-azul-900);
-	margin-bottom: var(--idc-space-3);
-}
-
-.idc-specialty__section-text {
-	font-size: var(--idc-text-md);
-	line-height: 26px;
-	color: var(--idc-ink);
-}
-
 /* Blocos ricos (cards / fases / bento) */
 .idc-specialty__block {
 	position: relative;
@@ -877,86 +841,6 @@
 	color: var(--idc-ink);
 }
 
-/* Treatment cards — Ortopedia (legado) */
-.idc-treatment-cards__grid {
-	display: grid;
-	gap: var(--idc-space-5);
-	grid-template-columns: 1fr;
-}
-
-@media (min-width: 700px) {
-	.idc-treatment-cards__grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: var(--idc-space-6);
-	}
-}
-
-@media (min-width: 1024px) {
-	.idc-treatment-cards__grid {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: var(--idc-space-8);
-	}
-}
-
-.idc-treatment-card {
-	background: var(--idc-white);
-	border: 1px solid var(--idc-border-soft);
-	border-radius: var(--idc-radius-md);
-	padding: var(--idc-space-6);
-	display: flex;
-	flex-direction: column;
-	gap: var(--idc-space-3);
-	height: 100%;
-	box-shadow: var(--idc-shadow-md);
-}
-
-.idc-treatment-card__icon {
-	width: 48px;
-	height: 48px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 12px;
-	background: var(--idc-sand-warm);
-}
-
-.idc-treatment-card__icon img {
-	width: 28px;
-	height: 28px;
-	object-fit: contain;
-}
-
-.idc-treatment-card__subtitle {
-	font-size: var(--idc-text-xs);
-	font-weight: 600;
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
-	color: var(--idc-ouro);
-}
-
-.idc-treatment-card__title {
-	font-size: var(--idc-text-lg);
-	font-weight: 600;
-	color: var(--idc-azul-900);
-}
-
-.idc-treatment-card__text {
-	font-size: var(--idc-text-sm);
-	line-height: 22px;
-	color: var(--idc-ink);
-	flex: 1;
-}
-
-.idc-treatment-card__link {
-	display: inline-flex;
-	align-items: center;
-	gap: var(--idc-space-2);
-	font-size: var(--idc-text-sm);
-	font-weight: 600;
-	color: var(--idc-terracota-700);
-	margin-top: var(--idc-space-2);
-}
-
 /* Treatment FAQ cards — Ortopedia Figma */
 .idc-treatment-faq__grid {
 	display: grid;
@@ -1029,6 +913,81 @@
 	margin: 0;
 	font-size: var(--idc-text-sm);
 	line-height: 24px;
+	color: var(--idc-ink);
+}
+
+/* Accordion FAQ (single tratamento / especialidades) */
+.idc-specialty__faq-title {
+	margin: 0 0 var(--idc-space-6);
+	font-family: var(--idc-font-serif);
+	font-size: clamp(24px, 2.5vw, 32px);
+	font-weight: 800;
+	line-height: 1.25;
+	color: var(--idc-azul-900);
+	text-align: center;
+}
+
+.idc-accordion {
+	display: flex;
+	flex-direction: column;
+	gap: var(--idc-space-3);
+	max-width: 720px;
+	margin-inline: auto;
+}
+
+.idc-accordion__item {
+	background: var(--idc-white);
+	border: 1px solid var(--idc-border-soft);
+	border-radius: var(--idc-radius-md);
+	overflow: hidden;
+}
+
+.idc-accordion__heading {
+	margin: 0;
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+.idc-accordion__trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--idc-space-4);
+	width: 100%;
+	min-height: 54px;
+	padding: var(--idc-space-4) var(--idc-space-5);
+	border: 0;
+	background: var(--idc-white);
+	font-family: var(--idc-font-sans);
+	font-size: var(--idc-text-md);
+	font-weight: 600;
+	line-height: 1.35;
+	color: var(--idc-azul-900);
+	text-align: left;
+	cursor: pointer;
+}
+
+.idc-accordion__trigger:hover {
+	background: var(--idc-cream);
+}
+
+.idc-accordion__chevron {
+	flex-shrink: 0;
+	transition: transform 0.2s ease;
+}
+
+.idc-accordion__trigger[aria-expanded="true"] .idc-accordion__chevron {
+	transform: rotate(180deg);
+}
+
+.idc-accordion__panel {
+	padding: 0 var(--idc-space-5) var(--idc-space-5);
+}
+
+.idc-accordion__panel p {
+	margin: 0;
+	font-size: var(--idc-text-sm);
+	line-height: 1.6;
 	color: var(--idc-ink);
 }
 
@@ -1616,9 +1575,11 @@
 	}
 
 	.idc-page-hero--carreiras .idc-page-hero__lead {
-		text-align: left;
+		text-align: center;
 	}
+}
 
+@media (max-width: 767px) {
 	.idc-carreiras__submit {
 		width: 100%;
 		justify-content: center;
@@ -2226,8 +2187,17 @@ a.idc-blog-filters__btn.is-active {
 	margin-bottom: var(--idc-space-10);
 }
 
+.idc-tratamento-card .idc-hub-card__title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.idc-tratamento-card .idc-hub-card__title a:hover {
+	color: var(--idc-terracota-700);
+}
+
 .idc-tratamento-card__tag {
-	margin: 0 0 var(--idc-space-2);
+	margin: 0;
 	font-size: var(--idc-text-xs);
 	font-weight: 700;
 	letter-spacing: 0.06em;
@@ -2236,7 +2206,6 @@ a.idc-blog-filters__btn.is-active {
 }
 
 .idc-hub-card__media--placeholder {
-	aspect-ratio: 16 / 10;
 	background: linear-gradient(135deg, var(--idc-sand), var(--idc-cream));
 }
 
@@ -2247,16 +2216,18 @@ a.idc-blog-filters__btn.is-active {
 }
 
 .idc-tratamentos-related {
-	padding-block: var(--idc-space-12) var(--idc-space-4);
+	padding-block: var(--idc-space-12);
+}
+
+@media (min-width: 700px) and (max-width: 899px) {
+	.idc-tratamentos-archive__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
 }
 
 @media (max-width: 767px) {
 	.idc-tratamentos-archive {
 		padding-block: var(--idc-space-8) var(--idc-space-12);
-	}
-
-	.idc-tratamentos-archive__grid {
-		grid-template-columns: 1fr;
 	}
 
 	.idc-treatment-single-page .idc-specialty__faq {

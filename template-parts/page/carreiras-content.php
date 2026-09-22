@@ -55,7 +55,7 @@ $map_src = (string) idc_option(
 <section class="idc-carreiras" aria-labelledby="idc-carreiras-form-title">
 	<span class="idc-carreiras__decor" aria-hidden="true"></span>
 	<div class="idc-container">
-		<div class="idc-carreiras__inner" id="idc-carreiras-form">
+		<div class="idc-carreiras__inner">
 			<h2 id="idc-carreiras-form-title" class="idc-carreiras__title"><?php echo esc_html($form_title); ?></h2>
 			<?php if ($form_lead !== '') : ?>
 				<p class="idc-carreiras__lead"><?php echo esc_html($form_lead); ?></p>

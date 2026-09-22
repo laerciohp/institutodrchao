@@ -74,7 +74,7 @@ if (is_array($assuntos_acf) && $assuntos_acf !== []) {
 	<span class="idc-contato__decor" aria-hidden="true"></span>
 	<div class="idc-container">
 		<div class="idc-contato__grid">
-			<div class="idc-contato__form-wrap" id="idc-contato-form">
+			<div class="idc-contato__form-wrap">
 				<h2 class="idc-contato__form-title"><?php echo esc_html($form_title); ?></h2>
 				<?php if ($form_lead !== '') : ?>
 					<p class="idc-contato__form-lead"><?php echo esc_html($form_lead); ?></p>
