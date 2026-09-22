@@ -44,10 +44,19 @@ function idc_forms_handle_submit(): void {
 add_action('template_redirect', 'idc_forms_handle_submit', 5);
 
 /**
- * Flash message na query string.
+ * Flash message na query string (volta para a página do formulário).
  */
 function idc_forms_redirect(string $status, string $anchor = ''): void {
-	$url = remove_query_arg(['idc_form', 'idc_form_msg']);
+	$return = '';
+	if (!empty($_POST['idc_return'])) {
+		$return = esc_url_raw(wp_unslash((string) $_POST['idc_return']));
+	}
+	if ($return === '') {
+		$ref = wp_get_referer();
+		$return = is_string($ref) ? $ref : home_url('/');
+	}
+
+	$url = remove_query_arg(['idc_form', 'idc_form_msg'], $return);
 	$url = add_query_arg(
 		[
 			'idc_form'     => $status,

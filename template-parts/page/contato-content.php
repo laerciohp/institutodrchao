@@ -81,8 +81,9 @@ if (is_array($assuntos_acf) && $assuntos_acf !== []) {
 				<?php endif; ?>
 				<?php echo idc_forms_feedback_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
-				<form class="idc-form idc-contato__form" method="post" action="">
+				<form id="idc-contato-form" class="idc-form idc-contato__form" method="post" action="<?php echo esc_url(get_permalink()); ?>">
 					<input type="hidden" name="idc_form_action" value="contato">
+					<input type="hidden" name="idc_return" value="<?php echo esc_url(get_permalink()); ?>">
 					<?php wp_nonce_field('idc_contato', 'idc_contato_nonce'); ?>
 
 					<div class="idc-form__row">

@@ -63,8 +63,9 @@ $map_src = (string) idc_option(
 			<?php endif; ?>
 			<?php echo idc_forms_feedback_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
-			<form class="idc-form idc-carreiras__form" method="post" action="" enctype="multipart/form-data">
+			<form id="idc-carreiras-form" class="idc-form idc-carreiras__form" method="post" action="<?php echo esc_url(get_permalink()); ?>" enctype="multipart/form-data">
 				<input type="hidden" name="idc_form_action" value="carreiras">
+				<input type="hidden" name="idc_return" value="<?php echo esc_url(get_permalink()); ?>">
 				<?php wp_nonce_field('idc_carreiras', 'idc_carreiras_nonce'); ?>
 
 				<div class="idc-form__row">
