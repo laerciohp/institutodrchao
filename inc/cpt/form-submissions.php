@@ -38,7 +38,10 @@ function idc_register_cpt_form_submissions(): void {
 					'name'               => __('Contatos', 'instituto-dr-chao'),
 					'singular_name'      => __('Contato', 'instituto-dr-chao'),
 					'menu_name'          => __('Contatos', 'instituto-dr-chao'),
-					'edit_item'          => __('Ver contato', 'instituto-dr-chao'),
+					'add_new'            => __('Adicionar', 'instituto-dr-chao'),
+					'add_new_item'       => __('Adicionar contato', 'instituto-dr-chao'),
+					'edit_item'          => __('Editar contato', 'instituto-dr-chao'),
+					'new_item'           => __('Novo contato', 'instituto-dr-chao'),
 					'search_items'       => __('Buscar contatos', 'instituto-dr-chao'),
 					'not_found'          => __('Nenhum contato encontrado.', 'instituto-dr-chao'),
 					'not_found_in_trash' => __('Nada na lixeira.', 'instituto-dr-chao'),
@@ -58,7 +61,10 @@ function idc_register_cpt_form_submissions(): void {
 					'name'               => __('Currículos', 'instituto-dr-chao'),
 					'singular_name'      => __('Currículo', 'instituto-dr-chao'),
 					'menu_name'          => __('Currículos', 'instituto-dr-chao'),
-					'edit_item'          => __('Ver currículo', 'instituto-dr-chao'),
+					'add_new'            => __('Adicionar', 'instituto-dr-chao'),
+					'add_new_item'       => __('Adicionar currículo', 'instituto-dr-chao'),
+					'edit_item'          => __('Editar currículo', 'instituto-dr-chao'),
+					'new_item'           => __('Novo currículo', 'instituto-dr-chao'),
 					'search_items'       => __('Buscar currículos', 'instituto-dr-chao'),
 					'not_found'          => __('Nenhum currículo encontrado.', 'instituto-dr-chao'),
 					'not_found_in_trash' => __('Nada na lixeira.', 'instituto-dr-chao'),
@@ -226,24 +232,6 @@ function idc_curriculo_column_content(string $column, int $post_id): void {
 add_action('manage_idc_curriculo_posts_custom_column', 'idc_curriculo_column_content', 10, 2);
 
 /**
- * Remove “Adicionar novo” (só vêm do front).
- */
-function idc_form_submissions_admin_menu_tweaks(): void {
-	global $submenu;
-	foreach (['idc_contato', 'idc_curriculo'] as $pt) {
-		remove_submenu_page('edit.php?post_type=' . $pt, 'post-new.php?post_type=' . $pt);
-		if (isset($submenu['edit.php?post_type=' . $pt])) {
-			foreach ($submenu['edit.php?post_type=' . $pt] as $i => $item) {
-				if (isset($item[2]) && str_contains((string) $item[2], 'post-new.php')) {
-					unset($submenu['edit.php?post_type=' . $pt][$i]);
-				}
-			}
-		}
-	}
-}
-add_action('admin_menu', 'idc_form_submissions_admin_menu_tweaks', 999);
-
-/**
  * Salva envio de Contato no CPT.
  *
  * @param array{nome:string,email:string,telefone:string,assunto:string,mensagem:string,lgpd:bool} $data
@@ -268,6 +256,7 @@ function idc_save_contato_submission(array $data): int {
 	update_post_meta($post_id, '_idc_assunto', $data['assunto']);
 	update_post_meta($post_id, '_idc_mensagem', $data['mensagem']);
 	update_post_meta($post_id, '_idc_lgpd', !empty($data['lgpd']) ? 1 : 0);
+	update_post_meta($post_id, '_idc_crm_status', function_exists('idc_crm_default_status') ? idc_crm_default_status('idc_contato') : 'novo');
 
 	return (int) $post_id;
 }
@@ -297,6 +286,7 @@ function idc_save_curriculo_submission(array $data): int {
 	update_post_meta($post_id, '_idc_area', $data['area']);
 	update_post_meta($post_id, '_idc_mensagem', $data['mensagem']);
 	update_post_meta($post_id, '_idc_lgpd', !empty($data['lgpd']) ? 1 : 0);
+	update_post_meta($post_id, '_idc_crm_status', function_exists('idc_crm_default_status') ? idc_crm_default_status('idc_curriculo') : 'novo');
 
 	$attach_id = (int) ($data['attachment_id'] ?? 0);
 	if ($attach_id > 0) {
@@ -390,7 +380,7 @@ add_action('current_screen', 'idc_form_mark_read_on_edit');
 function idc_form_dashboard_widget(): void {
 	wp_add_dashboard_widget(
 		'idc_form_inbox',
-		__('IDC — Contatos e Currículos', 'instituto-dr-chao'),
+		__('IDC — CRM Contatos e Currículos', 'instituto-dr-chao'),
 		'idc_form_dashboard_widget_render'
 	);
 }
@@ -400,18 +390,23 @@ add_action('wp_dashboard_setup', 'idc_form_dashboard_widget');
  * Conteúdo do widget.
  */
 function idc_form_dashboard_widget_render(): void {
-	$c = idc_form_unread_count_meta('idc_contato');
-	$v = idc_form_unread_count_meta('idc_curriculo');
+	$c = function_exists('idc_crm_count_by_status')
+		? idc_crm_count_by_status('idc_contato', 'novo')
+		: idc_form_unread_count_meta('idc_contato');
+	$v = function_exists('idc_crm_count_by_status')
+		? idc_crm_count_by_status('idc_curriculo', 'novo')
+		: idc_form_unread_count_meta('idc_curriculo');
+
 	echo '<p>';
 	printf(
 		esc_html(_n('%d contato novo', '%d contatos novos', $c, 'instituto-dr-chao')),
 		$c
 	);
-	echo ' — <a href="' . esc_url(admin_url('edit.php?post_type=idc_contato')) . '">' . esc_html__('Ver Contatos', 'instituto-dr-chao') . '</a></p>';
+	echo ' — <a href="' . esc_url(admin_url('edit.php?post_type=idc_contato&page=idc-crm-kanban-idc_contato')) . '">' . esc_html__('Kanban Contatos', 'instituto-dr-chao') . '</a></p>';
 	echo '<p>';
 	printf(
 		esc_html(_n('%d currículo novo', '%d currículos novos', $v, 'instituto-dr-chao')),
 		$v
 	);
-	echo ' — <a href="' . esc_url(admin_url('edit.php?post_type=idc_curriculo')) . '">' . esc_html__('Ver Currículos', 'instituto-dr-chao') . '</a></p>';
+	echo ' — <a href="' . esc_url(admin_url('edit.php?post_type=idc_curriculo&page=idc-crm-kanban-idc_curriculo')) . '">' . esc_html__('Kanban Currículos', 'instituto-dr-chao') . '</a></p>';
 }
