@@ -15,6 +15,15 @@ define('IDC_THEME_VERSION', wp_get_theme(get_template())->get('Version') ?: '1.0
 define('IDC_THEME_DIR', get_template_directory());
 define('IDC_THEME_URI', get_template_directory_uri());
 
+require_once IDC_THEME_DIR . '/inc/helpers.php';
+require_once IDC_THEME_DIR . '/inc/defaults-home.php';
+require_once IDC_THEME_DIR . '/inc/cpt/profissional.php';
+require_once IDC_THEME_DIR . '/inc/cpt/tratamento.php';
+require_once IDC_THEME_DIR . '/inc/acf/options.php';
+require_once IDC_THEME_DIR . '/inc/acf/home-fields.php';
+require_once IDC_THEME_DIR . '/inc/defaults-pages.php';
+require_once IDC_THEME_DIR . '/inc/acf/page-fields.php';
+
 /**
  * Setup do tema.
  */
@@ -38,6 +47,8 @@ function idc_setup(): void {
 		'flex-height' => true,
 		'flex-width'  => true,
 	]);
+	add_theme_support('editor-styles');
+	add_theme_support('responsive-embeds');
 
 	register_nav_menus([
 		'primary' => __('Menu principal', 'instituto-dr-chao'),
@@ -51,13 +62,123 @@ add_action('after_setup_theme', 'idc_setup');
  */
 function idc_enqueue_assets(): void {
 	wp_enqueue_style(
+		'idc-fonts',
+		'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto+Serif:opsz,wght@8..144,800&display=swap',
+		[],
+		null
+	);
+
+	$styles = [
+		'idc-tokens' => '/assets/css/tokens.css',
+		'idc-base'   => '/assets/css/base.css',
+		'idc-header' => '/assets/css/header.css',
+		'idc-footer' => '/assets/css/footer.css',
+		'idc-hero'   => '/assets/css/hero.css',
+		'idc-home'   => '/assets/css/home.css',
+		'idc-pages'  => '/assets/css/pages.css',
+	];
+
+	$deps = ['idc-fonts'];
+	foreach ($styles as $handle => $path) {
+		wp_enqueue_style(
+			$handle,
+			IDC_THEME_URI . $path,
+			$deps,
+			IDC_THEME_VERSION
+		);
+		$deps[] = $handle;
+	}
+
+	wp_enqueue_style(
 		'idc-main',
 		get_stylesheet_uri(),
-		[],
+		$deps,
 		IDC_THEME_VERSION
+	);
+
+	wp_enqueue_script(
+		'idc-main',
+		IDC_THEME_URI . '/assets/js/main.js',
+		[],
+		IDC_THEME_VERSION,
+		true
 	);
 }
 add_action('wp_enqueue_scripts', 'idc_enqueue_assets');
+
+/**
+ * Classes nos links do menu.
+ *
+ * @param array<int,string> $atts
+ * @param WP_Post           $item
+ * @param stdClass          $args
+ * @return array<int,string>
+ */
+function idc_nav_link_attributes(array $atts, $item, $args): array {
+	if (isset($args->theme_location) && $args->theme_location === 'primary') {
+		$atts['class'] = trim(($atts['class'] ?? '') . ' idc-nav__link');
+		if (in_array('current-menu-item', $item->classes, true)) {
+			$atts['class'] .= ' idc-nav__link--active';
+		}
+	}
+	return $atts;
+}
+add_filter('nav_menu_link_attributes', 'idc_nav_link_attributes', 10, 3);
+
+/**
+ * Chevron em itens com filhos (Especialidades).
+ *
+ * @param string   $title
+ * @param WP_Post  $item
+ * @param stdClass $args
+ * @param int      $depth
+ */
+function idc_nav_title_chevron(string $title, $item, $args, int $depth): string {
+	if (
+		isset($args->theme_location)
+		&& $args->theme_location === 'primary'
+		&& $depth === 0
+		&& in_array('menu-item-has-children', $item->classes, true)
+	) {
+		$icon = idc_asset('assets/icons/chevron-down.svg');
+		$title .= ' <span class="idc-nav__chevron" aria-hidden="true"><img src="' . esc_url($icon) . '" alt="" width="8" height="5"></span>';
+	}
+	return $title;
+}
+add_filter('nav_menu_item_title', 'idc_nav_title_chevron', 10, 4);
+
+/**
+ * Fallback do menu principal (quando ainda não há menu cadastrado).
+ *
+ * @param array<string,mixed> $args
+ */
+function idc_nav_fallback(array $args = []): void {
+	$items = [
+		['label' => __('Início', 'instituto-dr-chao'), 'url' => home_url('/')],
+		['label' => __('Especialidades', 'instituto-dr-chao'), 'url' => home_url('/especialidades/'), 'chevron' => true],
+		['label' => __('O Instituto', 'instituto-dr-chao'), 'url' => home_url('/o-instituto/')],
+		['label' => __('Blog', 'instituto-dr-chao'), 'url' => get_permalink(get_option('page_for_posts')) ?: home_url('/blog/')],
+		['label' => __('Contato', 'instituto-dr-chao'), 'url' => home_url('/contato/')],
+	];
+
+	$class = is_string($args['menu_class'] ?? null) ? $args['menu_class'] : 'idc-nav__list';
+	$path  = (string) wp_parse_url(home_url(add_query_arg([])), PHP_URL_PATH);
+
+	echo '<ul class="' . esc_attr($class) . '">';
+	foreach ($items as $item) {
+		$item_path = (string) wp_parse_url($item['url'], PHP_URL_PATH);
+		$active    = trailingslashit($path) === trailingslashit($item_path);
+		$link_class = 'idc-nav__link' . ($active ? ' idc-nav__link--active' : '');
+		echo '<li class="idc-nav__item' . ($active ? ' current-menu-item' : '') . '">';
+		echo '<a class="' . esc_attr($link_class) . '" href="' . esc_url($item['url']) . '">';
+		echo esc_html($item['label']);
+		if (!empty($item['chevron'])) {
+			echo ' <span class="idc-nav__chevron" aria-hidden="true"><img src="' . esc_url(idc_asset('assets/icons/chevron-down.svg')) . '" alt="" width="8" height="5"></span>';
+		}
+		echo '</a></li>';
+	}
+	echo '</ul>';
+}
 
 /**
  * Atualizações do tema via GitHub Releases.
@@ -89,7 +210,7 @@ function idc_register_theme_updater(): void {
 
 	$repo = defined('IDC_GITHUB_THEME_REPO')
 		? IDC_GITHUB_THEME_REPO
-		: 'PLACEHOLDER_USER/instituto-dr-chao';
+		: 'laerciohp/institutodrchao';
 
 	$checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
 		'https://github.com/' . $repo . '/',
@@ -100,7 +221,6 @@ function idc_register_theme_updater(): void {
 	$checker->setBranch('main');
 	$checker->getVcsApi()->enableReleaseAssets();
 
-	// Token opcional para repo privado (Personal Access Token com repo read).
 	if (defined('IDC_GITHUB_TOKEN') && IDC_GITHUB_TOKEN) {
 		$checker->setAuthentication(IDC_GITHUB_TOKEN);
 	}

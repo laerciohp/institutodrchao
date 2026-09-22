@@ -1,0 +1,124 @@
+/**
+ * Hero Home — Figma 133:309 (desktop) / mobile stack
+ */
+
+.idc-hero {
+	position: relative;
+	background: var(--idc-cream);
+	padding: var(--idc-space-10) 0 var(--idc-space-12);
+	overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+	.idc-hero {
+		padding: var(--idc-space-16) 0 63px;
+	}
+}
+
+.idc-hero__bg {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+}
+
+.idc-hero__bg img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.55;
+}
+
+.idc-hero__grid {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	gap: var(--idc-space-8);
+	align-items: center;
+}
+
+@media (min-width: 1024px) {
+	.idc-hero__grid {
+		grid-template-columns: repeat(12, minmax(0, 1fr));
+		gap: var(--idc-space-8);
+		min-height: 592px;
+	}
+}
+
+.idc-hero__content {
+	display: flex;
+	flex-direction: column;
+	gap: var(--idc-space-8);
+}
+
+@media (min-width: 1024px) {
+	.idc-hero__content {
+		grid-column: 1 / span 6;
+	}
+}
+
+.idc-hero__meta {
+	display: flex;
+	align-items: center;
+	gap: var(--idc-space-4);
+	flex-wrap: wrap;
+}
+
+.idc-hero__divider {
+	width: 48px;
+	height: 1px;
+	background: var(--idc-border);
+	flex-shrink: 0;
+}
+
+.idc-hero__title {
+	font-size: clamp(32px, 5vw, 48px);
+	font-weight: 500;
+	line-height: 1.17;
+	letter-spacing: -0.02em;
+	color: var(--idc-azul-900);
+	max-width: 549px;
+}
+
+.idc-hero__title-accent {
+	font-family: var(--idc-font-serif);
+	font-weight: 800;
+	color: var(--idc-ouro);
+	font-variation-settings: "GRAD" 0, "wdth" 100;
+}
+
+.idc-hero__lead {
+	font-size: var(--idc-text-lg);
+	line-height: 32px;
+	color: var(--idc-ink);
+	max-width: 512px;
+}
+
+.idc-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--idc-space-4);
+	padding-top: var(--idc-space-4);
+}
+
+.idc-hero__media {
+	border-radius: var(--idc-radius-lg);
+	overflow: hidden;
+	border: 1px solid rgba(197, 198, 205, 0.1);
+	box-shadow: var(--idc-shadow-md);
+	aspect-ratio: 1 / 1;
+}
+
+@media (min-width: 1024px) {
+	.idc-hero__media {
+		grid-column: 7 / span 6;
+		aspect-ratio: auto;
+		height: 590px;
+	}
+}
+
+.idc-hero__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

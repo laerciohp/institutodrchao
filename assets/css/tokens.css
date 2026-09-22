@@ -1,0 +1,73 @@
+/**
+ * Design tokens — Instituto Dr. Chao
+ * Extraídos do Figma (Dra Chao / Azul / Terracota).
+ * Grid: desktop 1280 / mobile 390.
+ */
+
+:root {
+	/* Cores — Azul */
+	--idc-azul-900: #333d4f;
+	--idc-azul-700: #414a5c;
+	--idc-azul-500: #5c6470;
+
+	/* Cores — Terracota / Ouro */
+	--idc-terracota-800: #593400;
+	--idc-terracota-700: #96602f;
+	--idc-ouro: #b6873b;
+
+	/* Neutros */
+	--idc-ink: #45474c;
+	--idc-cream: #fcf9f4;
+	--idc-sand: #e5e2dd;
+	--idc-border: #c5c6cd;
+	--idc-white: #ffffff;
+	--idc-white-80: rgba(255, 255, 255, 0.8);
+	--idc-border-soft: rgba(197, 198, 205, 0.2);
+
+	/* Tipografia */
+	--idc-font-sans: "Montserrat", system-ui, sans-serif;
+	--idc-font-serif: "Roboto Serif", Georgia, serif;
+
+	/* Escala tipográfica */
+	--idc-text-xs: 12px;
+	--idc-text-sm: 14px;
+	--idc-text-md: 16px;
+	--idc-text-lg: 18px;
+	--idc-text-xl: 24px;
+	--idc-text-2xl: 32px;
+	--idc-text-3xl: 40px;
+	--idc-text-4xl: 48px;
+
+	/* Espaçamentos (Figma) */
+	--idc-space-1: 4px;
+	--idc-space-2: 8px;
+	--idc-space-3: 12px;
+	--idc-space-4: 16px;
+	--idc-space-5: 20px;
+	--idc-space-6: 24px;
+	--idc-space-8: 32px;
+	--idc-space-10: 40px;
+	--idc-space-12: 48px;
+	--idc-space-16: 64px;
+	--idc-space-20: 80px;
+	--idc-space-30: 120px;
+
+	/* Layout */
+	--idc-container: 1280px;
+	--idc-gutter-desktop: 32px;
+	--idc-gutter-mobile: 20px;
+	--idc-header-h: 80px;
+
+	/* Raios */
+	--idc-radius-pill: 9999px;
+	--idc-radius-lg: 32px;
+	--idc-radius-md: 16px;
+
+	/* Sombras */
+	--idc-shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.05);
+	--idc-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+	/* Breakpoints (referência — usar em media queries) */
+	--idc-bp-mobile: 390px;
+	--idc-bp-desktop: 1280px;
+}

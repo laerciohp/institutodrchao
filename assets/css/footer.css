@@ -1,0 +1,119 @@
+/**
+ * Footer — Shared Component (Figma 177:2952)
+ */
+
+.idc-footer {
+	background: var(--idc-azul-900);
+	color: var(--idc-sand);
+	border-radius: var(--idc-radius-lg) var(--idc-radius-lg) 0 0;
+	padding: var(--idc-space-16) var(--idc-gutter-mobile) var(--idc-space-8);
+}
+
+@media (min-width: 768px) {
+	.idc-footer {
+		padding: var(--idc-space-30) var(--idc-gutter-desktop) var(--idc-space-8);
+	}
+}
+
+.idc-footer__grid {
+	display: grid;
+	gap: var(--idc-space-10);
+	max-width: var(--idc-container);
+	margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+	.idc-footer__grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: var(--idc-space-8);
+	}
+}
+
+.idc-footer__brand {
+	display: flex;
+	flex-direction: column;
+	gap: var(--idc-space-6);
+	padding-bottom: var(--idc-space-8);
+}
+
+.idc-footer__tagline {
+	font-size: var(--idc-text-sm);
+	line-height: 20px;
+	opacity: 0.8;
+	max-width: 280px;
+}
+
+.idc-footer__col-title {
+	font-size: var(--idc-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
+	line-height: 16px;
+	opacity: 0.6;
+	margin-bottom: var(--idc-space-2);
+	padding-bottom: var(--idc-space-2);
+}
+
+.idc-footer__links {
+	display: flex;
+	flex-direction: column;
+	gap: var(--idc-space-4);
+}
+
+.idc-footer__links a {
+	font-size: var(--idc-text-md);
+	line-height: 28px;
+	opacity: 0.8;
+	color: var(--idc-sand);
+}
+
+.idc-footer__links a:hover {
+	opacity: 1;
+}
+
+.idc-footer__bottom {
+	max-width: var(--idc-container);
+	margin: var(--idc-space-12) auto 0;
+	padding-top: 33px;
+	border-top: 1px solid rgba(229, 226, 221, 0.1);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--idc-space-4);
+}
+
+.idc-footer__copy {
+	font-size: var(--idc-text-sm);
+	line-height: 20px;
+	opacity: 0.6;
+}
+
+.idc-footer__social {
+	display: flex;
+	gap: var(--idc-space-4);
+	align-items: center;
+}
+
+.idc-footer__social a {
+	opacity: 0.6;
+	display: inline-flex;
+	width: 17px;
+	height: 17px;
+}
+
+.idc-footer__social a:hover {
+	opacity: 1;
+}
+
+.idc-footer__social img {
+	width: 100%;
+	height: 100%;
+}
+
+/* Logo light no footer */
+.idc-footer .idc-logo__mark,
+.idc-footer .idc-logo__wordmark-dr,
+.idc-footer .idc-logo__wordmark-inst {
+	filter: none;
+}

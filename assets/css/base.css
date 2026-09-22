@@ -1,0 +1,176 @@
+/**
+ * Base — tipografia, containers, botões, utilitários.
+ */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	font-family: var(--idc-font-sans);
+	font-size: var(--idc-text-md);
+	line-height: 1.6;
+	color: var(--idc-ink);
+	background: var(--idc-cream);
+	-webkit-font-smoothing: antialiased;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover {
+	opacity: 0.85;
+}
+
+ul,
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	font-family: var(--idc-font-sans);
+	color: var(--idc-azul-900);
+	line-height: 1.2;
+}
+
+p {
+	margin: 0;
+}
+
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.skip-link:focus {
+	clip: auto;
+	clip-path: none;
+	height: auto;
+	width: auto;
+	left: var(--idc-space-4);
+	top: var(--idc-space-4);
+	z-index: 100000;
+	background: var(--idc-white);
+	padding: var(--idc-space-3) var(--idc-space-4);
+}
+
+/* Container — alinhado ao grid Figma 1280 / gutters 32|20 */
+.idc-container {
+	width: 100%;
+	max-width: var(--idc-container);
+	margin-inline: auto;
+	padding-inline: var(--idc-gutter-mobile);
+}
+
+@media (min-width: 768px) {
+	.idc-container {
+		padding-inline: var(--idc-gutter-desktop);
+	}
+}
+
+/* Tipografia utilitária */
+.idc-eyebrow {
+	font-size: var(--idc-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
+	line-height: 16px;
+}
+
+.idc-eyebrow--accent {
+	color: var(--idc-terracota-800);
+}
+
+.idc-eyebrow--muted {
+	color: var(--idc-azul-500);
+}
+
+/* Botões */
+.idc-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 56px;
+	padding: 16px 32px;
+	border-radius: var(--idc-radius-pill);
+	font-family: var(--idc-font-sans);
+	font-size: var(--idc-text-sm);
+	font-weight: 600;
+	line-height: 20px;
+	text-align: center;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+	box-shadow: var(--idc-shadow-sm);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.idc-btn:hover {
+	opacity: 0.92;
+}
+
+.idc-btn:focus-visible {
+	outline: 2px solid var(--idc-ouro);
+	outline-offset: 2px;
+}
+
+.idc-btn--primary {
+	background: var(--idc-terracota-700);
+	color: var(--idc-white);
+}
+
+.idc-btn--navy {
+	background: var(--idc-azul-700);
+	color: var(--idc-white);
+	min-height: 44px;
+	padding: 12px 24px;
+}
+
+.idc-btn--outline {
+	background: transparent;
+	color: var(--idc-azul-900);
+	border-color: var(--idc-border);
+	box-shadow: none;
+}
+
+.idc-btn--sm {
+	min-height: 44px;
+	padding: 12px 24px;
+}
+
+/* Site shell */
+.site-main {
+	min-height: 40vh;
+}

@@ -32,20 +32,38 @@ Se o repositório for privado, adicione no `wp-config.php`:
 
 ```php
 define('IDC_GITHUB_TOKEN', 'ghp_seu_token_com_leitura_do_repo');
-define('IDC_GITHUB_THEME_REPO', 'SEU_USER/instituto-dr-chao');
+define('IDC_GITHUB_THEME_REPO', 'laerciohp/institutodrchao');
 ```
 
-## Estrutura inicial
+## Estrutura
 
 ```
 instituto-dr-chao/
-├── style.css              # Cabeçalho do tema + Version
-├── functions.php          # Setup + updater GitHub
+├── theme.json
+├── style.css
+├── functions.php
+├── front-page.php
 ├── header.php / footer.php / index.php
-├── inc/plugin-update-checker/
+├── assets/css/            # tokens, base, header, footer, hero
+├── assets/icons/          # logo e ícones do Figma
+├── assets/images/
+├── template-parts/
+│   ├── components/        # logo, button
+│   └── home/              # hero (+ próximas seções)
+├── inc/
+│   ├── helpers.php        # WhatsApp ?origem=
+│   ├── acf/options.php
+│   ├── cpt/               # profissional, tratamento
+│   └── plugin-update-checker/
 └── README.md
 ```
 
-## Desenvolvimento
+## Dependências no WP
 
-Telas e componentes serão implementados a partir do Figma (Instituto Dr. Chao).
+- **ACF** (Advanced Custom Fields) — opções da clínica, Hero e campos dos CPTs.
+- Menu em **Aparência → Menus** (local: Menu principal).
+
+## Desenvolvimento (Figma → código)
+
+Ordem: tokens → componentes → templates → ACF → QA frame a frame (1280 / 390).
+Sem Elementor. Ver plano operacional no board do projeto.

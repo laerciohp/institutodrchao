@@ -1,10 +1,10 @@
 /*
 Theme Name: Instituto Dr. Chao
-Theme URI: https://github.com/PLACEHOLDER_USER/instituto-dr-chao
+Theme URI: https://github.com/laerciohp/institutodrchao
 Author: Hitechsp
 Author URI: https://hitechsp.com.br
 Description: Tema institucional do Instituto Dr. Chao — ortopedia, reabilitação e medicina integrativa. Desenvolvido por Hitechsp. Atualizações via GitHub Releases.
-Version: 1.0.0
+Version: 1.1.0
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 8.1
@@ -17,38 +17,6 @@ Update URI: false
 */
 
 /*
- * Estilos base — tokens e layout serão preenchidos a partir do Figma.
- * Não remova o bloco de cabeçalho acima: o WordPress e o updater leem a Version.
+ * Cabeçalho do tema (Version lida pelo WP e pelo updater).
+ * Tokens e layout: assets/css/*.css + theme.json
  */
-
-:root {
-  --idc-color-ink: #1a1a1a;
-  --idc-color-paper: #f7f5f2;
-  --idc-color-accent: #2c5f4f;
-  --idc-font-display: "Georgia", "Times New Roman", serif;
-  --idc-font-body: "Segoe UI", system-ui, sans-serif;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: var(--idc-font-body);
-  color: var(--idc-color-ink);
-  background: var(--idc-color-paper);
-  line-height: 1.6;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-a {
-  color: var(--idc-color-accent);
-}
