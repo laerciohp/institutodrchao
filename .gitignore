@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Composer (vendor será commitado para o tema funcionar no WP sem composer no servidor)
+# Se preferir instalar no CI, remova a linha abaixo do commit e rode composer install no build.
+# /vendor/
+
+# Logs / cache
+*.log
+node_modules/
