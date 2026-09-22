@@ -22,6 +22,8 @@ $title_after       = (string) ($args['title_after'] ?? '');
 $lead              = (string) ($args['lead'] ?? '');
 $breadcrumb        = (string) ($args['breadcrumb_label'] ?? '');
 $breadcrumb_items  = $args['breadcrumb_items'] ?? [];
+$breadcrumb_home_label = (string) ($args['breadcrumb_home_label'] ?? '');
+$breadcrumb_home_url   = (string) ($args['breadcrumb_home_url'] ?? '');
 $image             = (string) ($args['image'] ?? '');
 $image_alt         = (string) ($args['image_alt'] ?? '');
 $cta_label         = (string) ($args['cta_label'] ?? '');
@@ -139,10 +141,17 @@ $render_copy = static function (bool $with_cta) use (
 	<div class="idc-container">
 		<?php if ($breadcrumb !== '') : ?>
 			<?php
-			get_template_part('template-parts/components/breadcrumb', null, [
+			$bc_args = [
 				'current' => $breadcrumb,
 				'items'   => $breadcrumb_items,
-			]);
+			];
+			if ($breadcrumb_home_label !== '') {
+				$bc_args['home_label'] = $breadcrumb_home_label;
+			}
+			if ($breadcrumb_home_url !== '') {
+				$bc_args['home_url'] = $breadcrumb_home_url;
+			}
+			get_template_part('template-parts/components/breadcrumb', null, $bc_args);
 			?>
 		<?php endif; ?>
 

@@ -1584,9 +1584,9 @@
 	margin-top: 0;
 }
 
-/* Hero split carreiras: offset sand + sem foto no mobile (Figma) */
+/* Hero split carreiras: offset sand à esquerda (Figma 242:17393) + sem foto no mobile */
 .idc-page-hero--carreiras .idc-page-hero__media {
-	box-shadow: 16px 16px 0 0 var(--idc-sand);
+	box-shadow: -16px 16px 0 0 var(--idc-sand);
 }
 
 @media (min-width: 1024px) {

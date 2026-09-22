@@ -21,23 +21,25 @@ $lead = (string) idc_page_field(
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
-	idc_asset('assets/images/pages/hub-integrativa.jpg')
+	idc_asset('assets/images/pages/hero-ortopedia-candidato.png')
 );
 ?>
 
 <main id="main" class="site-main site-main--page site-main--carreiras">
 	<?php
 	get_template_part('template-parts/page/page-hero', null, [
-		'layout'           => 'split',
-		'modifier'         => 'carreiras',
-		'eyebrow'          => '',
-		'title_before'     => $before,
-		'title_accent'     => $accent,
-		'title_after'      => $after,
-		'lead'             => $lead,
-		'breadcrumb_label' => __('Carreiras', 'instituto-dr-chao'),
-		'image'            => $hero_image,
-		'image_alt'        => __('Equipe e atendimento no Instituto Dr. Chao', 'instituto-dr-chao'),
+		'layout'                 => 'split',
+		'modifier'               => 'carreiras',
+		'eyebrow'                => '',
+		'title_before'           => $before,
+		'title_accent'           => $accent,
+		'title_after'            => $after,
+		'lead'                   => $lead,
+		'breadcrumb_label'       => __('Carreiras', 'instituto-dr-chao'),
+		'breadcrumb_home_label'  => __('Trabalhe conosco', 'instituto-dr-chao'),
+		'breadcrumb_home_url'    => get_permalink() ?: home_url('/carreiras/'),
+		'image'                  => $hero_image,
+		'image_alt'              => __('Equipe e atendimento no Instituto Dr. Chao', 'instituto-dr-chao'),
 	]);
 	get_template_part('template-parts/page/carreiras-content');
 	?>
