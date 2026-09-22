@@ -1,5 +1,7 @@
 # Instituto Dr. Chao — Tema WordPress
 
+Desenvolvido por **[Hitechsp](https://hitechsp.com.br)**.
+
 Tema institucional com **atualizações automáticas via GitHub Releases**.
 
 Quando a versão no repositório sobe e um Release é publicado, o WordPress exibe o aviso de atualização do tema em **Aparência → Temas**.
