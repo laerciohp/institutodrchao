@@ -314,6 +314,8 @@ function idc_maybe_run_theme_upgrade(): void {
 
 	flush_rewrite_rules(false);
 
+	idc_upgrade_183_layout_cms();
+
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
 	if ($front_id > 0 && function_exists('get_field') && function_exists('update_field')) {
@@ -369,3 +371,73 @@ function idc_maybe_run_theme_upgrade(): void {
 }
 add_action('admin_init', 'idc_maybe_run_theme_upgrade', 5);
 add_action('init', 'idc_maybe_run_theme_upgrade', 20);
+
+/**
+ * v1.8.3 — republica Carreiras se estiver fora do ar e alinha títulos ACF ao Figma.
+ */
+function idc_upgrade_183_layout_cms(): void {
+	$pages = get_posts([
+		'name'           => 'carreiras',
+		'post_type'      => 'page',
+		'post_status'    => ['publish', 'draft', 'pending', 'private', 'trash'],
+		'posts_per_page' => 1,
+		'no_found_rows'  => true,
+	]);
+	if ($pages !== []) {
+		$page = $pages[0];
+		if ($page->post_status !== 'publish') {
+			wp_update_post([
+				'ID'          => (int) $page->ID,
+				'post_status' => 'publish',
+			]);
+		}
+		update_post_meta((int) $page->ID, '_wp_page_template', 'page-carreiras.php');
+		if (function_exists('update_field')) {
+			update_field('idc_carreiras_form_lead', '', (int) $page->ID);
+			update_field('idc_carreiras_form_title', 'Envie uma mensagem', (int) $page->ID);
+		}
+	}
+
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$figma_titles = [
+		'ortopedia-regenerativa' => [
+			'idc_page_eyebrow'      => 'TRATAMENTOS · ESPECIALIDADE PRINCIPAL',
+			'idc_page_title_before' => '',
+			'idc_page_title_accent' => 'Ortopedia Regenerativa',
+			'idc_page_title_after'  => '',
+		],
+		'fisioterapia' => [
+			'idc_page_eyebrow'      => '',
+			'idc_page_title_before' => '',
+			'idc_page_title_accent' => 'Fisioterapia Especializada em Dor',
+			'idc_page_title_after'  => '',
+		],
+		'medicina-integrativa' => [
+			'idc_page_eyebrow'      => '',
+			'idc_page_title_before' => 'Medicina ',
+			'idc_page_title_accent' => 'Integrativa',
+			'idc_page_title_after'  => ' e Regenerativa.',
+		],
+		'blog' => [
+			'idc_page_eyebrow'      => '',
+			'idc_page_title_before' => '',
+			'idc_page_title_accent' => 'Conhecimento',
+			'idc_page_title_after'  => ' para o seu cuidado.',
+			'idc_page_lead'         => 'Artigos, dicas e novidades sobre ortopedia, fisioterapia, medicina integrativa e bem-estar. Escritos por nossa equipe de especialistas para ajudar você a viver com mais movimento e menos dor.',
+		],
+	];
+
+	foreach ($figma_titles as $slug => $fields) {
+		$page = get_page_by_path($slug);
+		if (!$page instanceof WP_Post) {
+			continue;
+		}
+		foreach ($fields as $key => $value) {
+			update_field($key, $value, (int) $page->ID);
+		}
+	}
+}
+

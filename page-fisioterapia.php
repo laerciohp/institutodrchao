@@ -19,6 +19,7 @@ $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
 	idc_asset('assets/images/pages/hero-fisioterapia.jpg')
 );
+$cta_label = (string) idc_page_field('idc_page_hero_cta_label', __('Agendar Consulta', 'instituto-dr-chao'));
 
 $phases_title = (string) idc_page_field('idc_fisio_phases_title', __('As 4 fases da recuperação', 'instituto-dr-chao'));
 $phases_raw   = idc_page_field('idc_fisio_phases', null);
@@ -60,6 +61,8 @@ if ($phases === []) {
 				'url'   => home_url('/especialidades/'),
 			],
 		],
+		'cta_label'        => $cta_label,
+		'origem'           => 'fisioterapia',
 		'image'            => $hero_image,
 		'image_alt'        => __('Fisioterapia Especializada em Dor — Instituto Dr. Chao', 'instituto-dr-chao'),
 	]);
