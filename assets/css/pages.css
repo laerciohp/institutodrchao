@@ -487,16 +487,10 @@
 	}
 }
 
-/* Faixa bege sob o strip para o raio do footer (nunca branco) */
+/* Extende a cor da faixa sob o raio do footer (nunca cream/branco) */
 .site-main > .idc-strip-cta:last-child {
 	padding-bottom: calc(var(--idc-space-10) + var(--idc-radius-lg));
-	background: linear-gradient(
-		to bottom,
-		var(--idc-terracota-700) 0,
-		var(--idc-terracota-700) calc(100% - var(--idc-radius-lg)),
-		var(--idc-cream) calc(100% - var(--idc-radius-lg)),
-		var(--idc-cream) 100%
-	);
+	background-color: var(--idc-terracota-700);
 }
 
 @media (min-width: 768px) {
