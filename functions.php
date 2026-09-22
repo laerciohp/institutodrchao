@@ -28,6 +28,7 @@ require_once IDC_THEME_DIR . '/inc/acf/page-fields.php';
 require_once IDC_THEME_DIR . '/inc/acf/tratamento-fields.php';
 require_once IDC_THEME_DIR . '/inc/forms.php';
 require_once IDC_THEME_DIR . '/inc/mail.php';
+require_once IDC_THEME_DIR . '/inc/admin-options-fallback.php';
 require_once IDC_THEME_DIR . '/inc/setup-pages.php';
 require_once IDC_THEME_DIR . '/inc/redirects.php';
 

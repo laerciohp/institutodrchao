@@ -28,21 +28,27 @@ function idc_asset(string $relative): string {
  * @return mixed
  */
 function idc_option(string $key, $default = '') {
-	if (!function_exists('get_field')) {
-		return $default;
-	}
+	if (function_exists('get_field')) {
+		$front_id = (int) get_option('page_on_front');
+		if ($front_id > 0) {
+			$value = get_field($key, $front_id);
+			if ($value !== null && $value !== false && $value !== '') {
+				return $value;
+			}
+		}
 
-	$front_id = (int) get_option('page_on_front');
-	if ($front_id > 0) {
-		$value = get_field($key, $front_id);
+		$value = get_field($key, 'option');
 		if ($value !== null && $value !== false && $value !== '') {
 			return $value;
 		}
 	}
 
-	$value = get_field($key, 'option');
-	if ($value !== null && $value !== false && $value !== '') {
-		return $value;
+	// Fallback nativo (ACF Free sem Options Page).
+	if (function_exists('idc_native_setting')) {
+		$native = idc_native_settings();
+		if (array_key_exists($key, $native)) {
+			return $native[$key];
+		}
 	}
 
 	return $default;
