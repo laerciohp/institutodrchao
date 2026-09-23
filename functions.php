@@ -377,6 +377,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11211', 'idc_upgrade_11210_testimonials_figma');
 	idc_run_upgrade_once('11212', 'idc_upgrade_11212_contato_figma');
 	idc_run_upgrade_once('11213', 'idc_upgrade_11213_testimonials_cpt');
+	idc_run_upgrade_once('11214', 'idc_upgrade_11214_testimonials_meta');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
