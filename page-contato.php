@@ -36,11 +36,6 @@ $lead = function_exists('get_field') && get_field('idc_page_lead')
 		'breadcrumb_label' => __('Contato', 'instituto-dr-chao'),
 	]);
 	get_template_part('template-parts/page/contato-content');
-	get_template_part('template-parts/components/strip-cta', null, [
-		'origem' => 'contato',
-		'decor'  => true,
-		'align'  => 'center',
-	]);
 	?>
 </main>
 

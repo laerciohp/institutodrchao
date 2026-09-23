@@ -138,7 +138,8 @@
 	.idc-hero__media {
 		grid-column: 7 / span 6;
 		aspect-ratio: auto;
-		height: 590px;
+		/* Figma Home Right Image 592×592 */
+		height: 592px;
 		max-height: none;
 	}
 }

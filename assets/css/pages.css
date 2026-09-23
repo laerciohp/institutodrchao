@@ -84,6 +84,7 @@
 }
 
 .idc-page-hero__title {
+	font-family: var(--idc-font-serif);
 	font-size: clamp(32px, 5vw, 48px);
 	font-weight: 500;
 	line-height: 1.15;
@@ -354,7 +355,7 @@
 
 @media (max-width: 767px) {
 	.idc-page-hero {
-		padding: var(--idc-space-6) 0 var(--idc-space-8);
+		padding: var(--idc-space-8) 0 var(--idc-space-10);
 	}
 }
 
@@ -401,16 +402,23 @@
 
 .idc-hub-card--cream {
 	background: var(--idc-cream);
-	border: 1px solid var(--idc-border-soft);
+	border: 0;
 }
 
 .idc-hub-card__media {
-	margin: 32px 32px 0;
-	height: 192px;
+	/* Figma 133:1041 — Img:margin 33 / 224 */
+	margin: 33px 33px 0;
+	height: 224px;
 	aspect-ratio: auto;
 	overflow: hidden;
 	background: var(--idc-sand);
 	border-radius: 24px;
+}
+
+@media (min-width: 1024px) {
+	.idc-hub-card {
+		min-height: 646.5px;
+	}
 }
 
 .idc-hub-card__media img {
@@ -582,6 +590,10 @@
 	display: inline-flex;
 	align-items: center;
 	gap: 10px;
+	/* Figma Hub CTA button 133:1025 — h 52 */
+	min-height: 52px;
+	height: 52px;
+	padding: 0 32px;
 }
 
 .idc-strip-cta__btn-icon {
@@ -870,6 +882,18 @@
 	gap: var(--idc-space-4);
 	height: 100%;
 	min-height: 0;
+}
+
+.idc-treatment-faq-card__icon {
+	width: 48px;
+	height: 48px;
+	flex-shrink: 0;
+}
+
+.idc-treatment-faq-card__icon img {
+	display: block;
+	width: 48px;
+	height: 48px;
 }
 
 @media (min-width: 768px) {

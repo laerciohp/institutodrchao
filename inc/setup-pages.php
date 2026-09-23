@@ -264,7 +264,6 @@ function idc_setup_ensure_footer_menus(array $page_ids): void {
 			'name'  => 'Rodapé Institucional IDC',
 			'items' => [
 				['title' => 'O Instituto', 'url' => home_url('/o-instituto/'), 'page' => $page_ids['o-instituto'] ?? 0],
-				['title' => 'Instalações', 'url' => home_url('/instalacoes/'), 'page' => $page_ids['instalacoes'] ?? 0],
 				['title' => 'Corpo Clínico', 'url' => home_url('/corpo-clinico/'), 'page' => 0],
 				['title' => 'Blog', 'url' => $blog_url, 'page' => $page_ids['blog'] ?? 0],
 			],
@@ -322,21 +321,14 @@ function idc_setup_ensure_footer_menus(array $page_ids): void {
 
 	set_theme_mod('nav_menu_locations', $locations);
 
-	idc_setup_ensure_footer_instalacoes_link($page_ids);
+	idc_setup_remove_footer_instalacoes_link();
 	idc_setup_ensure_footer_corpo_clinico_link();
 }
 
 /**
- * Garante link Instalações no menu institucional do rodapé (mesmo se o menu já existia).
- *
- * @param array<string,int> $page_ids
+ * Remove link Instalações do rodapé (Figma: O Instituto, Corpo Clínico, Blog).
  */
-function idc_setup_ensure_footer_instalacoes_link(array $page_ids): void {
-	$instalacoes_id = (int) ($page_ids['instalacoes'] ?? 0);
-	if ($instalacoes_id <= 0) {
-		return;
-	}
-
+function idc_setup_remove_footer_instalacoes_link(): void {
 	$locations = get_theme_mod('nav_menu_locations', []);
 	if (!is_array($locations) || empty($locations['footer_institucional'])) {
 		return;
@@ -345,31 +337,30 @@ function idc_setup_ensure_footer_instalacoes_link(array $page_ids): void {
 	$menu_id = (int) $locations['footer_institucional'];
 	$items   = wp_get_nav_menu_items($menu_id);
 	if (!is_array($items)) {
-		$items = [];
+		return;
 	}
 
 	foreach ($items as $item) {
 		$title = mb_strtolower(trim((string) $item->title));
-		$obj   = (int) ($item->object_id ?? 0);
 		$url   = (string) ($item->url ?? '');
 		if (
 			$title === 'instalações'
 			|| $title === 'instalacoes'
-			|| $obj === $instalacoes_id
 			|| str_contains($url, '/instalacoes')
 		) {
-			return;
+			wp_delete_post((int) $item->ID, true);
 		}
 	}
+}
 
-	wp_update_nav_menu_item($menu_id, 0, [
-		'menu-item-title'     => 'Instalações',
-		'menu-item-object'    => 'page',
-		'menu-item-object-id' => $instalacoes_id,
-		'menu-item-type'      => 'post_type',
-		'menu-item-status'    => 'publish',
-		'menu-item-position'  => count($items) + 1,
-	]);
+/**
+ * @deprecated Compat — redireciona para remoção alinhada ao Figma.
+ *
+ * @param array<string,int> $page_ids
+ */
+function idc_setup_ensure_footer_instalacoes_link(array $page_ids): void {
+	unset($page_ids);
+	idc_setup_remove_footer_instalacoes_link();
 }
 
 /**

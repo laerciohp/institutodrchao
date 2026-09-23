@@ -473,8 +473,9 @@
 }
 
 @media (min-width: 1024px) {
+	/* Figma 133:259 — seção depoimentos ~724px (padding 80, não 120) */
 	.idc-testimonials {
-		padding: var(--idc-space-30) 0;
+		padding: var(--idc-space-20) 0;
 	}
 }
 

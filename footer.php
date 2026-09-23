@@ -78,7 +78,6 @@ $idc_footer_menu_has_items = static function (string $location): bool {
 			<?php else : ?>
 				<ul class="idc-footer__links">
 					<li><a href="<?php echo esc_url(home_url('/o-instituto/')); ?>"><?php esc_html_e('O Instituto', 'instituto-dr-chao'); ?></a></li>
-					<li><a href="<?php echo esc_url(home_url('/instalacoes/')); ?>"><?php esc_html_e('Instalações', 'instituto-dr-chao'); ?></a></li>
 					<li><a href="<?php echo esc_url(home_url('/corpo-clinico/')); ?>"><?php esc_html_e('Corpo Clínico', 'instituto-dr-chao'); ?></a></li>
 					<li><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts')) ?: home_url('/blog/')); ?>"><?php esc_html_e('Blog', 'instituto-dr-chao'); ?></a></li>
 				</ul>

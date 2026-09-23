@@ -30,10 +30,14 @@ $lead   = (string) idc_page_field(
 		'breadcrumb_label' => __('Especialidades', 'instituto-dr-chao'),
 	]);
 	get_template_part('template-parts/page/hub-cards');
+	$strip = idc_default_strip_cta_for_slug('especialidades');
 	get_template_part('template-parts/components/strip-cta', null, [
 		'origem' => 'especialidades',
 		'decor'  => true,
 		'align'  => 'center',
+		'title'  => $strip['idc_strip_title'],
+		'lead'   => $strip['idc_strip_lead'],
+		'label'  => $strip['idc_strip_label'],
 	]);
 	?>
 </main>

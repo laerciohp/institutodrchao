@@ -316,6 +316,8 @@ function idc_maybe_run_theme_upgrade(): void {
 
 	idc_upgrade_183_layout_cms();
 	idc_upgrade_184_layout_cms();
+	idc_upgrade_186_layout_cms();
+	idc_upgrade_187_layout_cms();
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -462,6 +464,94 @@ function idc_upgrade_184_layout_cms(): void {
 		);
 		update_field('idc_carreiras_form_title', 'Envie uma mensagem', (int) $carreiras->ID);
 		update_field('idc_carreiras_form_lead', '', (int) $carreiras->ID);
+	}
+}
+
+/**
+ * v1.8.6 — sync Hub cards + strips Especialidades/Orto/Fisio/Integrativa ao Figma.
+ */
+function idc_upgrade_186_layout_cms(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$hub = get_page_by_path('especialidades');
+	if ($hub instanceof WP_Post) {
+		update_field('idc_hub_cards', idc_default_hub_cards(), (int) $hub->ID);
+		foreach (idc_default_strip_cta_for_slug('especialidades') as $key => $value) {
+			update_field($key, $value, (int) $hub->ID);
+		}
+	}
+
+	foreach (['ortopedia-regenerativa', 'fisioterapia', 'medicina-integrativa'] as $slug) {
+		$page = get_page_by_path($slug);
+		if (!$page instanceof WP_Post) {
+			continue;
+		}
+		foreach (idc_default_strip_cta_for_slug($slug) as $key => $value) {
+			update_field($key, $value, (int) $page->ID);
+		}
+	}
+
+	$orto = get_page_by_path('ortopedia-regenerativa');
+	if ($orto instanceof WP_Post) {
+		update_field('idc_strip_secondary_label', 'Ver Fisioterapia Especializada', (int) $orto->ID);
+		update_field('idc_strip_secondary_url', home_url('/fisioterapia/'), (int) $orto->ID);
+	}
+
+	$integrativa = get_page_by_path('medicina-integrativa');
+	if ($integrativa instanceof WP_Post) {
+		update_field('idc_strip_secondary_label', 'Voltar para Ortopedia Regenerativa', (int) $integrativa->ID);
+		update_field('idc_strip_secondary_url', home_url('/ortopedia-regenerativa/'), (int) $integrativa->ID);
+	}
+}
+
+/**
+ * v1.8.7 — sync lead/FAQ Orto, limpa footer Instalações (Figma).
+ */
+function idc_upgrade_187_layout_cms(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$orto = get_page_by_path('ortopedia-regenerativa');
+	if ($orto instanceof WP_Post) {
+		$hero = idc_default_page_hero('ortopedia-regenerativa');
+		if ($hero !== null) {
+			foreach ($hero as $key => $value) {
+				update_field($key, $value, (int) $orto->ID);
+			}
+		}
+
+		$treatments = idc_default_ortopedia_treatments();
+		$rows       = [];
+		foreach ($treatments as $tx) {
+			$faqs = [];
+			foreach ($tx['faqs'] as $faq) {
+				$faqs[] = [
+					'question' => $faq['question'],
+					'answer'   => $faq['answer'],
+				];
+			}
+			$rows[] = [
+				'title' => $tx['title'],
+				'intro' => $tx['intro'] ?? '',
+				'faqs'  => $faqs,
+			];
+		}
+		update_field('idc_orto_treatments', $rows, (int) $orto->ID);
+		update_field('idc_orto_treatments_title', 'Tratamentos regenerativos', (int) $orto->ID);
+	}
+
+	$carreiras = get_page_by_path('carreiras');
+	if ($carreiras instanceof WP_Post) {
+		update_field('idc_page_title_before', 'Faça parte do ', (int) $carreiras->ID);
+		update_field('idc_page_title_accent', 'time', (int) $carreiras->ID);
+		update_field('idc_page_title_after', '', (int) $carreiras->ID);
+	}
+
+	if (function_exists('idc_setup_remove_footer_instalacoes_link')) {
+		idc_setup_remove_footer_instalacoes_link();
 	}
 }
 

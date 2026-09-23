@@ -26,9 +26,17 @@ if (!is_array($cards) || $cards === []) {
 			<?php foreach ($cards as $card_index => $card) :
 				$card_title = (string) ($card['title'] ?? '');
 				$intro      = (string) ($card['intro'] ?? ($card['text'] ?? ''));
+				$icon       = (string) ($card['icon'] ?? '');
 				$faqs       = $card['faqs'] ?? [];
 				if ($card_title === '') {
 					continue;
+				}
+				if ($icon === '') {
+					if (stripos($card_title, 'Viscos') !== false) {
+						$icon = idc_asset('assets/icons/tx-viscos.svg');
+					} elseif (stripos($card_title, 'Ozoni') !== false) {
+						$icon = idc_asset('assets/icons/tx-ozonio.svg');
+					}
 				}
 				if (!is_array($faqs)) {
 					$faqs = [];
@@ -54,6 +62,11 @@ if (!is_array($cards) || $cards === []) {
 				$prefix = 'idc-tx-' . ($card_index + 1);
 				?>
 				<article class="idc-treatment-faq-card">
+					<?php if ($icon !== '') : ?>
+						<div class="idc-treatment-faq-card__icon" aria-hidden="true">
+							<img src="<?php echo esc_url($icon); ?>" alt="" width="48" height="48" decoding="async">
+						</div>
+					<?php endif; ?>
 					<h3 class="idc-treatment-faq-card__title"><?php echo esc_html($card_title); ?></h3>
 					<?php if ($intro !== '') : ?>
 						<p class="idc-treatment-faq-card__intro"><?php echo esc_html($intro); ?></p>

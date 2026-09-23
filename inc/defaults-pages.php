@@ -20,7 +20,7 @@ function idc_default_hub_cards(): array {
 	return [
 		[
 			'title'      => 'Ortopedia Regenerativa',
-			'text'       => 'Foco em precisão e tecnologia avançada para tratar lesões e condições ortopédicas complexas, promovendo a regeneração tecidual e alívio da dor com intervenções minimamente invasivas.',
+			'text'       => 'Diagnóstico preciso e tratamentos cirúrgicos ou conservadores de alta complexidade, com foco na regeneração tecidual e recuperação funcional.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
 			'image'      => idc_asset('assets/images/pages/hub-ortopedia.jpg'),
@@ -28,7 +28,7 @@ function idc_default_hub_cards(): array {
 		],
 		[
 			'title'      => 'Fisioterapia Especializada em Dor',
-			'text'       => 'Abordagem centrada no movimento e na recuperação funcional. Tratamentos personalizados para gerenciar e resolver quadros de dor aguda e crônica, restaurando a qualidade de vida.',
+			'text'       => 'Reabilitação física com protocolos personalizados para dor crônica e recuperação de movimento, em ambiente amplo e acolhedor.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/fisioterapia/'),
 			'image'      => idc_asset('assets/images/pages/hub-fisio.jpg'),
@@ -36,7 +36,7 @@ function idc_default_hub_cards(): array {
 		],
 		[
 			'title'      => 'Medicina Integrativa e Regenerativa',
-			'text'       => 'Acupuntura, controle da dor crônica e suporte nutricional. Olhamos para o seu corpo como um sistema interconectado, potencializando a cura.',
+			'text'       => 'Acupuntura, controle da dor e suporte nutricional. Olhamos para o corpo como um sistema interconectado, potencializando a cura.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/medicina-integrativa/'),
 			'image'      => idc_asset('assets/images/pages/hub-integrativa.jpg'),
@@ -114,23 +114,24 @@ function idc_default_ortopedia_treatments(): array {
 	return [
 		[
 			'title' => 'Viscossuplementação',
-			'intro' => 'Infiltração de ácido hialurônico para lubrificar a articulação, reduzir a dor e melhorar a mobilidade em artrose e sobrecargas articulares.',
+			'icon'  => idc_asset('assets/icons/tx-viscos.svg'),
+			'intro' => '',
 			'faqs'  => [
 				[
-					'question' => 'O que é?',
+					'question' => 'O que é',
 					'answer'   => 'A viscossuplementação é a infiltração de ácido hialurônico na articulação para melhorar a lubrificação, reduzir a dor e favorecer a mobilidade — especialmente em artrose e desgaste cartilaginoso.',
 				],
 				[
-					'question' => 'Quando considerar?',
+					'question' => 'Quando considerar',
 					'answer'   => 'Quando há dor articular, rigidez ou limitação ao caminhar, e o tratamento clínico ainda pode adiar ou evitar uma cirurgia. A indicação é definida após avaliação ortopédica.',
 				],
 				[
-					'question' => 'Como funciona?',
+					'question' => 'Como funciona',
 					'answer'   => 'O ácido hialurônico é aplicado diretamente na articulação em ambiente ambulatorial. O procedimento é rápido e visa restaurar a viscosidade do líquido sinovial.',
 				],
 				[
-					'question' => 'É seguro?',
-					'answer'   => 'Sim, quando realizado por profissional qualificado. Os riscos são baixos e podem incluir desconforto ou inchaço temporário no local da aplicação.',
+					'question' => 'É dolorido?',
+					'answer'   => 'O desconforto costuma ser leve e passageiro. Usamos técnica cuidadosa e, quando necessário, anestesia local para tornar a aplicação mais confortável.',
 				],
 				[
 					'question' => 'Quantas aplicações são necessárias?',
@@ -140,18 +141,19 @@ function idc_default_ortopedia_treatments(): array {
 		],
 		[
 			'title' => 'Ozonioterapia',
-			'intro' => 'Protocolo regenerativo com ozônio medicinal que estimula a resposta celular em músculos, tendões e articulações — com foco em alívio da dor e recuperação funcional.',
+			'icon'  => idc_asset('assets/icons/tx-ozonio.svg'),
+			'intro' => '',
 			'faqs'  => [
 				[
-					'question' => 'O que é?',
+					'question' => 'O que é',
 					'answer'   => 'A ozonioterapia utiliza uma mistura de oxigênio e ozônio medicinal em doses controladas para modular inflamação, melhorar oxigenação local e apoiar a regeneração tecidual.',
 				],
 				[
-					'question' => 'Quando considerar?',
+					'question' => 'Quando considerar',
 					'answer'   => 'Em dor musculoesquelética, processos inflamatórios e reabilitação quando o objetivo é um caminho conservador e regenerativo, sempre sob indicação médica.',
 				],
 				[
-					'question' => 'Como funciona?',
+					'question' => 'Como funciona',
 					'answer'   => 'O gás é aplicado conforme o protocolo (local ou sistêmico) definido pelo especialista. As sessões são curtas e fazem parte de um plano individualizado.',
 				],
 				[
@@ -306,6 +308,38 @@ function idc_default_strip_cta(): array {
 		'idc_strip_lead'  => 'Agende sua avaliação e fale com nossa equipe pelo WhatsApp.',
 		'idc_strip_label' => 'Fale via WhatsApp',
 	];
+}
+
+/**
+ * Strip CTA alinhado ao Figma por slug de página.
+ *
+ * @return array{idc_strip_title:string,idc_strip_lead:string,idc_strip_label:string}
+ */
+function idc_default_strip_cta_for_slug(string $slug): array {
+	$by_slug = [
+		'especialidades' => [
+			'idc_strip_title' => 'Dúvidas sobre por onde começar?',
+			'idc_strip_lead'  => 'Nossa equipe está pronta para orientar você sobre a melhor abordagem para o seu caso.',
+			'idc_strip_label' => 'Fale via WhatsApp',
+		],
+		'ortopedia-regenerativa' => [
+			'idc_strip_title' => 'Pronto para iniciar seu cuidado?',
+			'idc_strip_lead'  => '',
+			'idc_strip_label' => 'Fale via WhatsApp',
+		],
+		'fisioterapia' => [
+			'idc_strip_title' => 'Pronto para iniciar sua reabilitação?',
+			'idc_strip_lead'  => '',
+			'idc_strip_label' => 'Fale via WhatsApp',
+		],
+		'medicina-integrativa' => [
+			'idc_strip_title' => 'Pronto para buscar um equilíbrio sistêmico para sua saúde?',
+			'idc_strip_lead'  => '',
+			'idc_strip_label' => 'Fale via WhatsApp',
+		],
+	];
+
+	return $by_slug[$slug] ?? idc_default_strip_cta();
 }
 
 /**
