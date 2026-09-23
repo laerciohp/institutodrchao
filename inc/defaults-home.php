@@ -96,28 +96,48 @@ function idc_default_why_items(): array {
 }
 
 /**
+ * Depoimentos padrão — reviews reais de https://www.institutodrchao.com.br/
+ * no formato Figma (rating, quote, name, role).
+ *
  * @return list<array{rating:int,quote:string,name:string,role:string}>
  */
 function idc_default_testimonials(): array {
-	// Figma 133:493 — três cards (sem reviews extras do Google).
 	return [
 		[
 			'rating' => 5,
-			'quote'  => 'Atendimento excepcional desde a recepção até o consultório. A equipe de fisioterapia me ajudou a recuperar os movimentos que achei que tinha perdido para sempre.',
-			'name'   => 'Maria Silva',
+			'quote'  => 'Ótimo espaço. Desde a pessoa que te recebe até o médico que finaliza o atendimento, todos muito atenciosos! Recomendo.',
+			'name'   => 'André Fagundes Cabral',
+			'role'   => 'Paciente',
+		],
+		[
+			'rating' => 5,
+			'quote'  => 'Ambiente acolhedor, excelentes funcionários e médicos. Super recomendo, faço aplicações no meu joelho com o Dr. Luiz. Mudou a qualidade da minha vida. Obrigada à família Instituto Dr. Chao.',
+			'name'   => 'Cida Rocha',
 			'role'   => 'Paciente Ortopedia',
 		],
 		[
 			'rating' => 5,
-			'quote'  => 'O Instituto mudou minha visão sobre tratamento de dor crônica. A acupuntura junto com a fisioterapia fizeram milagres na minha coluna.',
-			'name'   => 'João Mendes',
-			'role'   => 'Paciente Medicina Integrativa',
+			'quote'  => 'Sempre fui muito bem atendido na clínica por toda a equipe. Passo há anos com o Dr. Daniel, especialista em joelhos, e com o tratamento meu quadro hoje é estável e sem dor. Faço infiltrações semestrais com o Dr. e com o enfermeiro Cris, que sempre teve o tato para amenizar o procedimento. Recomendo!',
+			'name'   => 'Triguinho Zaga',
+			'role'   => 'Paciente Ortopedia',
 		],
 		[
 			'rating' => 5,
-			'quote'  => 'A cirurgia foi um sucesso e todo o acompanhamento pós-operatório me deu muita segurança. Profissionais extremamente competentes.',
-			'name'   => 'Ana Costa',
-			'role'   => 'Paciente Cirurgia',
+			'quote'  => 'Dr. Chao, um médico brilhante que dedicou a vida à cura. Seus sábios ensinamentos se perpetuam através da sua filha, a fantástica Dra. Débora, que trouxe uma nova visão da medicina moderna agregada à sabedoria do pai. Excelente atendimento de todos os funcionários, inclusive o querido Cris!',
+			'name'   => 'Renata Marinelli',
+			'role'   => 'Paciente',
+		],
+		[
+			'rating' => 5,
+			'quote'  => 'Acabei de passar com a Dra. Érica: médica maravilhosa, atenciosa e cuidadosa. Examina com cuidado, explica tudo com detalhes — estou encantada, nota 1000. A recepção também muito cordial e simpática. Estão de parabéns.',
+			'name'   => 'Nara Moura',
+			'role'   => 'Paciente',
+		],
+		[
+			'rating' => 5,
+			'quote'  => 'Sempre que preciso, sou muito bem atendida. Me sinto em casa — uma família que cuida muito bem de todos.',
+			'name'   => 'Elisa Marcia',
+			'role'   => 'Paciente',
 		],
 	];
 }

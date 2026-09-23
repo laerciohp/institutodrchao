@@ -379,3 +379,98 @@ if (!function_exists('idc_upgrade_11214_testimonials_meta')) {
 		}
 	}
 }
+
+/**
+ * v1.12.16 — Depoimentos reais da produção + seção Home ativa (Figma).
+ */
+if (!function_exists('idc_upgrade_11216_testimonials_prod')) {
+	function idc_upgrade_11216_testimonials_prod(): void {
+		if (function_exists('opcache_reset')) {
+			@opcache_reset();
+		}
+
+		idc_register_cpt_depoimento();
+
+		$old = get_posts([
+			'post_type'              => 'idc_depoimento',
+			'post_status'            => 'any',
+			'posts_per_page'         => -1,
+			'fields'                 => 'ids',
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+		]);
+		foreach ($old as $old_id) {
+			wp_delete_post((int) $old_id, true);
+		}
+
+		$items = idc_default_testimonials();
+		$order = 0;
+		foreach ($items as $row) {
+			if (!is_array($row)) {
+				continue;
+			}
+			$name  = trim((string) ($row['name'] ?? ''));
+			$quote = trim((string) ($row['quote'] ?? ''));
+			if ($name === '' && $quote === '') {
+				continue;
+			}
+			$post_id = wp_insert_post([
+				'post_type'    => 'idc_depoimento',
+				'post_status'  => 'publish',
+				'post_title'   => $name !== '' ? $name : __('Paciente', 'instituto-dr-chao'),
+				'post_content' => $quote,
+				'menu_order'   => $order++,
+			], true);
+			if (is_wp_error($post_id) || $post_id <= 0) {
+				continue;
+			}
+			idc_dep_save_fields(
+				(int) $post_id,
+				(int) ($row['rating'] ?? 5),
+				$quote,
+				(string) ($row['role'] ?? 'Paciente')
+			);
+		}
+
+		$badge = '5.0 Avaliação Média';
+		$title = 'O que dizem nossos pacientes';
+		$targets = ['option'];
+		$front_id = (int) get_option('page_on_front');
+		if ($front_id > 0) {
+			$targets[] = $front_id;
+		}
+
+		if (function_exists('update_field')) {
+			foreach ($targets as $target) {
+				update_field('idc_testimonials_badge', $badge, $target);
+				update_field('idc_testimonials_title', $title, $target);
+				update_field('idc_testimonials', $items, $target);
+			}
+
+			// Garante a seção Depoimentos na ordem Figma da Home.
+			foreach ($targets as $target) {
+				$sections = get_field('idc_home_sections', $target);
+				if (!is_array($sections) || $sections === []) {
+					update_field('idc_home_sections', idc_default_home_sections(), $target);
+					continue;
+				}
+				$has = false;
+				foreach ($sections as $row) {
+					if (!is_array($row)) {
+						continue;
+					}
+					$type = (string) ($row['acf_fc_layout'] ?? $row['section'] ?? '');
+					if ($type === 'testimonials') {
+						$has = true;
+						break;
+					}
+				}
+				if (!$has) {
+					$sections[] = ['acf_fc_layout' => 'testimonials'];
+					update_field('idc_home_sections', $sections, $target);
+				}
+			}
+		}
+	}
+}
