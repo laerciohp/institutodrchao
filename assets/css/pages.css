@@ -1320,16 +1320,19 @@
 	}
 }
 
+/* Figma 133:2935 — duas colunas iguais (flex + stretch = mesma altura) */
 .idc-contato__grid {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	gap: var(--idc-space-6);
 	margin-bottom: var(--idc-space-10);
+	align-items: stretch;
 }
 
 @media (min-width: 1024px) {
 	.idc-contato__grid {
-		grid-template-columns: 1fr 1fr;
-		gap: var(--idc-space-12);
+		flex-direction: row;
+		gap: 48px;
 		align-items: stretch;
 		margin-bottom: var(--idc-space-12);
 	}
@@ -1339,28 +1342,34 @@
 .idc-contato__aside {
 	border-radius: 34px;
 	padding: var(--idc-space-5);
-	height: 100%;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
+	flex: 1 1 0;
+	min-width: 0;
+	min-height: 100%;
+	align-self: stretch;
 }
 
 .idc-contato__form-wrap {
 	background: var(--idc-white);
-	border: 1px solid var(--idc-sand);
+	border: 1px solid #e5e2dd;
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .idc-contato__form {
-	flex: 1;
+	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
+	gap: 0;
+	min-height: 0;
 }
 
 .idc-contato__submit {
 	margin-top: auto;
-	background: var(--idc-terracota-700);
-	border-color: var(--idc-terracota-700);
+	align-self: flex-start;
+	background: #96602f;
+	border-color: #96602f;
 	color: #fff;
 }
 
@@ -1372,7 +1381,7 @@
 
 /* Figma 133:2983 — card direto em #f3e9db */
 .idc-contato__aside {
-	background: var(--idc-sand-warm);
+	background: #f3e9db;
 	border: 1px solid rgba(229, 226, 221, 0.5);
 	box-shadow: none;
 }
@@ -1448,9 +1457,13 @@
 	background: #f6f3ee;
 }
 
-.idc-contato .idc-form__input::placeholder,
-.idc-contato .idc-form__textarea::placeholder {
-	color: #c5c6cd;
+.idc-contato__form .idc-form__row--check {
+	margin-top: var(--idc-space-2);
+	margin-bottom: var(--idc-space-2);
+}
+
+.idc-contato__form .idc-form__row:last-of-type {
+	margin-bottom: 0;
 }
 
 .idc-contato__directs {
@@ -1490,8 +1503,8 @@
 
 /* Figma 133:2987 — WhatsApp marrom da marca (não verde) */
 .idc-contato__direct--wa {
-	background: var(--idc-terracota-700);
-	border-color: var(--idc-terracota-700);
+	background: #96602f;
+	border-color: #96602f;
 	color: #fff;
 }
 
@@ -1604,7 +1617,7 @@
 	opacity: 0.85;
 }
 
-/* Figma 133:2909 — mapa ilustrado + card de vidro (compartilhado Contato/Carreiras) */
+/* Figma 133:2909 — Google Maps real + card de vidro (Contato/Carreiras) */
 .idc-map,
 .idc-contato__map {
 	position: relative;
@@ -1615,12 +1628,10 @@
 	background: #f6f3ee;
 	min-height: 280px;
 	height: 280px;
-	text-decoration: none;
-	color: inherit;
 	isolation: isolate;
 }
 
-.idc-map__media,
+.idc-map__frame,
 .idc-contato__map-frame {
 	position: absolute;
 	inset: 0;
@@ -1629,15 +1640,8 @@
 	height: 100%;
 	border: 0;
 	opacity: 0.5;
-	pointer-events: none;
-}
-
-.idc-map__img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	object-position: center 42%;
+	filter: grayscale(0.25) saturate(0.7) brightness(1.06);
+	pointer-events: auto;
 }
 
 .idc-map__card,
@@ -1648,6 +1652,7 @@
 	transform: translate(-50%, -50%);
 	z-index: 2;
 	width: min(272px, calc(100% - 48px));
+	max-width: 384px;
 	padding: 25px;
 	background: rgba(255, 255, 255, 0.4);
 	backdrop-filter: blur(8px);
@@ -1659,8 +1664,10 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	pointer-events: none;
+	text-decoration: none;
+	color: inherit;
 	box-sizing: border-box;
+	pointer-events: auto;
 }
 
 .idc-map__card-pin,
@@ -1693,9 +1700,8 @@
 	color: var(--idc-ink);
 }
 
-.idc-map:hover .idc-map__card,
-.idc-contato__map:hover .idc-map__card,
-.idc-contato__map:hover .idc-contato__map-card {
+.idc-map__card:hover,
+.idc-contato__map-card:hover {
 	background: rgba(255, 255, 255, 0.55);
 }
 
