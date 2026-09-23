@@ -7,9 +7,9 @@
 
 $eyebrow   = (string) idc_option('idc_hero_eyebrow', 'INSTITUTO DR. CHAO');
 $since     = (string) idc_option('idc_hero_since', 'DESDE 1987');
-$before    = (string) idc_option('idc_hero_title_before', 'A dor não precisa definir a');
-$accent    = (string) idc_option('idc_hero_title_accent', 'sua vida.');
-$after     = (string) idc_option('idc_hero_title_after', '');
+$before    = (string) idc_option('idc_hero_title_before', 'Tratamos a');
+$accent    = (string) idc_option('idc_hero_title_accent', 'origem da dor.');
+$after     = (string) idc_option('idc_hero_title_after', ' Você sente a mudança.');
 $lead      = (string) idc_option(
 	'idc_hero_lead',
 	"Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo."
@@ -19,19 +19,21 @@ $cta_sec   = (string) idc_option('idc_hero_cta_secondary', 'Conheça os tratamen
 $cta_sec_u = (string) idc_option('idc_hero_cta_secondary_url', home_url('/especialidades/'));
 $image     = idc_option('idc_hero_image', null);
 
-$image_url = idc_asset('assets/images/hero-photo.png');
+// Preferência: PNG Figma → PNG legado → JPG.
+$image_url = idc_theme_image('assets/images/hero-photo-figma', 'png');
+if (!is_readable(IDC_THEME_DIR . '/assets/images/hero-photo-figma.png')) {
+	$image_url = idc_theme_image('assets/images/hero-photo', 'jpg');
+}
 $image_alt = __('Paciente em ambiente acolhedor do Instituto Dr. Chao', 'instituto-dr-chao');
 
 if (is_array($image) && !empty($image['url'])) {
 	$image_url = $image['url'];
 	$image_alt = $image['alt'] ?: $image_alt;
-} elseif (!is_readable(IDC_THEME_DIR . '/assets/images/hero-photo.png')) {
-	$image_url = idc_asset('assets/images/hero-photo.jpg');
 }
 ?>
 <section class="idc-hero" aria-labelledby="idc-hero-title">
 	<div class="idc-hero__bg" aria-hidden="true">
-		<img src="<?php echo esc_url(idc_asset('assets/images/hero-bg.svg')); ?>" alt="" decoding="async">
+		<img src="<?php echo esc_url(idc_asset(is_readable(IDC_THEME_DIR . '/assets/icons/hero-bg-pattern.svg') ? 'assets/icons/hero-bg-pattern.svg' : 'assets/images/hero-bg.svg')); ?>" alt="" decoding="async">
 	</div>
 
 	<div class="idc-container">

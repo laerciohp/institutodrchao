@@ -35,10 +35,8 @@ function idc_default_pillars_cards(): array {
 			'link_label' => 'Saber mais',
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
 			'tone'       => 'sand',
-			'icon'       => idc_asset('assets/icons/icon-ortopedia.svg'),
-			'image'      => is_readable(IDC_THEME_DIR . '/assets/images/pillar-ortopedia-figma.png')
-				? idc_asset('assets/images/pillar-ortopedia-figma.png')
-				: idc_asset('assets/images/pillar-ortopedia.png'),
+			'icon'       => idc_asset('assets/icons/icon-ortopedia-figma.svg'),
+			'image'      => idc_theme_image('assets/images/pillar-ortopedia-figma', 'png'),
 		],
 		[
 			'layout'     => 'narrow',
@@ -47,7 +45,7 @@ function idc_default_pillars_cards(): array {
 			'link_label' => 'Explorar',
 			'link_url'   => home_url('/fisioterapia/'),
 			'tone'       => 'mint',
-			'icon'       => idc_asset('assets/icons/icon-fisio.svg'),
+			'icon'       => idc_asset('assets/icons/icon-fisioterapia-figma.svg'),
 		],
 		[
 			'layout'     => 'narrow',
@@ -56,7 +54,7 @@ function idc_default_pillars_cards(): array {
 			'link_label' => 'Explorar',
 			'link_url'   => home_url('/medicina-integrativa/'),
 			'tone'       => 'lavender',
-			'icon'       => idc_asset('assets/icons/icon-integrativa.svg'),
+			'icon'       => idc_asset('assets/icons/icon-integrativa-figma.svg'),
 		],
 		[
 			'layout'       => 'cta',
@@ -77,22 +75,22 @@ function idc_default_why_items(): array {
 		[
 			'title' => 'Corpo Clínico Renomado',
 			'text'  => 'Especialistas formados nos maiores centros do país.',
-			'icon'  => idc_asset('assets/icons/diff-1.svg'),
+			'icon'  => idc_asset('assets/icons/diff-1-figma.svg'),
 		],
 		[
 			'title' => 'Abordagem Individual',
 			'text'  => 'Cada plano de tratamento é único, assim como você.',
-			'icon'  => idc_asset('assets/icons/diff-2.svg'),
+			'icon'  => idc_asset('assets/icons/diff-2-figma.svg'),
 		],
 		[
 			'title' => 'Estrutura Completa',
 			'text'  => 'Da consulta à reabilitação no mesmo local.',
-			'icon'  => idc_asset('assets/icons/diff-3.svg'),
+			'icon'  => idc_asset('assets/icons/diff-3-figma.svg'),
 		],
 		[
 			'title' => 'Atendimento Humanizado',
 			'text'  => 'Nosso foco é o seu bem-estar integral.',
-			'icon'  => idc_asset('assets/icons/diff-4.svg'),
+			'icon'  => idc_asset('assets/icons/diff-4-figma.svg'),
 		],
 	];
 }

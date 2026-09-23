@@ -406,13 +406,18 @@
 }
 
 .idc-hub-card__media {
-	/* Figma 133:1041 — Img:margin 33 / 224 */
+	/* Figma 133:1041 — media ~192px, radius ~13 */
 	margin: 33px 33px 0;
-	height: 224px;
+	height: 192px;
 	aspect-ratio: auto;
 	overflow: hidden;
+	background: transparent;
+	border-radius: 13px;
+}
+
+.idc-hub-card__media:not(:has(img)),
+.idc-hub-card__media--placeholder {
 	background: var(--idc-sand);
-	border-radius: 24px;
 }
 
 @media (min-width: 1024px) {
@@ -427,6 +432,7 @@
 	object-fit: cover;
 	object-position: center;
 	display: block;
+	border-radius: 13px;
 }
 
 .idc-hub-card__body {

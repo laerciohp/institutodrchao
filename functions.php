@@ -320,6 +320,7 @@ function idc_maybe_run_theme_upgrade(): void {
 	idc_upgrade_187_layout_cms();
 	idc_upgrade_188_layout_cms();
 	idc_upgrade_189_layout_cms();
+	idc_upgrade_190_layout_cms();
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -651,6 +652,68 @@ function idc_upgrade_189_layout_cms(): void {
 	update_field('idc_why_items', $why_items, 'option');
 	if ($front_id > 0) {
 		update_field('idc_why_items', $why_items, $front_id);
+	}
+}
+
+/**
+ * v1.9.0 — Home Figma SRIgo (hero/pilares/why/hub) + Instituto essência.
+ */
+function idc_upgrade_190_layout_cms(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$hero = [
+		'idc_hero_title_before'  => 'Tratamos a',
+		'idc_hero_title_accent'  => 'origem da dor.',
+		'idc_hero_title_after'   => ' Você sente a mudança.',
+		'idc_hero_lead'          => "Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo.",
+		'idc_hero_cta_primary'   => 'Agendar Consulta',
+		'idc_hero_cta_secondary' => 'Conheça os tratamentos',
+	];
+
+	foreach ($hero as $key => $value) {
+		update_field($key, $value, 'option');
+	}
+
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		foreach ($hero as $key => $value) {
+			update_field($key, $value, $front_id);
+		}
+		update_field('idc_hero_image', null, $front_id);
+		update_field('idc_why_image', null, $front_id);
+		update_field('idc_pillars_cards', idc_default_pillars_cards(), $front_id);
+		update_field('idc_why_items', idc_default_why_items(), $front_id);
+	}
+
+	update_field('idc_hero_image', null, 'option');
+	update_field('idc_why_image', null, 'option');
+	update_field('idc_pillars_cards', idc_default_pillars_cards(), 'option');
+	update_field('idc_why_items', idc_default_why_items(), 'option');
+	update_field('idc_footer_copy', 'Instituto Dr. Chao. Todos os direitos reservados.', 'option');
+
+	$hub = get_page_by_path('especialidades');
+	if ($hub instanceof WP_Post) {
+		update_field('idc_hub_cards', idc_default_hub_cards(), (int) $hub->ID);
+	}
+
+	$orto = get_page_by_path('ortopedia-regenerativa');
+	if ($orto instanceof WP_Post) {
+		update_field('idc_orto_treatments', idc_default_ortopedia_treatments(), (int) $orto->ID);
+	}
+
+	$inst = get_page_by_path('o-instituto');
+	if ($inst instanceof WP_Post) {
+		update_field('idc_instituto_essencia_eyebrow', 'NOSSA ESSÊNCIA', (int) $inst->ID);
+		update_field('idc_instituto_essencia_title', 'Cuidado que une experiência, ciência e acolhimento', (int) $inst->ID);
+		update_field(
+			'idc_instituto_essencia_lead',
+			'Desde 1987, o Instituto Dr. Chao une precisão ortopédica, reabilitação e medicina integrativa para tratar a origem da dor — com ciência, escuta e acolhimento.',
+			(int) $inst->ID
+		);
+		update_field('idc_instituto_cards', idc_default_instituto_cards(), (int) $inst->ID);
+		update_field('idc_instituto_image', null, (int) $inst->ID);
 	}
 }
 

@@ -15,7 +15,7 @@ $essencia_title = function_exists('get_field') && get_field('idc_instituto_essen
 
 $essencia_lead = function_exists('get_field') && get_field('idc_instituto_essencia_lead')
 	? (string) get_field('idc_instituto_essencia_lead')
-	: '';
+	: 'Desde 1987, o Instituto Dr. Chao une precisão ortopédica, reabilitação e medicina integrativa para tratar a origem da dor — com ciência, escuta e acolhimento.';
 
 $cards = function_exists('get_field') ? get_field('idc_instituto_cards') : null;
 if (!is_array($cards) || $cards === []) {

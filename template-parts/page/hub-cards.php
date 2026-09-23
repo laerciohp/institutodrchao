@@ -13,25 +13,33 @@ if (!is_array($cards) || $cards === []) {
 	$acf_cards = function_exists('get_field') ? get_field('idc_hub_cards') : null;
 	$cards     = is_array($acf_cards) && $acf_cards !== [] ? $acf_cards : idc_default_hub_cards();
 }
+
+$theme_fallbacks = [
+	idc_theme_image('assets/images/pages/hub-ortopedia'),
+	idc_theme_image('assets/images/pages/hub-fisio'),
+	idc_theme_image('assets/images/pages/hub-integrativa'),
+];
 ?>
 <section class="idc-hub-cards" aria-label="<?php esc_attr_e('Nossas especialidades', 'instituto-dr-chao'); ?>">
 	<div class="idc-container">
 		<div class="idc-hub-cards__grid">
-			<?php foreach ($cards as $card) :
+			<?php foreach ($cards as $index => $card) :
 				$title = (string) ($card['title'] ?? '');
 				$text  = (string) ($card['text'] ?? '');
 				$label = (string) ($card['link_label'] ?? __('Saiba mais', 'instituto-dr-chao'));
 				$url   = (string) ($card['link_url'] ?? '');
 				$tone  = sanitize_html_class((string) ($card['tone'] ?? 'sand'));
-				$image = idc_image_url($card['image'] ?? null, is_string($card['image'] ?? null) ? (string) $card['image'] : '');
-				$alt   = idc_image_alt($card['image'] ?? null, $title);
+				$fallback = $theme_fallbacks[(int) $index] ?? $theme_fallbacks[0];
+				$image = idc_image_url($card['image'] ?? null, is_string($card['image'] ?? null) ? (string) $card['image'] : $fallback);
+				if ($image === '') {
+					$image = $fallback;
+				}
+				$alt = idc_image_alt($card['image'] ?? null, $title);
 				?>
 				<article class="idc-hub-card idc-hub-card--<?php echo esc_attr($tone); ?>">
-					<?php if ($image !== '') : ?>
-						<figure class="idc-hub-card__media">
-							<img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($alt); ?>" width="360" height="240" decoding="async">
-						</figure>
-					<?php endif; ?>
+					<figure class="idc-hub-card__media">
+						<img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($alt); ?>" width="360" height="192" decoding="async" loading="lazy">
+					</figure>
 					<div class="idc-hub-card__body">
 						<h2 class="idc-hub-card__title"><?php echo esc_html($title); ?></h2>
 						<p class="idc-hub-card__text"><?php echo esc_html($text); ?></p>

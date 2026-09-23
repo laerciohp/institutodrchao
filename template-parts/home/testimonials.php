@@ -39,7 +39,7 @@ $total = count($items);
 									<img src="<?php echo esc_url(idc_asset('assets/icons/star-sm.svg')); ?>" alt="" width="20" height="19" decoding="async">
 								<?php endfor; ?>
 							</div>
-							<p class="idc-testimonial__quote">&ldquo;<?php echo esc_html($quote); ?>&rdquo;</p>
+							<p class="idc-testimonial__quote"><?php echo esc_html($quote); ?></p>
 							<footer class="idc-testimonial__author">
 								<?php
 								$initials = '';

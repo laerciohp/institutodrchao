@@ -20,7 +20,7 @@ function idc_default_hub_cards(): array {
 	return [
 		[
 			'title'      => 'Ortopedia Regenerativa',
-			'text'       => 'Diagnóstico preciso e tratamentos cirúrgicos ou conservadores de alta complexidade, com foco na regeneração tecidual e recuperação funcional.',
+			'text'       => 'Foco em precisão e tecnologia avançada para tratar lesões e condições ortopédicas complexas, promovendo a regeneração tecidual e alívio da dor com intervenções minimamente invasivas.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
 			'image'      => idc_theme_image('assets/images/pages/hub-ortopedia'),
@@ -28,7 +28,7 @@ function idc_default_hub_cards(): array {
 		],
 		[
 			'title'      => 'Fisioterapia Especializada em Dor',
-			'text'       => 'Reabilitação física com protocolos personalizados para dor crônica e recuperação de movimento, em ambiente amplo e acolhedor.',
+			'text'       => 'Abordagem centrada no movimento e na recuperação funcional. Tratamentos personalizados para gerenciar e resolver quadros de dor aguda e crônica, restaurando a qualidade de vida.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/fisioterapia/'),
 			'image'      => idc_theme_image('assets/images/pages/hub-fisio'),
@@ -36,7 +36,7 @@ function idc_default_hub_cards(): array {
 		],
 		[
 			'title'      => 'Medicina Integrativa e Regenerativa',
-			'text'       => 'Acupuntura, controle da dor e suporte nutricional. Olhamos para o corpo como um sistema interconectado, potencializando a cura.',
+			'text'       => 'Um olhar global sobre a sua saúde, buscando o equilíbrio do corpo e da mente. Terapias complementares que potencializam os resultados dos tratamentos principais e promovem o bem-estar sistêmico.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/medicina-integrativa/'),
 			'image'      => idc_theme_image('assets/images/pages/hub-integrativa'),
@@ -54,7 +54,7 @@ function idc_default_instituto_cards(): array {
 	return [
 		[
 			'title' => 'Experiência desde 1987',
-			'text'  => 'Tradição consolidada em diagnósticos precisos e tratamentos eficazes.',
+			'text'  => 'Tradição consolidada em diagnósticos precisos e tratamentos eficazes — quase quatro décadas dedicadas ao cuidado ortopédico.',
 			'icon'  => idc_asset('assets/icons/inst-1.svg'),
 		],
 		[

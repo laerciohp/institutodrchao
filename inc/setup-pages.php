@@ -552,10 +552,10 @@ function idc_setup_seed_page_fields(array $page_ids): void {
 	if (!empty($page_ids['o-instituto'])) {
 		$inst = $page_ids['o-instituto'];
 		idc_setup_update_field_if_empty('idc_instituto_essencia_eyebrow', 'NOSSA ESSÊNCIA', $inst);
-		idc_setup_update_field_if_empty('idc_instituto_essencia_title', 'O que nos move', $inst);
+		idc_setup_update_field_if_empty('idc_instituto_essencia_title', 'Cuidado que une experiência, ciência e acolhimento', $inst);
 		idc_setup_update_field_if_empty(
 			'idc_instituto_essencia_lead',
-			'Unimos precisão médica e acolhimento humano para que cada paciente recupere o ritmo natural da sua vida.',
+			'Desde 1987, o Instituto Dr. Chao une precisão ortopédica, reabilitação e medicina integrativa para tratar a origem da dor — com ciência, escuta e acolhimento.',
 			$inst
 		);
 		idc_setup_update_field_if_empty('idc_instituto_cards', idc_default_instituto_cards(), $inst);

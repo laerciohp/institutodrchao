@@ -167,7 +167,7 @@
 }
 
 .idc-pillar {
-	border: 1px solid rgba(197, 198, 205, 0.1);
+	border: 1px solid rgba(197, 198, 205, 0.12);
 	border-radius: var(--idc-radius-lg);
 	padding: var(--idc-space-6);
 	display: flex;
@@ -176,6 +176,7 @@
 	gap: var(--idc-space-4);
 	min-height: 280px;
 	min-width: 0;
+	box-shadow: var(--idc-shadow-sm);
 }
 
 @media (min-width: 600px) {
@@ -252,8 +253,8 @@
 	position: absolute;
 	inset: 0;
 	z-index: 0;
-	background: url("../icons/decor-root.svg") no-repeat center 58% / min(1300px, 160%) auto;
-	opacity: 0.22;
+	background: url("../icons/pillars-cta-pattern.svg") no-repeat center 58% / min(1300px, 160%) auto;
+	opacity: 0.28;
 	pointer-events: none;
 }
 
@@ -581,10 +582,22 @@
 }
 
 .idc-testimonial__quote {
-	font-size: var(--idc-text-md);
+	font-family: var(--idc-font-serif);
+	font-size: var(--idc-text-lg);
 	line-height: 28px;
 	color: var(--idc-ink);
 	flex: 1;
+}
+
+.idc-testimonial__quote::before {
+	content: "“";
+	font-family: var(--idc-font-serif);
+	font-weight: 700;
+	font-size: 40px;
+	line-height: 0;
+	color: var(--idc-ouro);
+	margin-right: 4px;
+	vertical-align: -0.15em;
 }
 
 .idc-testimonial__author {
