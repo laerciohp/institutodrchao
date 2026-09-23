@@ -31,6 +31,10 @@ $aside_title = function_exists('get_field') && get_field('idc_contato_aside_titl
 $whatsapp_label = function_exists('get_field') && get_field('idc_contato_whatsapp_label')
 	? (string) get_field('idc_contato_whatsapp_label')
 	: __('Iniciar conversa no WhatsApp', 'instituto-dr-chao');
+// Migração Figma 133:2904 — label antigo do seed.
+if ($whatsapp_label === '' || $whatsapp_label === 'Conversar no WhatsApp') {
+	$whatsapp_label = __('Iniciar conversa no WhatsApp', 'instituto-dr-chao');
+}
 
 $label_nome     = (string) idc_page_field('idc_contato_label_nome', __('Nome completo', 'instituto-dr-chao'));
 $label_email    = (string) idc_page_field('idc_contato_label_email', __('E-mail', 'instituto-dr-chao'));
@@ -43,6 +47,14 @@ $label_horario  = (string) idc_page_field('idc_contato_label_horario', __('Horá
 $label_maps     = (string) idc_page_field('idc_contato_label_maps', __('Como chegar no Google Maps', 'instituto-dr-chao'));
 $label_ligar    = (string) idc_page_field('idc_contato_label_ligar', __('Ligar para clínica', 'instituto-dr-chao'));
 $label_mail_btn = (string) idc_page_field('idc_contato_label_email_btn', __('Enviar e-mail', 'instituto-dr-chao'));
+
+// Labels legados do seed pré-Figma.
+if ($label_maps === 'Ver no Google Maps') {
+	$label_maps = __('Como chegar no Google Maps', 'instituto-dr-chao');
+}
+if ($form_lead === 'Preencha o formulário e retornaremos o mais breve possível.') {
+	$form_lead = '';
+}
 
 $map_src = (string) idc_option(
 	'idc_map_embed',
