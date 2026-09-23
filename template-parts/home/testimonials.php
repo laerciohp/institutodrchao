@@ -5,7 +5,7 @@
  * @package Instituto_Dr_Chao
  */
 
-$badge = (string) idc_option('idc_testimonials_badge', '4.9 · 742 avaliações');
+$badge = (string) idc_option('idc_testimonials_badge', '5.0 Avaliação Média');
 $title = (string) idc_option('idc_testimonials_title', 'O que dizem nossos pacientes');
 $items = idc_option('idc_testimonials', []);
 if (!is_array($items) || $items === []) {
@@ -23,12 +23,13 @@ $total = count($items);
 			<h2 id="idc-testimonials-title" class="idc-testimonials__title"><?php echo esc_html($title); ?></h2>
 		</header>
 
-		<div class="idc-testimonials__carousel" data-idc-carousel data-idc-autoplay="6000">
+		<div class="idc-testimonials__carousel" data-idc-carousel data-idc-autoplay="<?php echo $total > 3 ? '6000' : '0'; ?>">
 			<div class="idc-testimonials__viewport">
 				<div class="idc-testimonials__track" data-idc-carousel-track>
 					<?php foreach ($items as $item) :
 						$rating = max(1, min(5, (int) ($item['rating'] ?? 5)));
-						$quote  = (string) ($item['quote'] ?? '');
+						$quote  = trim((string) ($item['quote'] ?? ''));
+						$quote  = preg_replace('/^[“"„«]\s*|\s*[”"»]$/u', '', $quote) ?? $quote;
 						$name   = (string) ($item['name'] ?? '');
 						$role   = (string) ($item['role'] ?? '');
 						$photo  = idc_image_url($item['photo'] ?? null);
@@ -39,7 +40,7 @@ $total = count($items);
 									<img src="<?php echo esc_url(idc_asset('assets/icons/star-sm.svg')); ?>" alt="" width="20" height="19" decoding="async">
 								<?php endfor; ?>
 							</div>
-							<p class="idc-testimonial__quote"><?php echo esc_html($quote); ?></p>
+							<p class="idc-testimonial__quote">“<?php echo esc_html($quote); ?>”</p>
 							<footer class="idc-testimonial__author">
 								<?php
 								$initials = '';

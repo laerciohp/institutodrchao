@@ -99,42 +99,25 @@ function idc_default_why_items(): array {
  * @return list<array{rating:int,quote:string,name:string,role:string}>
  */
 function idc_default_testimonials(): array {
+	// Figma 133:493 — três cards (sem reviews extras do Google).
 	return [
 		[
 			'rating' => 5,
 			'quote'  => 'Atendimento excepcional desde a recepção até o consultório. A equipe de fisioterapia me ajudou a recuperar os movimentos que achei que tinha perdido para sempre.',
 			'name'   => 'Maria Silva',
-			'role'   => 'Paciente de Fisioterapia',
+			'role'   => 'Paciente Ortopedia',
 		],
 		[
 			'rating' => 5,
 			'quote'  => 'O Instituto mudou minha visão sobre tratamento de dor crônica. A acupuntura junto com a fisioterapia fizeram milagres na minha coluna.',
-			'name'   => 'Carlos Mendes',
-			'role'   => 'Paciente de Medicina Integrativa',
+			'name'   => 'João Mendes',
+			'role'   => 'Paciente Medicina Integrativa',
 		],
 		[
 			'rating' => 5,
 			'quote'  => 'A cirurgia foi um sucesso e todo o acompanhamento pós-operatório me deu muita segurança. Profissionais extremamente competentes.',
-			'name'   => 'Ana Paula',
-			'role'   => 'Paciente de Ortopedia',
-		],
-		[
-			'rating' => 5,
-			'quote'  => 'Ótimo espaço. Desde a pessoa que te recebe até o médico que finaliza o atendimento, todos muito atenciosos! Recomendo',
-			'name'   => 'André Fagundes Cabral',
-			'role'   => 'Google Reviews',
-		],
-		[
-			'rating' => 5,
-			'quote'  => 'Ambiente acolhedor, excelentes funcionários e médicos. Super recomendo, faço aplicações no meu joelho, com o Dr. Luiz. Mudou a qualidade da minha vida.',
-			'name'   => 'Cida Rocha',
-			'role'   => 'Google Reviews',
-		],
-		[
-			'rating' => 5,
-			'quote'  => 'Sempre fui muito bem atendido… Passo há anos com o Dr Daniel, especialista em joelhos… Recomendo!',
-			'name'   => 'Triguinho zaga',
-			'role'   => 'Google Reviews',
+			'name'   => 'Ana Costa',
+			'role'   => 'Paciente Cirurgia',
 		],
 	];
 }

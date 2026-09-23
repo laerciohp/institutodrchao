@@ -370,6 +370,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('1124', 'idc_upgrade_1124_pillar_image');
 	idc_run_upgrade_once('1125', 'idc_upgrade_1125_home_figma_images');
 	idc_run_upgrade_once('1127', 'idc_upgrade_1127_pillar_attached');
+	idc_run_upgrade_once('11210', 'idc_upgrade_11210_testimonials_figma');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -397,6 +398,7 @@ function idc_run_theme_upgrade_steps(): void {
 			'idc_why_lead',
 			'idc_why_items',
 			'idc_why_image',
+			'idc_testimonials_badge',
 			'idc_testimonials_title',
 			'idc_testimonials',
 			'idc_team_title',
@@ -978,6 +980,29 @@ function idc_upgrade_1127_pillar_attached(): void {
 		}
 		unset($card);
 		update_field('idc_pillars_cards', $cards, $target);
+	}
+}
+
+/**
+ * v1.12.10 — Depoimentos alinhados ao Figma 133:493 (badge + 3 cards).
+ */
+function idc_upgrade_11210_testimonials_figma(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$badge = '5.0 Avaliação Média';
+	$items = idc_default_testimonials();
+	$targets = ['option'];
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$targets[] = $front_id;
+	}
+
+	foreach ($targets as $target) {
+		update_field('idc_testimonials_badge', $badge, $target);
+		update_field('idc_testimonials_title', 'O que dizem nossos pacientes', $target);
+		update_field('idc_testimonials', $items, $target);
 	}
 }
 

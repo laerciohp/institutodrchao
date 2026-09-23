@@ -471,7 +471,7 @@ function idc_setup_seed_home_options(): void {
 		'idc_why_eyebrow'            => 'DIFERENCIAIS',
 		'idc_why_title'              => 'Por que escolher o Instituto Dr. Chao?',
 		'idc_why_lead'               => 'Unimos a precisão da medicina moderna com o acolhimento humano em um só lugar.',
-		'idc_testimonials_badge'     => '5.0 · 193 avaliações',
+		'idc_testimonials_badge'     => '5.0 Avaliação Média',
 		'idc_testimonials_title'     => 'O que dizem nossos pacientes',
 		'idc_team_title'             => 'Nosso Corpo Clínico',
 		'idc_team_lead'              => 'No Instituto Dr. Chao, a equipe de todos os setores abraça a missão de oferecer atendimento com cordialidade, acolhimento e empatia. Entendemos que cada pessoa carrega uma história única — e escutá-la com atenção é nossa responsabilidade.',

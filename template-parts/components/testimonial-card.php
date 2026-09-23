@@ -15,7 +15,8 @@
  */
 
 $args   = isset($args) && is_array($args) ? $args : [];
-$quote  = (string) ($args['quote'] ?? '');
+$quote  = trim((string) ($args['quote'] ?? ''));
+$quote  = preg_replace('/^[“"„«]\s*|\s*[”"»]$/u', '', $quote) ?? $quote;
 $name   = (string) ($args['name'] ?? '');
 $role   = (string) ($args['role'] ?? '');
 $photo  = (string) ($args['photo'] ?? '');
@@ -31,11 +32,11 @@ if ($name !== '') {
 <blockquote class="<?php echo esc_attr($class); ?>">
 	<div class="idc-testimonial__stars" aria-label="<?php echo esc_attr(sprintf(/* translators: %d stars */ __('%d de 5 estrelas', 'instituto-dr-chao'), $rating)); ?>">
 		<?php for ($i = 0; $i < $rating; $i++) : ?>
-			<span aria-hidden="true">★</span>
+			<img src="<?php echo esc_url(idc_asset('assets/icons/star-sm.svg')); ?>" alt="" width="20" height="19" decoding="async">
 		<?php endfor; ?>
 	</div>
 	<?php if ($quote !== '') : ?>
-		<p class="idc-testimonial__quote"><?php echo esc_html($quote); ?></p>
+		<p class="idc-testimonial__quote">“<?php echo esc_html($quote); ?>”</p>
 	<?php endif; ?>
 	<footer class="idc-testimonial__author">
 		<div class="idc-testimonial__avatar"<?php echo $photo === '' && $initials !== '' ? ' data-initials="' . esc_attr($initials) . '"' : ''; ?>>
