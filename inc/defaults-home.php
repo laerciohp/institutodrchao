@@ -36,7 +36,9 @@ function idc_default_pillars_cards(): array {
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
 			'tone'       => 'sand',
 			'icon'       => idc_asset('assets/icons/icon-ortopedia.svg'),
-			'image'      => idc_asset('assets/images/pillar-ortopedia.png'),
+			'image'      => is_readable(IDC_THEME_DIR . '/assets/images/pillar-ortopedia-figma.png')
+				? idc_asset('assets/images/pillar-ortopedia-figma.png')
+				: idc_asset('assets/images/pillar-ortopedia.png'),
 		],
 		[
 			'layout'     => 'narrow',

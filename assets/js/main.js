@@ -289,7 +289,27 @@
 
 		buildDots();
 		goTo(0, false);
-		startAutoplay();
+
+		// Só inicia autoplay depois que a seção estiver visível (evita
+		// avançar slides enquanto .idc-reveal ainda tem opacity:0).
+		var section = root.closest('.idc-reveal') || root.closest('section');
+		function maybeStart() {
+			if (!section || section.classList.contains('is-visible') || !section.classList.contains('idc-reveal')) {
+				startAutoplay();
+				return true;
+			}
+			return false;
+		}
+		if (!maybeStart()) {
+			section.addEventListener('idc:reveal', function onReveal() {
+				section.removeEventListener('idc:reveal', onReveal);
+				startAutoplay();
+			});
+			// Fallback se o reveal nunca disparar.
+			window.setTimeout(function () {
+				if (!timer) startAutoplay();
+			}, 2500);
+		}
 	}
 
 	document.querySelectorAll('[data-idc-carousel]').forEach(initCarousel);
@@ -345,18 +365,43 @@
 		el.classList.add('idc-reveal');
 	});
 
+	function reveal(el) {
+		if (!el || el.classList.contains('is-visible')) return;
+		el.classList.add('is-visible');
+		el.dispatchEvent(new CustomEvent('idc:reveal', { bubbles: true }));
+	}
+
 	var io = new IntersectionObserver(function (entries) {
 		entries.forEach(function (entry) {
 			if (entry.isIntersecting) {
-				entry.target.classList.add('is-visible');
+				reveal(entry.target);
 				io.unobserve(entry.target);
 			}
 		});
-	}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+	}, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
 
 	nodes.forEach(function (el) {
 		io.observe(el);
 	});
+
+	// Flush após o 1º paint: evita seções escaparem com opacity:0
+	// (admin bar, lazy layout, IO que não dispara no load).
+	function flushVisible() {
+		var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+		nodes.forEach(function (el) {
+			if (el.classList.contains('is-visible')) return;
+			var r = el.getBoundingClientRect();
+			if (r.bottom > 0 && r.top < vh * 0.95) {
+				reveal(el);
+				io.unobserve(el);
+			}
+		});
+	}
+
+	requestAnimationFrame(function () {
+		requestAnimationFrame(flushVisible);
+	});
+	window.addEventListener('load', flushVisible, { once: true });
 })();
 
 /**

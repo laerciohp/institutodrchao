@@ -319,6 +319,7 @@ function idc_maybe_run_theme_upgrade(): void {
 	idc_upgrade_186_layout_cms();
 	idc_upgrade_187_layout_cms();
 	idc_upgrade_188_layout_cms();
+	idc_upgrade_189_layout_cms();
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -619,6 +620,37 @@ function idc_upgrade_188_layout_cms(): void {
 	$integrativa = get_page_by_path('medicina-integrativa');
 	if ($integrativa instanceof WP_Post) {
 		update_field('idc_page_hero_image', null, (int) $integrativa->ID);
+	}
+}
+
+/**
+ * v1.8.9 — badge depoimentos Figma + limpa override de imagem "Por que escolher".
+ */
+function idc_upgrade_189_layout_cms(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$badge = '4.9 · 742 avaliações';
+	$title = 'O que dizem nossos pacientes';
+
+	update_field('idc_testimonials_badge', $badge, 'option');
+	update_field('idc_testimonials_title', $title, 'option');
+
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		update_field('idc_testimonials_badge', $badge, $front_id);
+		update_field('idc_testimonials_title', $title, $front_id);
+		// Preferir fallback do tema (PNG Figma) em vez de attachment antigo no ACF.
+		update_field('idc_why_image', null, $front_id);
+	}
+	update_field('idc_why_image', null, 'option');
+
+	// Garante defaults dos diferenciais (textos Figma).
+	$why_items = idc_default_why_items();
+	update_field('idc_why_items', $why_items, 'option');
+	if ($front_id > 0) {
+		update_field('idc_why_items', $why_items, $front_id);
 	}
 }
 
