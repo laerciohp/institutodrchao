@@ -460,7 +460,7 @@ function idc_register_acf_page_fields(): void {
 			[
 				['key' => 'field_idc_cont_tab_info', 'label' => 'Informações', 'type' => 'tab'],
 				['key' => 'field_idc_contato_telefone', 'label' => 'Telefone (override)', 'name' => 'idc_contato_telefone', 'type' => 'text', 'instructions' => 'Deixe vazio para usar IDC Opções.'],
-				['key' => 'field_idc_contato_whatsapp_label', 'label' => 'Label botão WhatsApp', 'name' => 'idc_contato_whatsapp_label', 'type' => 'text', 'default_value' => 'Conversar no WhatsApp'],
+				['key' => 'field_idc_contato_whatsapp_label', 'label' => 'Label botão WhatsApp', 'name' => 'idc_contato_whatsapp_label', 'type' => 'text', 'default_value' => 'Iniciar conversa no WhatsApp'],
 				['key' => 'field_idc_contato_endereco', 'label' => 'Endereço (override)', 'name' => 'idc_contato_endereco', 'type' => 'textarea', 'rows' => 3],
 				['key' => 'field_idc_contato_aside_title', 'label' => 'Título do aside', 'name' => 'idc_contato_aside_title', 'type' => 'text', 'default_value' => 'Fale diretamente'],
 				['key' => 'field_idc_contato_form_title', 'label' => 'Título do formulário', 'name' => 'idc_contato_form_title', 'type' => 'text'],
@@ -484,9 +484,11 @@ function idc_register_acf_page_fields(): void {
 				['key' => 'field_idc_contato_label_assunto', 'label' => 'Label — Assunto', 'name' => 'idc_contato_label_assunto', 'type' => 'text', 'default_value' => 'Assunto de interesse'],
 				['key' => 'field_idc_contato_label_mensagem', 'label' => 'Label — Mensagem', 'name' => 'idc_contato_label_mensagem', 'type' => 'text', 'default_value' => 'Mensagem'],
 				['key' => 'field_idc_contato_label_submit', 'label' => 'Botão enviar', 'name' => 'idc_contato_label_submit', 'type' => 'text', 'default_value' => 'Enviar mensagem'],
+				['key' => 'field_idc_contato_label_ligar', 'label' => 'Aside — Ligar', 'name' => 'idc_contato_label_ligar', 'type' => 'text', 'default_value' => 'Ligar para clínica'],
+				['key' => 'field_idc_contato_label_email_btn', 'label' => 'Aside — E-mail (botão)', 'name' => 'idc_contato_label_email_btn', 'type' => 'text', 'default_value' => 'Enviar e-mail'],
 				['key' => 'field_idc_contato_label_endereco', 'label' => 'Aside — Endereço', 'name' => 'idc_contato_label_endereco', 'type' => 'text', 'default_value' => 'Endereço'],
-				['key' => 'field_idc_contato_label_horario', 'label' => 'Aside — Horário', 'name' => 'idc_contato_label_horario', 'type' => 'text', 'default_value' => 'Horário de atendimento'],
-				['key' => 'field_idc_contato_label_maps', 'label' => 'Aside — Maps', 'name' => 'idc_contato_label_maps', 'type' => 'text', 'default_value' => 'Ver no Google Maps'],
+				['key' => 'field_idc_contato_label_horario', 'label' => 'Aside — Horário', 'name' => 'idc_contato_label_horario', 'type' => 'text', 'default_value' => 'Horário de Atendimento'],
+				['key' => 'field_idc_contato_label_maps', 'label' => 'Aside — Maps', 'name' => 'idc_contato_label_maps', 'type' => 'text', 'default_value' => 'Como chegar no Google Maps'],
 			]
 		),
 		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-contato.php']]],

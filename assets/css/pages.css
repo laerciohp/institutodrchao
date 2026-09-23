@@ -1337,10 +1337,21 @@
 
 .idc-contato__form-wrap,
 .idc-contato__aside {
-	background: var(--idc-white);
-	border: 1px solid var(--idc-border-soft);
-	border-radius: var(--idc-radius-lg);
+	border-radius: 34px;
 	padding: var(--idc-space-5);
+}
+
+.idc-contato__form-wrap {
+	background: var(--idc-white);
+	border: 1px solid var(--idc-sand);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Figma 133:2983 — card direto em #f3e9db */
+.idc-contato__aside {
+	background: var(--idc-sand-warm);
+	border: 1px solid rgba(229, 226, 221, 0.5);
+	box-shadow: none;
 }
 
 @media (min-width: 600px) {
@@ -1352,17 +1363,19 @@
 
 .idc-contato__form-title,
 .idc-contato__aside-title {
-	font-size: var(--idc-text-xl);
-	font-weight: 600;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 32px;
 	color: var(--idc-azul-900);
 	margin-bottom: var(--idc-space-6);
 }
 
 @media (max-width: 767px) {
 	.idc-contato__aside-title {
-		text-transform: uppercase;
-		font-size: 12px;
-		letter-spacing: 0.08em;
+		text-transform: none;
+		font-size: 24px;
+		letter-spacing: 0;
+		line-height: 32px;
 	}
 
 	.idc-contato__submit {
@@ -1370,11 +1383,59 @@
 	}
 }
 
+.idc-contato__submit {
+	background: var(--idc-terracota-700);
+	border-color: var(--idc-terracota-700);
+	color: #fff;
+}
+
+.idc-contato__submit:hover {
+	background: var(--idc-terracota-800, #7a4e26);
+	border-color: var(--idc-terracota-800, #7a4e26);
+	color: #fff;
+}
+
 .idc-contato__form-lead {
 	margin: calc(-1 * var(--idc-space-3)) 0 var(--idc-space-6);
 	font-size: var(--idc-text-sm);
 	line-height: 1.5;
 	color: var(--idc-ink);
+}
+
+/* Inputs Contato — Figma #f6f3ee + pill */
+.idc-contato .idc-form__label {
+	color: var(--idc-ink);
+}
+
+.idc-contato .idc-form__input,
+.idc-contato .idc-form__select {
+	background: #f6f3ee;
+	border: 1px solid transparent;
+	border-radius: var(--idc-radius-pill);
+	padding: 17px 21px;
+	min-height: 56px;
+	box-shadow: none;
+}
+
+.idc-contato .idc-form__textarea {
+	background: #f6f3ee;
+	border: 1px solid transparent;
+	border-radius: var(--idc-radius-md);
+	padding: 13px 21px;
+	min-height: 138px;
+	box-shadow: none;
+}
+
+.idc-contato .idc-form__input:focus,
+.idc-contato .idc-form__textarea:focus,
+.idc-contato .idc-form__select:focus {
+	border-color: var(--idc-terracota-700);
+	background: #f6f3ee;
+}
+
+.idc-contato .idc-form__input::placeholder,
+.idc-contato .idc-form__textarea::placeholder {
+	color: #c5c6cd;
 }
 
 .idc-contato__directs {
@@ -1387,21 +1448,23 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	gap: 10px;
+	gap: 12px;
 	width: 100%;
 	min-height: 56px;
 	margin: 0;
-	padding: 0 var(--idc-space-4);
+	padding: 16px 24px;
 	border-radius: var(--idc-radius-pill);
-	border: 1px solid var(--idc-border);
+	border: 1px solid transparent;
 	font-family: var(--idc-font-sans);
 	font-weight: 600;
 	font-size: var(--idc-text-sm);
+	line-height: 20px;
 	color: var(--idc-azul-900);
 	text-decoration: none;
-	background: var(--idc-sand-warm);
+	background: transparent;
 	word-break: break-word;
 	text-align: center;
+	box-sizing: border-box;
 }
 
 .idc-contato__direct img {
@@ -1410,25 +1473,46 @@
 	height: 20px;
 }
 
+/* Figma 133:2987 — WhatsApp marrom da marca (não verde) */
 .idc-contato__direct--wa {
-	background: #25d366;
-	border-color: #25d366;
+	background: var(--idc-terracota-700);
+	border-color: var(--idc-terracota-700);
 	color: #fff;
+}
+
+.idc-contato__direct--wa img {
+	filter: brightness(0) invert(1);
+}
+
+.idc-contato__direct--wa:hover {
+	background: var(--idc-terracota-800, #7a4e26);
+	border-color: var(--idc-terracota-800, #7a4e26);
+	color: #fff;
+}
+
+.idc-contato__direct--outline {
+	background: transparent;
+	border-color: var(--idc-azul-900);
+	color: var(--idc-azul-900);
+}
+
+.idc-contato__direct--outline:hover {
+	background: rgba(51, 61, 79, 0.04);
 }
 
 .idc-contato__meta {
 	margin-top: var(--idc-space-8);
 	padding-top: var(--idc-space-6);
-	border-top: 1px solid var(--idc-border-soft);
+	border-top: 1px solid rgba(197, 198, 205, 0.3);
 	display: flex;
 	flex-direction: column;
-	gap: var(--idc-space-5);
+	gap: var(--idc-space-6);
 }
 
 .idc-contato__meta-item {
 	display: flex;
 	flex-direction: row;
-	gap: var(--idc-space-3);
+	gap: var(--idc-space-4);
 	align-items: flex-start;
 	padding: 0;
 	background: transparent;
@@ -1461,27 +1545,56 @@
 .idc-contato__meta-item strong {
 	display: block;
 	font-size: var(--idc-text-sm);
-	margin-bottom: 4px;
+	font-weight: 600;
+	margin-bottom: 0;
 	color: var(--idc-azul-900);
+	line-height: 20px;
 }
 
 .idc-contato__meta-item p {
 	margin: 0;
-	font-size: var(--idc-text-sm);
-	line-height: 1.5;
+	font-size: 16px;
+	line-height: 28px;
 	color: var(--idc-ink);
 }
 
-.idc-contato__meta-link:hover strong {
-	color: var(--idc-terracota-700);
+.idc-contato__maps-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	align-self: flex-start;
+	min-height: 44px;
+	padding: 12px 24px;
+	border: 1px solid #c5c6cd;
+	border-radius: var(--idc-radius-pill);
+	font-family: var(--idc-font-sans);
+	font-size: var(--idc-text-sm);
+	font-weight: 600;
+	line-height: 20px;
+	color: var(--idc-ink);
+	text-decoration: none;
+	background: transparent;
+}
+
+.idc-contato__maps-btn:hover {
+	border-color: var(--idc-azul-900);
+	color: var(--idc-azul-900);
+}
+
+.idc-contato__maps-btn img {
+	width: 14px;
+	height: 14px;
+	flex-shrink: 0;
+	opacity: 0.85;
 }
 
 .idc-contato__map {
 	position: relative;
-	border-radius: var(--idc-radius-lg);
+	border-radius: 48px;
 	overflow: hidden;
-	border: 1px solid var(--idc-border-soft);
-	background: var(--idc-sand-warm);
+	border: 1px solid rgba(197, 198, 205, 0.2);
+	background: #f6f3ee;
 	min-height: 280px;
 }
 

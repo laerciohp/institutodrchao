@@ -625,9 +625,12 @@ function idc_setup_seed_page_fields(array $page_ids): void {
 	if (!empty($page_ids['contato'])) {
 		$cid = $page_ids['contato'];
 		idc_setup_update_field_if_empty('idc_contato_form_title', 'Envie uma mensagem', $cid);
-		idc_setup_update_field_if_empty('idc_contato_form_lead', 'Preencha o formulário e retornaremos o mais breve possível.', $cid);
-		idc_setup_update_field_if_empty('idc_contato_whatsapp_label', 'Conversar no WhatsApp', $cid);
+		idc_setup_update_field_if_empty('idc_contato_form_lead', '', $cid);
+		idc_setup_update_field_if_empty('idc_contato_whatsapp_label', 'Iniciar conversa no WhatsApp', $cid);
 		idc_setup_update_field_if_empty('idc_contato_aside_title', 'Fale diretamente', $cid);
+		idc_setup_update_field_if_empty('idc_contato_label_ligar', 'Ligar para clínica', $cid);
+		idc_setup_update_field_if_empty('idc_contato_label_email_btn', 'Enviar e-mail', $cid);
+		idc_setup_update_field_if_empty('idc_contato_label_maps', 'Como chegar no Google Maps', $cid);
 		idc_setup_update_field_if_empty('idc_contato_assuntos', idc_default_contato_assuntos(), $cid);
 	}
 

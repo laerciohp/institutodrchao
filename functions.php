@@ -372,6 +372,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('1127', 'idc_upgrade_1127_pillar_attached');
 	idc_run_upgrade_once('11210', 'idc_upgrade_11210_testimonials_figma');
 	idc_run_upgrade_once('11211', 'idc_upgrade_11210_testimonials_figma');
+	idc_run_upgrade_once('11212', 'idc_upgrade_11212_contato_figma');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1010,4 +1011,42 @@ function idc_upgrade_11210_testimonials_figma(): void {
 	}
 }
 
+/**
+ * v1.12.12 — Contato alinhado ao Figma 133:2904 (labels dos botões).
+ */
+function idc_upgrade_11212_contato_figma(): void {
+	if (function_exists('opcache_reset')) {
+		@opcache_reset();
+	}
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$page = get_page_by_path('contato');
+	if (!$page instanceof WP_Post) {
+		$q = new WP_Query([
+			'post_type'      => 'page',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+			'meta_key'       => '_wp_page_template',
+			'meta_value'     => 'page-contato.php',
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		]);
+		$cid = !empty($q->posts[0]) ? (int) $q->posts[0] : 0;
+	} else {
+		$cid = (int) $page->ID;
+	}
+
+	if ($cid <= 0) {
+		return;
+	}
+
+	update_field('idc_contato_whatsapp_label', 'Iniciar conversa no WhatsApp', $cid);
+	update_field('idc_contato_form_lead', '', $cid);
+	update_field('idc_contato_label_ligar', 'Ligar para clínica', $cid);
+	update_field('idc_contato_label_email_btn', 'Enviar e-mail', $cid);
+	update_field('idc_contato_label_maps', 'Como chegar no Google Maps', $cid);
+	update_field('idc_contato_label_horario', 'Horário de Atendimento', $cid);
+}
 

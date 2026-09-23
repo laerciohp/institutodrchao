@@ -30,7 +30,7 @@ $aside_title = function_exists('get_field') && get_field('idc_contato_aside_titl
 
 $whatsapp_label = function_exists('get_field') && get_field('idc_contato_whatsapp_label')
 	? (string) get_field('idc_contato_whatsapp_label')
-	: __('Conversar no WhatsApp', 'instituto-dr-chao');
+	: __('Iniciar conversa no WhatsApp', 'instituto-dr-chao');
 
 $label_nome     = (string) idc_page_field('idc_contato_label_nome', __('Nome completo', 'instituto-dr-chao'));
 $label_email    = (string) idc_page_field('idc_contato_label_email', __('E-mail', 'instituto-dr-chao'));
@@ -39,8 +39,10 @@ $label_assunto  = (string) idc_page_field('idc_contato_label_assunto', __('Assun
 $label_mensagem = (string) idc_page_field('idc_contato_label_mensagem', __('Mensagem', 'instituto-dr-chao'));
 $label_submit   = (string) idc_page_field('idc_contato_label_submit', __('Enviar mensagem', 'instituto-dr-chao'));
 $label_endereco = (string) idc_page_field('idc_contato_label_endereco', __('Endereço', 'instituto-dr-chao'));
-$label_horario  = (string) idc_page_field('idc_contato_label_horario', __('Horário de atendimento', 'instituto-dr-chao'));
-$label_maps     = (string) idc_page_field('idc_contato_label_maps', __('Ver no Google Maps', 'instituto-dr-chao'));
+$label_horario  = (string) idc_page_field('idc_contato_label_horario', __('Horário de Atendimento', 'instituto-dr-chao'));
+$label_maps     = (string) idc_page_field('idc_contato_label_maps', __('Como chegar no Google Maps', 'instituto-dr-chao'));
+$label_ligar    = (string) idc_page_field('idc_contato_label_ligar', __('Ligar para clínica', 'instituto-dr-chao'));
+$label_mail_btn = (string) idc_page_field('idc_contato_label_email_btn', __('Enviar e-mail', 'instituto-dr-chao'));
 
 $map_src = (string) idc_option(
 	'idc_map_embed',
@@ -141,17 +143,17 @@ if (is_array($assuntos_acf) && $assuntos_acf !== []) {
 				<div class="idc-contato__directs">
 					<a class="idc-contato__direct idc-contato__direct--wa" href="<?php echo esc_url(idc_whatsapp_url_for_context('contato')); ?>" target="_blank" rel="noopener noreferrer">
 						<img src="<?php echo esc_url(idc_asset('assets/icons/icon-whatsapp.svg')); ?>" alt="" width="20" height="20">
-						<span><?php echo esc_html($whatsapp_label !== '' ? $whatsapp_label : __('Conversar no WhatsApp', 'instituto-dr-chao')); ?></span>
+						<span><?php echo esc_html($whatsapp_label !== '' ? $whatsapp_label : __('Iniciar conversa no WhatsApp', 'instituto-dr-chao')); ?></span>
 					</a>
 
-					<a class="idc-contato__direct" href="tel:<?php echo esc_attr(preg_replace('/\D+/', '', $telefone)); ?>">
+					<a class="idc-contato__direct idc-contato__direct--outline" href="tel:<?php echo esc_attr(preg_replace('/\D+/', '', $telefone)); ?>">
 						<img src="<?php echo esc_url(idc_asset('assets/icons/icon-phone.svg')); ?>" alt="" width="20" height="20">
-						<span><?php echo esc_html($telefone); ?></span>
+						<span><?php echo esc_html($label_ligar); ?></span>
 					</a>
 
-					<a class="idc-contato__direct" href="mailto:<?php echo esc_attr($email); ?>">
+					<a class="idc-contato__direct idc-contato__direct--outline" href="mailto:<?php echo esc_attr($email); ?>">
 						<img src="<?php echo esc_url(idc_asset('assets/icons/icon-email.svg')); ?>" alt="" width="20" height="20">
-						<span><?php echo esc_html($email); ?></span>
+						<span><?php echo esc_html($label_mail_btn); ?></span>
 					</a>
 				</div>
 
@@ -171,16 +173,12 @@ if (is_array($assuntos_acf) && $assuntos_acf !== []) {
 						</span>
 						<div class="idc-contato__meta-text">
 							<strong><?php echo esc_html($label_horario); ?></strong>
-							<p><?php echo esc_html($horario); ?></p>
+							<p><?php echo nl2br(esc_html($horario)); ?></p>
 						</div>
 					</div>
-					<a class="idc-contato__meta-item idc-contato__meta-link" href="https://www.google.com/maps/search/?api=1&amp;query=<?php echo rawurlencode(str_replace(["\r", "\n"], ' ', $endereco)); ?>" target="_blank" rel="noopener noreferrer">
-						<span class="idc-contato__meta-icon" aria-hidden="true">
-							<img src="<?php echo esc_url(idc_asset('assets/icons/icon-map-pin.svg')); ?>" alt="" width="20" height="20" decoding="async">
-						</span>
-						<span class="idc-contato__meta-text">
-							<strong><?php echo esc_html($label_maps); ?></strong>
-						</span>
+					<a class="idc-contato__maps-btn" href="https://www.google.com/maps/search/?api=1&amp;query=<?php echo rawurlencode(str_replace(["\r", "\n"], ' ', $endereco)); ?>" target="_blank" rel="noopener noreferrer">
+						<img src="<?php echo esc_url(idc_asset('assets/icons/icon-map-pin.svg')); ?>" alt="" width="14" height="14" decoding="async">
+						<span><?php echo esc_html($label_maps); ?></span>
 					</a>
 				</div>
 			</aside>
