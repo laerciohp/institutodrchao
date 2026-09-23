@@ -54,17 +54,14 @@ if (!is_array($treatments) || $treatments === []) {
 		'title' => $treatments_title,
 		'cards' => $treatments,
 	]);
-	$strip = idc_default_strip_cta_for_slug('ortopedia-regenerativa');
-	get_template_part('template-parts/components/strip-cta', null, [
-		'origem'          => 'ortopedia-regenerativa',
-		'decor'           => true,
-		'align'           => 'center',
-		'title'           => $strip['idc_strip_title'],
-		'lead'            => $strip['idc_strip_lead'],
-		'label'           => $strip['idc_strip_label'],
-		'secondary_label' => __('Ver Fisioterapia Especializada', 'instituto-dr-chao'),
-		'secondary_url'   => home_url('/fisioterapia/'),
-	]);
+	get_template_part(
+		'template-parts/components/strip-cta',
+		null,
+		idc_strip_cta_args_for_page('ortopedia-regenerativa', [
+			'secondary_label' => (string) idc_page_field('idc_strip_secondary_label', __('Ver Fisioterapia Especializada', 'instituto-dr-chao')),
+			'secondary_url'   => (string) idc_page_field('idc_strip_secondary_url', home_url('/fisioterapia/')),
+		])
+	);
 	?>
 </main>
 

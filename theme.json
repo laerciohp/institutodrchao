@@ -58,6 +58,16 @@
 					"color": "#E5E2DD"
 				},
 				{
+					"slug": "sand-warm",
+					"name": "Sand Warm",
+					"color": "#F3E9DB"
+				},
+				{
+					"slug": "peach",
+					"name": "Peach",
+					"color": "#F1E1CC"
+				},
+				{
 					"slug": "border",
 					"name": "Border",
 					"color": "#C5C6CD"

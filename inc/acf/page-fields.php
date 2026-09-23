@@ -556,5 +556,211 @@ function idc_register_acf_page_fields(): void {
 		),
 		'location' => [[['param' => 'page_type', 'operator' => '==', 'value' => 'posts_page']]],
 	]);
+
+	// —— Especialidade (template flexível) ——
+	acf_add_local_field_group([
+		'key'    => 'group_idc_page_especialidade',
+		'title'  => 'Página — Especialidade',
+		'fields' => array_merge(
+			[
+				['key' => 'field_idc_espec_tab_hero', 'label' => 'Hero', 'type' => 'tab'],
+			],
+			idc_acf_page_hero_fields('especialidade'),
+			[
+				['key' => 'field_idc_espec_tab_blocks', 'label' => 'Blocos', 'type' => 'tab'],
+				[
+					'key'          => 'field_idc_specialty_blocks',
+					'label'        => 'Blocos da especialidade',
+					'name'         => 'idc_specialty_blocks',
+					'type'         => 'flexible_content',
+					'button_label' => 'Adicionar bloco',
+					'layouts'      => [
+						[
+							'key'        => 'layout_idc_spec_rich',
+							'name'       => 'rich_text',
+							'label'      => 'Texto',
+							'display'    => 'block',
+							'sub_fields' => [
+								['key' => 'field_idc_spec_rich_body', 'label' => 'Conteúdo', 'name' => 'body', 'type' => 'wysiwyg', 'tabs' => 'visual', 'media_upload' => 0],
+							],
+						],
+						[
+							'key'        => 'layout_idc_spec_tx_faq',
+							'name'       => 'treatment_faq',
+							'label'      => 'Cards / FAQ tratamentos',
+							'display'    => 'block',
+							'sub_fields' => [
+								['key' => 'field_idc_spec_tx_title', 'label' => 'Título da seção', 'name' => 'section_title', 'type' => 'text'],
+								[
+									'key'          => 'field_idc_spec_tx_cards',
+									'label'        => 'Cards',
+									'name'         => 'cards',
+									'type'         => 'repeater',
+									'layout'       => 'block',
+									'button_label' => 'Adicionar card',
+									'sub_fields'   => [
+										['key' => 'field_idc_spec_tx_card_title', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+										['key' => 'field_idc_spec_tx_card_intro', 'label' => 'Intro', 'name' => 'intro', 'type' => 'textarea', 'rows' => 2],
+										['key' => 'field_idc_spec_tx_card_icon', 'label' => 'Ícone', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array'],
+										[
+											'key'          => 'field_idc_spec_tx_card_faqs',
+											'label'        => 'FAQs',
+											'name'         => 'faqs',
+											'type'         => 'repeater',
+											'layout'       => 'table',
+											'button_label' => 'Pergunta',
+											'sub_fields'   => [
+												['key' => 'field_idc_spec_tx_faq_q', 'label' => 'Pergunta', 'name' => 'question', 'type' => 'text'],
+												['key' => 'field_idc_spec_tx_faq_a', 'label' => 'Resposta', 'name' => 'answer', 'type' => 'textarea', 'rows' => 2],
+											],
+										],
+									],
+								],
+							],
+						],
+						[
+							'key'        => 'layout_idc_spec_phases',
+							'name'       => 'phases',
+							'label'      => 'Fases / cards',
+							'display'    => 'block',
+							'sub_fields' => [
+								['key' => 'field_idc_spec_phases_title', 'label' => 'Título da seção', 'name' => 'section_title', 'type' => 'text'],
+								[
+									'key'          => 'field_idc_spec_phases_items',
+									'label'        => 'Fases',
+									'name'         => 'phases',
+									'type'         => 'repeater',
+									'layout'       => 'block',
+									'button_label' => 'Adicionar fase',
+									'sub_fields'   => [
+										['key' => 'field_idc_spec_phase_n', 'label' => 'Número', 'name' => 'number', 'type' => 'text'],
+										['key' => 'field_idc_spec_phase_l', 'label' => 'Label', 'name' => 'label', 'type' => 'text'],
+										['key' => 'field_idc_spec_phase_t', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+										['key' => 'field_idc_spec_phase_x', 'label' => 'Texto', 'name' => 'text', 'type' => 'textarea', 'rows' => 3],
+										['key' => 'field_idc_spec_phase_i', 'label' => 'Ícone', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array'],
+									],
+								],
+							],
+						],
+						[
+							'key'        => 'layout_idc_spec_bento',
+							'name'       => 'bento',
+							'label'      => 'Bento / grade',
+							'display'    => 'block',
+							'sub_fields' => [
+								['key' => 'field_idc_spec_bento_title', 'label' => 'Título da seção', 'name' => 'section_title', 'type' => 'text'],
+								[
+									'key'          => 'field_idc_spec_bento_items',
+									'label'        => 'Itens',
+									'name'         => 'items',
+									'type'         => 'repeater',
+									'layout'       => 'block',
+									'button_label' => 'Adicionar item',
+									'sub_fields'   => [
+										['key' => 'field_idc_spec_bento_t', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+										['key' => 'field_idc_spec_bento_x', 'label' => 'Texto', 'name' => 'text', 'type' => 'textarea', 'rows' => 2],
+										['key' => 'field_idc_spec_bento_i', 'label' => 'Ícone', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array'],
+									],
+								],
+							],
+						],
+						[
+							'key'        => 'layout_idc_spec_faq',
+							'name'       => 'faq',
+							'label'      => 'FAQ accordion',
+							'display'    => 'block',
+							'sub_fields' => [
+								['key' => 'field_idc_spec_faq_title', 'label' => 'Título', 'name' => 'section_title', 'type' => 'text'],
+								[
+									'key'          => 'field_idc_spec_faq_items',
+									'label'        => 'Perguntas',
+									'name'         => 'items',
+									'type'         => 'repeater',
+									'layout'       => 'table',
+									'button_label' => 'Adicionar',
+									'sub_fields'   => [
+										['key' => 'field_idc_spec_faq_q', 'label' => 'Pergunta', 'name' => 'question', 'type' => 'text'],
+										['key' => 'field_idc_spec_faq_a', 'label' => 'Resposta', 'name' => 'answer', 'type' => 'textarea', 'rows' => 2],
+									],
+								],
+							],
+						],
+						[
+							'key'        => 'layout_idc_spec_strip',
+							'name'       => 'strip_cta',
+							'label'      => 'Strip CTA',
+							'display'    => 'block',
+							'sub_fields' => [
+								['key' => 'field_idc_spec_strip_title', 'label' => 'Título', 'name' => 'title', 'type' => 'text'],
+								['key' => 'field_idc_spec_strip_lead', 'label' => 'Lead', 'name' => 'lead', 'type' => 'textarea', 'rows' => 2],
+								['key' => 'field_idc_spec_strip_label', 'label' => 'Label botão', 'name' => 'label', 'type' => 'text'],
+								['key' => 'field_idc_spec_strip_sec_l', 'label' => 'Label secundário', 'name' => 'secondary_label', 'type' => 'text'],
+								['key' => 'field_idc_spec_strip_sec_u', 'label' => 'URL secundária', 'name' => 'secondary_url', 'type' => 'url'],
+							],
+						],
+					],
+				],
+			],
+			idc_acf_strip_cta_fields('especialidade')
+		),
+		'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'page-especialidade.php']]],
+	]);
 }
 add_action('acf/init', 'idc_register_acf_page_fields');
+
+/**
+ * Ao salvar página com template Especialidade, sugere card no hub se ainda não existir.
+ */
+function idc_hub_sync_on_specialty_save(int $post_id): void {
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return;
+	}
+	if (wp_is_post_revision($post_id) || get_post_type($post_id) !== 'page') {
+		return;
+	}
+	if (get_page_template_slug($post_id) !== 'page-especialidade.php') {
+		return;
+	}
+	if (!current_user_can('edit_page', $post_id) || !function_exists('get_field') || !function_exists('update_field')) {
+		return;
+	}
+
+	$hub = get_page_by_path('especialidades');
+	if (!$hub instanceof WP_Post) {
+		return;
+	}
+
+	$page  = get_post($post_id);
+	$title = $page instanceof WP_Post ? $page->post_title : '';
+	$url   = get_permalink($post_id);
+	if ($title === '' || !$url) {
+		return;
+	}
+
+	$cards = get_field('idc_hub_cards', (int) $hub->ID);
+	if (!is_array($cards)) {
+		$cards = [];
+	}
+
+	foreach ($cards as $card) {
+		if (!is_array($card)) {
+			continue;
+		}
+		$existing = (string) ($card['link_url'] ?? '');
+		if ($existing !== '' && untrailingslashit($existing) === untrailingslashit($url)) {
+			return;
+		}
+	}
+
+	$tones   = ['sand', 'peach', 'cream'];
+	$cards[] = [
+		'title'      => $title,
+		'text'       => (string) get_field('idc_page_lead', $post_id) ?: '',
+		'link_label' => __('Saiba mais', 'instituto-dr-chao'),
+		'link_url'   => $url,
+		'tone'       => $tones[count($cards) % 3],
+		'image'      => null,
+	];
+	update_field('idc_hub_cards', $cards, (int) $hub->ID);
+}
+add_action('save_post_page', 'idc_hub_sync_on_specialty_save', 20);

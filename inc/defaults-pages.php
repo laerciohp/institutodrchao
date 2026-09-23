@@ -343,6 +343,74 @@ function idc_default_strip_cta_for_slug(string $slug): array {
 }
 
 /**
+ * Blocos flexíveis padrão de especialidade (migração Orto/Fisio/Integrativa).
+ *
+ * @return list<array<string,mixed>>
+ */
+function idc_default_specialty_layout_for_slug(string $slug): array {
+	if ($slug === 'ortopedia-regenerativa') {
+		$cards = [];
+		foreach (idc_default_ortopedia_treatments() as $tx) {
+			$cards[] = [
+				'title' => (string) ($tx['title'] ?? ''),
+				'intro' => (string) ($tx['intro'] ?? ''),
+				'faqs'  => $tx['faqs'] ?? [],
+			];
+		}
+		return [
+			[
+				'acf_fc_layout' => 'treatment_faq',
+				'section_title' => 'Tratamentos regenerativos',
+				'cards'         => $cards,
+			],
+		];
+	}
+
+	if ($slug === 'fisioterapia') {
+		$phases = [];
+		foreach (idc_default_fisioterapia_phases() as $phase) {
+			$phases[] = [
+				'number' => (string) ($phase['number'] ?? ''),
+				'label'  => (string) ($phase['label'] ?? ''),
+				'title'  => (string) ($phase['title'] ?? ''),
+				'text'   => (string) ($phase['text'] ?? ''),
+			];
+		}
+		return [
+			[
+				'acf_fc_layout' => 'phases',
+				'section_title' => 'As 4 fases da recuperação',
+				'phases'        => $phases,
+			],
+		];
+	}
+
+	if ($slug === 'medicina-integrativa') {
+		$items = [];
+		foreach (idc_default_integrativa_grid() as $item) {
+			$items[] = [
+				'title' => (string) ($item['title'] ?? ''),
+				'text'  => (string) ($item['text'] ?? ''),
+			];
+		}
+		return [
+			[
+				'acf_fc_layout' => 'bento',
+				'section_title' => 'Tratamentos Integrativos',
+				'items'         => $items,
+			],
+		];
+	}
+
+	return [
+		[
+			'acf_fc_layout' => 'rich_text',
+			'body'          => '',
+		],
+	];
+}
+
+/**
  * Hero padrão por slug de página.
  *
  * @return array{idc_page_eyebrow:string,idc_page_title_before:string,idc_page_title_accent:string,idc_page_title_after:string,idc_page_lead:string}|null

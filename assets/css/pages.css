@@ -2,12 +2,6 @@
  * Páginas institucionais — hero, hub, instituto, especialidades, contato, carreiras.
  */
 
-/* Tokens locais (Figma) */
-:root {
-	--idc-sand-warm: #f3e9db;
-	--idc-peach: #f1e1cc;
-}
-
 .site-main--page {
 	background: var(--idc-cream);
 }
@@ -2627,5 +2621,71 @@ a.idc-blog-filters__btn.is-active {
 	.idc-carreiras__inner {
 		padding: var(--idc-space-5);
 	}
+}
+
+/* ——— Accordion / section-header (DS) ——— */
+.idc-section-header {
+	margin-bottom: var(--idc-space-8);
+}
+
+.idc-section-header__title {
+	font-family: var(--idc-font-serif);
+	font-size: var(--idc-text-3xl);
+	font-weight: 800;
+	color: var(--idc-azul-900);
+	margin: 0 0 var(--idc-space-3);
+}
+
+.idc-section-header__lead {
+	margin: 0;
+	max-width: 40rem;
+	color: var(--idc-ink);
+	font-size: var(--idc-text-md);
+	line-height: 1.6;
+}
+
+.idc-accordion {
+	padding: var(--idc-space-16) 0;
+	background: var(--idc-cream);
+}
+
+.idc-accordion__list {
+	display: flex;
+	flex-direction: column;
+	gap: var(--idc-space-3);
+	max-width: 48rem;
+}
+
+.idc-accordion__item {
+	background: var(--idc-white);
+	border: 1px solid var(--idc-border-soft);
+	border-radius: var(--idc-radius-md);
+	padding: 0 var(--idc-space-5);
+}
+
+.idc-accordion__summary {
+	cursor: pointer;
+	list-style: none;
+	padding: var(--idc-space-5) 0;
+	font-weight: 600;
+	color: var(--idc-azul-900);
+}
+
+.idc-accordion__summary::-webkit-details-marker {
+	display: none;
+}
+
+.idc-accordion__panel {
+	padding: 0 0 var(--idc-space-5);
+	color: var(--idc-ink);
+	line-height: 1.6;
+}
+
+.idc-accordion__panel p {
+	margin: 0;
+}
+
+.idc-specialty-rich {
+	padding: var(--idc-space-12) 0;
 }
 

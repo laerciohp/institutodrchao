@@ -70,15 +70,7 @@ if ($phases === []) {
 		'title'  => $phases_title,
 		'phases' => $phases,
 	]);
-	$strip = idc_default_strip_cta_for_slug('fisioterapia');
-	get_template_part('template-parts/components/strip-cta', null, [
-		'origem' => 'fisioterapia',
-		'decor'  => true,
-		'align'  => 'center',
-		'title'  => $strip['idc_strip_title'],
-		'lead'   => $strip['idc_strip_lead'],
-		'label'  => $strip['idc_strip_label'],
-	]);
+	get_template_part('template-parts/components/strip-cta', null, idc_strip_cta_args_for_page('fisioterapia'));
 	?>
 </main>
 

@@ -314,13 +314,20 @@ function idc_maybe_run_theme_upgrade(): void {
 
 	flush_rewrite_rules(false);
 
-	idc_upgrade_183_layout_cms();
-	idc_upgrade_184_layout_cms();
-	idc_upgrade_186_layout_cms();
-	idc_upgrade_187_layout_cms();
-	idc_upgrade_188_layout_cms();
-	idc_upgrade_189_layout_cms();
-	idc_upgrade_190_layout_cms();
+	// Sites que já passaram por 1.9.x não devem reexecutar seeds forçados (183–190).
+	idc_mark_legacy_upgrades_done_if_needed();
+
+	// Upgrades CMS: cada um roda no máximo uma vez (não sobrescreve edições a cada bump).
+	idc_run_upgrade_once('183', 'idc_upgrade_183_layout_cms');
+	idc_run_upgrade_once('184', 'idc_upgrade_184_layout_cms');
+	idc_run_upgrade_once('186', 'idc_upgrade_186_layout_cms');
+	idc_run_upgrade_once('187', 'idc_upgrade_187_layout_cms');
+	idc_run_upgrade_once('188', 'idc_upgrade_188_layout_cms');
+	idc_run_upgrade_once('189', 'idc_upgrade_189_layout_cms');
+	idc_run_upgrade_once('190', 'idc_upgrade_190_layout_cms');
+	idc_run_upgrade_once('110', 'idc_upgrade_110_layout_cms');
+	idc_run_upgrade_once('111', 'idc_upgrade_111_layout_cms');
+	idc_run_upgrade_once('112', 'idc_upgrade_112_layout_cms');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -716,4 +723,121 @@ function idc_upgrade_190_layout_cms(): void {
 		update_field('idc_instituto_image', null, (int) $inst->ID);
 	}
 }
+
+/**
+ * Marca upgrades 183–190 como concluídos se o site já estava em ≥1.9.0
+ * (evita overwrite de conteúdo editorial no primeiro deploy com gates).
+ */
+function idc_mark_legacy_upgrades_done_if_needed(): void {
+	$stored = (string) get_option('idc_theme_version_installed', '');
+	if ($stored === '' || version_compare($stored, '1.9.0', '<')) {
+		return;
+	}
+	foreach (['183', '184', '186', '187', '188', '189', '190'] as $flag) {
+		$opt = 'idc_upgrade_' . $flag . '_done';
+		if (!get_option($opt)) {
+			update_option($opt, 1, false);
+		}
+	}
+}
+
+/**
+ * v1.10.0 — seeds seguros (só se vazio) para archive de tratamentos.
+ */
+function idc_upgrade_110_layout_cms(): void {
+	if (!function_exists('update_field') || !function_exists('get_field')) {
+		return;
+	}
+	$pairs = [
+		'idc_tx_archive_eyebrow' => 'TRATAMENTOS',
+		'idc_tx_archive_title'   => 'Conheça nossos tratamentos',
+		'idc_tx_archive_lead'    => 'Protocolos regenerativos e de reabilitação orientados pela equipe do Instituto Dr. Chao — da avaliação ao acompanhamento contínuo.',
+	];
+	foreach ($pairs as $key => $default) {
+		$current = get_field($key, 'option');
+		if ($current === null || $current === false || $current === '') {
+			update_field($key, $default, 'option');
+		}
+	}
+}
+
+/**
+ * v1.11.0 — migra especialidades para template flexível + seções ordenáveis da Home.
+ */
+function idc_upgrade_111_layout_cms(): void {
+	if (!function_exists('update_field') || !function_exists('get_field')) {
+		return;
+	}
+
+	$map = [
+		'ortopedia-regenerativa' => 'page-especialidade.php',
+		'fisioterapia'           => 'page-especialidade.php',
+		'medicina-integrativa'   => 'page-especialidade.php',
+	];
+	foreach ($map as $slug => $template) {
+		$page = get_page_by_path($slug);
+		if (!$page instanceof WP_Post) {
+			continue;
+		}
+		$pid = (int) $page->ID;
+		update_post_meta($pid, '_wp_page_template', $template);
+
+		$layout = get_field('idc_specialty_blocks', $pid);
+		if ($layout === null || $layout === false || $layout === '' || $layout === []) {
+			$seed = idc_default_specialty_layout_for_slug($slug);
+			if ($slug === 'ortopedia-regenerativa') {
+				$existing = get_field('idc_orto_treatments', $pid);
+				$title    = (string) (get_field('idc_orto_treatments_title', $pid) ?: 'Tratamentos regenerativos');
+				if (is_array($existing) && $existing !== []) {
+					$seed = [['acf_fc_layout' => 'treatment_faq', 'section_title' => $title, 'cards' => $existing]];
+				}
+			} elseif ($slug === 'fisioterapia') {
+				$existing = get_field('idc_fisio_phases', $pid);
+				$title    = (string) (get_field('idc_fisio_phases_title', $pid) ?: 'As 4 fases da recuperação');
+				if (is_array($existing) && $existing !== []) {
+					$seed = [['acf_fc_layout' => 'phases', 'section_title' => $title, 'phases' => $existing]];
+				}
+			} elseif ($slug === 'medicina-integrativa') {
+				$existing = get_field('idc_integrativa_grid', $pid);
+				$title    = (string) (get_field('idc_integrativa_grid_title', $pid) ?: 'Tratamentos Integrativos');
+				if (is_array($existing) && $existing !== []) {
+					$seed = [['acf_fc_layout' => 'bento', 'section_title' => $title, 'items' => $existing]];
+				}
+			}
+			update_field('idc_specialty_blocks', $seed, $pid);
+		}
+	}
+
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$sections = get_field('idc_home_sections', $front_id);
+		if ($sections === null || $sections === false || $sections === []) {
+			update_field('idc_home_sections', idc_default_home_sections(), $front_id);
+		}
+		$from_opt = get_field('idc_home_sections', 'option');
+		if (($from_opt === null || $from_opt === false || $from_opt === []) && function_exists('update_field')) {
+			update_field('idc_home_sections', idc_default_home_sections(), 'option');
+		}
+	}
+}
+
+/**
+ * v1.12.0 — nota do design system no painel (opção informativa).
+ */
+function idc_upgrade_112_layout_cms(): void {
+	if (!function_exists('update_field') || !function_exists('get_field')) {
+		return;
+	}
+	$note = get_field('idc_design_guide_note', 'option');
+	if ($note === null || $note === false || $note === '') {
+		update_field(
+			'idc_design_guide_note',
+			"Edite Home e páginas pelos campos ACF do template (não invente layouts fora dos blocos).\n" .
+			"Especialidades: use o template «Especialidade» com blocos flexíveis.\n" .
+			"Tokens e componentes: docs/design-tokens.md e template-parts/components/.",
+			'option'
+		);
+	}
+}
+
 

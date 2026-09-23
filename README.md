@@ -73,6 +73,12 @@ O setup cria páginas (`/instalacoes/`, especialidades, etc.), menus, seeds ACF 
 
 Sem esse re-run + flush, o staging pode continuar sem Instalações no menu ou com 404 no arquivo do corpo clínico.
 
+### Upgrades do tema (CMS)
+
+A partir da **v1.10.0**, cada `idc_upgrade_*` em `functions.php` roda **uma única vez**, gated por option (`idc_upgrade_190_done`, etc.). Assim, edições no painel **não são sobrescritas** a cada bump de Version.
+
+**Novos upgrades devem ser idempotentes e gated** via `idc_run_upgrade_once('NNN', 'idc_upgrade_NNN_layout_cms')`, preferindo `update_field` só quando o valor estiver vazio.
+
 ## Desenvolvimento (Figma → código)
 
 Ordem: tokens → componentes → templates → ACF → QA frame a frame (1280 / 390).

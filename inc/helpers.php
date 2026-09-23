@@ -152,6 +152,79 @@ function idc_page_field(string $key, $default = '') {
 }
 
 /**
+ * Executa um upgrade de CMS no máximo uma vez (flag em options).
+ *
+ * @param callable():void $callback
+ */
+function idc_run_upgrade_once(string $flag, callable $callback): void {
+	$option = 'idc_upgrade_' . $flag . '_done';
+	if (get_option($option)) {
+		return;
+	}
+	$callback();
+	update_option($option, 1, false);
+}
+
+/**
+ * Resolve args do strip CTA: ACF da página atual → defaults do slug → overrides.
+ *
+ * @param array<string,mixed> $overrides
+ * @return array{origem:string,decor:bool,align:string,title:string,lead:string,label:string,secondary_label:string,secondary_url:string}
+ */
+function idc_strip_cta_args_for_page(string $slug, array $overrides = []): array {
+	$defaults = function_exists('idc_default_strip_cta_for_slug')
+		? idc_default_strip_cta_for_slug($slug)
+		: [
+			'idc_strip_title' => '',
+			'idc_strip_lead'  => '',
+			'idc_strip_label' => '',
+		];
+
+	$title = (string) idc_page_field('idc_strip_title', (string) ($defaults['idc_strip_title'] ?? ''));
+	$lead  = (string) idc_page_field('idc_strip_lead', (string) ($defaults['idc_strip_lead'] ?? ''));
+	$label = (string) idc_page_field('idc_strip_label', (string) ($defaults['idc_strip_label'] ?? ''));
+	$sec_l = (string) idc_page_field('idc_strip_secondary_label', '');
+	$sec_u = (string) idc_page_field('idc_strip_secondary_url', '');
+
+	$args = [
+		'origem'          => $slug,
+		'decor'           => true,
+		'align'           => 'center',
+		'title'           => $title,
+		'lead'            => $lead,
+		'label'           => $label,
+		'secondary_label' => $sec_l,
+		'secondary_url'   => $sec_u !== '' ? $sec_u : '',
+	];
+
+	foreach ($overrides as $key => $value) {
+		if ($value === null || $value === '') {
+			unset($overrides[$key]);
+		}
+	}
+
+	return array_merge($args, $overrides);
+}
+
+/**
+ * Seções padrão da Home (ordem Figma) — usados pelo flexible content.
+ *
+ * @return list<array{acf_fc_layout:string}>
+ */
+function idc_default_home_sections(): array {
+	return [
+		['acf_fc_layout' => 'hero'],
+		['acf_fc_layout' => 'trust'],
+		['acf_fc_layout' => 'pillars'],
+		['acf_fc_layout' => 'why'],
+		['acf_fc_layout' => 'testimonials'],
+		['acf_fc_layout' => 'team'],
+		['acf_fc_layout' => 'blog'],
+		['acf_fc_layout' => 'cta'],
+	];
+}
+
+/**
  * Slugs de posts odontológicos (fora do escopo Figma Orto/Fisio/Integrativa).
  *
  * @return list<string>

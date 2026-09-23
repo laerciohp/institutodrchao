@@ -23,6 +23,31 @@ function idc_register_acf_home_fields(): void {
 		'key'    => 'group_idc_home_sections',
 		'title'  => 'Home — Seções',
 		'fields' => [
+			// —— Ordem das seções ——
+			[
+				'key'   => 'field_idc_tab_home_order',
+				'label' => 'Ordem das seções',
+				'type'  => 'tab',
+			],
+			[
+				'key'          => 'field_idc_home_sections',
+				'label'        => 'Seções da Home',
+				'name'         => 'idc_home_sections',
+				'type'         => 'flexible_content',
+				'button_label' => 'Adicionar seção',
+				'instructions' => 'Arraste para reordenar. Cada tipo reutiliza o template-part correspondente. Conteúdo de cada seção fica nas abas abaixo / campos existentes.',
+				'layouts'      => [
+					['key' => 'layout_idc_home_hero', 'name' => 'hero', 'label' => 'Hero', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_trust', 'name' => 'trust', 'label' => 'Trust bar', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_pillars', 'name' => 'pillars', 'label' => 'Pilares', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_why', 'name' => 'why', 'label' => 'Por que o Instituto', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_testimonials', 'name' => 'testimonials', 'label' => 'Depoimentos', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_team', 'name' => 'team', 'label' => 'Equipe', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_blog', 'name' => 'blog', 'label' => 'Blog', 'display' => 'block', 'sub_fields' => []],
+					['key' => 'layout_idc_home_cta', 'name' => 'cta', 'label' => 'CTA final', 'display' => 'block', 'sub_fields' => []],
+				],
+			],
+
 			// —— Trust bar ——
 			[
 				'key'   => 'field_idc_tab_trust',

@@ -408,6 +408,75 @@ function idc_register_acf_field_groups(): void {
 	]);
 
 	acf_add_local_field_group([
+		'key'    => 'group_idc_tx_archive',
+		'title'  => 'Archive — Tratamentos',
+		'fields' => [
+			[
+				'key'   => 'field_idc_tx_archive_tab',
+				'label' => 'Cabeçalho do archive',
+				'type'  => 'tab',
+			],
+			[
+				'key'           => 'field_idc_tx_archive_eyebrow',
+				'label'         => 'Eyebrow',
+				'name'          => 'idc_tx_archive_eyebrow',
+				'type'          => 'text',
+				'default_value' => 'TRATAMENTOS',
+			],
+			[
+				'key'           => 'field_idc_tx_archive_title',
+				'label'         => 'Título',
+				'name'          => 'idc_tx_archive_title',
+				'type'          => 'text',
+				'default_value' => 'Conheça nossos tratamentos',
+				'instructions'  => 'A última palavra recebe destaque (accent).',
+			],
+			[
+				'key'           => 'field_idc_tx_archive_lead',
+				'label'         => 'Lead',
+				'name'          => 'idc_tx_archive_lead',
+				'type'          => 'textarea',
+				'rows'          => 3,
+				'default_value' => 'Protocolos regenerativos e de reabilitação orientados pela equipe do Instituto Dr. Chao — da avaliação ao acompanhamento contínuo.',
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'options_page',
+					'operator' => '==',
+					'value'    => 'idc-opcoes',
+				],
+			],
+		],
+	]);
+
+	acf_add_local_field_group([
+		'key'    => 'group_idc_design_guide',
+		'title'  => 'IDC Design — guia editorial',
+		'fields' => [
+			[
+				'key'           => 'field_idc_design_guide_note',
+				'label'         => 'O que editar (e o que não inventar)',
+				'name'          => 'idc_design_guide_note',
+				'type'          => 'textarea',
+				'rows'          => 6,
+				'instructions'  => 'Referência interna para editores. Não altera o front.',
+				'default_value' => "Edite Home e páginas pelos campos ACF do template (não invente layouts fora dos blocos).\nEspecialidades: use o template «Especialidade» com blocos flexíveis.\nTokens e componentes: docs/design-tokens.md e template-parts/components/.",
+			],
+		],
+		'location' => [
+			[
+				[
+					'param'    => 'options_page',
+					'operator' => '==',
+					'value'    => 'idc-opcoes',
+				],
+			],
+		],
+	]);
+
+	acf_add_local_field_group([
 		'key'    => 'group_idc_profissional',
 		'title'  => 'Dados do profissional',
 		'fields' => [

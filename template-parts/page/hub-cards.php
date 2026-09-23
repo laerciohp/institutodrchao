@@ -35,23 +35,16 @@ $theme_fallbacks = [
 					$image = $fallback;
 				}
 				$alt = idc_image_alt($card['image'] ?? null, $title);
-				?>
-				<article class="idc-hub-card idc-hub-card--<?php echo esc_attr($tone); ?>">
-					<figure class="idc-hub-card__media">
-						<img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($alt); ?>" width="360" height="192" decoding="async" loading="lazy">
-					</figure>
-					<div class="idc-hub-card__body">
-						<h2 class="idc-hub-card__title"><?php echo esc_html($title); ?></h2>
-						<p class="idc-hub-card__text"><?php echo esc_html($text); ?></p>
-						<?php if ($label !== '' && $url !== '') : ?>
-							<a class="idc-hub-card__link" href="<?php echo esc_url($url); ?>">
-								<?php echo esc_html($label); ?>
-								<img src="<?php echo esc_url(idc_asset('assets/icons/icon-arrow-accent.svg')); ?>" alt="" width="12" height="12" decoding="async">
-							</a>
-						<?php endif; ?>
-					</div>
-				</article>
-			<?php endforeach; ?>
+				get_template_part('template-parts/components/hub-card', null, [
+					'title'      => $title,
+					'text'       => $text,
+					'link_label' => $label,
+					'link_url'   => $url,
+					'tone'       => $tone,
+					'image'      => $image,
+					'image_alt'  => $alt,
+				]);
+			endforeach; ?>
 		</div>
 	</div>
 </section>
