@@ -371,6 +371,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('1125', 'idc_upgrade_1125_home_figma_images');
 	idc_run_upgrade_once('1127', 'idc_upgrade_1127_pillar_attached');
 	idc_run_upgrade_once('11210', 'idc_upgrade_11210_testimonials_figma');
+	idc_run_upgrade_once('11211', 'idc_upgrade_11210_testimonials_figma');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -984,9 +985,12 @@ function idc_upgrade_1127_pillar_attached(): void {
 }
 
 /**
- * v1.12.10 — Depoimentos alinhados ao Figma 133:493 (badge + 3 cards).
+ * v1.12.10/1.12.11 — Depoimentos alinhados ao Figma 133:493 (badge + 3 cards).
  */
 function idc_upgrade_11210_testimonials_figma(): void {
+	if (function_exists('opcache_reset')) {
+		@opcache_reset();
+	}
 	if (!function_exists('update_field')) {
 		return;
 	}
