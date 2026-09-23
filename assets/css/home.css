@@ -551,13 +551,14 @@
 
 @media (min-width: 700px) {
 	.idc-testimonials__slide {
-		flex: 0 0 calc(50% - var(--idc-space-4));
+		flex: 0 0 calc((100% - var(--idc-space-8)) / 2);
 	}
 }
 
 @media (min-width: 1024px) {
+	/* Figma 133:503 — 3 cards + gap 32px, sem corte na viewport */
 	.idc-testimonials__slide {
-		flex: 0 0 calc(33.333% - var(--idc-space-6));
+		flex: 0 0 calc((100% - 2 * var(--idc-space-8)) / 3);
 	}
 }
 
