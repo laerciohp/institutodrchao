@@ -222,9 +222,32 @@
 	}
 
 	.idc-page-hero__media {
-		min-height: 480px;
+		min-height: 420px;
 		max-height: none;
-		aspect-ratio: 576 / 600;
+		aspect-ratio: 560 / 420;
+	}
+
+	/* Especialidade Orto/Fisio: foto landscape (médico / sessão PT) */
+	.idc-specialty .idc-page-hero--split:not(.idc-page-hero--integrativa):not(.idc-page-hero--carreiras) .idc-page-hero__media {
+		aspect-ratio: 592 / 444;
+		min-height: 0;
+	}
+
+	/* Fisio — sessão PT landscape, crop estável */
+	.idc-page-hero--fisioterapia .idc-page-hero__media {
+		aspect-ratio: 4 / 3;
+		border-radius: var(--idc-radius-lg);
+	}
+
+	.idc-page-hero--fisioterapia .idc-page-hero__media img {
+		object-fit: cover;
+		object-position: center;
+	}
+
+	/* Orto — médico + modelo anatômico */
+	.idc-specialty .idc-page-hero--split:not(.idc-page-hero--fisioterapia):not(.idc-page-hero--integrativa):not(.idc-page-hero--carreiras) .idc-page-hero__media img {
+		object-fit: cover;
+		object-position: 45% center;
 	}
 }
 
@@ -577,13 +600,20 @@
 }
 
 .idc-btn--strip-light {
-	background: var(--idc-white);
-	color: var(--idc-terracota-800);
+	/* Figma strip — botão WhatsApp verde */
+	background: #25d366;
+	color: var(--idc-white);
+	border: 0;
 	flex-shrink: 0;
 }
 
 .idc-btn--strip-light:hover {
-	background: var(--idc-cream);
+	background: #1ebe57;
+	color: var(--idc-white);
+}
+
+.idc-btn--strip-light .idc-strip-cta__btn-icon {
+	filter: brightness(0) invert(1);
 }
 
 .idc-strip-cta__btn {
@@ -882,12 +912,15 @@
 	gap: var(--idc-space-4);
 	height: 100%;
 	min-height: 0;
+	border: 0;
+	box-shadow: none;
 }
 
 .idc-treatment-faq-card__icon {
 	width: 48px;
 	height: 48px;
 	flex-shrink: 0;
+	margin: 0 0 var(--idc-space-2);
 }
 
 .idc-treatment-faq-card__icon img {
@@ -898,8 +931,8 @@
 
 @media (min-width: 768px) {
 	.idc-treatment-faq-card {
-		min-height: 720px;
-		padding: 49px;
+		min-height: 0;
+		padding: 41px 33px;
 	}
 }
 
@@ -1087,7 +1120,8 @@
 
 @media (min-width: 768px) {
 	.idc-phases__card {
-		min-height: 378px;
+		min-height: 0;
+		padding: 32px 28px;
 	}
 }
 
@@ -1141,25 +1175,26 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 48px;
-	height: 48px;
+	width: 56px;
+	height: 56px;
 	border-radius: 50%;
-	background: var(--idc-sand-warm);
+	background: var(--idc-white);
+	box-shadow: 0 0 0 1px rgba(182, 135, 59, 0.18);
 	flex-shrink: 0;
 }
 
 .idc-phases__icon-wrap--num {
 	font-family: var(--idc-font-serif);
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: 700;
 	color: var(--idc-ouro);
 }
 
 .idc-phases__icon {
-	width: 20px;
-	height: 20px;
+	width: 24px;
+	height: 24px;
 	object-fit: contain;
-	opacity: 0.9;
+	opacity: 1;
 }
 
 .idc-phases__label {
@@ -2644,7 +2679,13 @@ a.idc-blog-filters__btn.is-active {
 	line-height: 1.6;
 }
 
-.idc-accordion {
+/* Variante "details/summary" (template-parts/components/accordion.php) — a
+   raiz é <section class="idc-accordion"> e os itens ficam dentro de
+   .idc-accordion__list. Seletores escopados para .idc-accordion__list evitam
+   colidir com a variante button/trigger (template-parts/page/faq-accordion.php),
+   que reusa .idc-accordion / .idc-accordion__item / .idc-accordion__panel
+   sem o wrapper __list. */
+section.idc-accordion {
 	padding: var(--idc-space-16) 0;
 	background: var(--idc-cream);
 }
@@ -2656,7 +2697,7 @@ a.idc-blog-filters__btn.is-active {
 	max-width: 48rem;
 }
 
-.idc-accordion__item {
+.idc-accordion__list > .idc-accordion__item {
 	background: var(--idc-white);
 	border: 1px solid var(--idc-border-soft);
 	border-radius: var(--idc-radius-md);
@@ -2675,14 +2716,10 @@ a.idc-blog-filters__btn.is-active {
 	display: none;
 }
 
-.idc-accordion__panel {
+.idc-accordion__list .idc-accordion__panel {
 	padding: 0 0 var(--idc-space-5);
 	color: var(--idc-ink);
 	line-height: 1.6;
-}
-
-.idc-accordion__panel p {
-	margin: 0;
 }
 
 .idc-specialty-rich {

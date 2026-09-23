@@ -221,36 +221,51 @@ function idc_nav_fallback(array $args = []): void {
  *   define('IDC_GITHUB_THEME_REPO', 'seu-usuario/instituto-dr-chao');
  */
 function idc_register_theme_updater(): void {
-	$bundled  = IDC_THEME_DIR . '/inc/plugin-update-checker/plugin-update-checker.php';
-	$autoload = IDC_THEME_DIR . '/vendor/autoload.php';
+	// Blindagem: outro plugin/tema pode já ter carregado a mesma biblioteca
+	// (Plugin Update Checker é embutida em muitos plugins). Requerer o
+	// bundle de novo nesse caso causa "Cannot redeclare class" → tela de
+	// erro crítico. Se a classe já existe, reaproveita-a sem requerer nada.
+	if (!class_exists('YahnisElsts\\PluginUpdateChecker\\v5\\PucFactory')) {
+		$bundled  = IDC_THEME_DIR . '/inc/plugin-update-checker/plugin-update-checker.php';
+		$autoload = IDC_THEME_DIR . '/vendor/autoload.php';
 
-	if (is_readable($bundled)) {
-		require_once $bundled;
-	} elseif (is_readable($autoload)) {
-		require_once $autoload;
-	} else {
+		try {
+			if (is_readable($bundled)) {
+				require_once $bundled;
+			} elseif (is_readable($autoload)) {
+				require_once $autoload;
+			} else {
+				return;
+			}
+		} catch (\Throwable $e) {
+			// Nunca deixar o updater (recurso não essencial) derrubar o site.
+			return;
+		}
+	}
+
+	if (!class_exists('YahnisElsts\\PluginUpdateChecker\\v5\\PucFactory')) {
 		return;
 	}
 
-	if (!class_exists(\YahnisElsts\PluginUpdateChecker\v5\PucFactory::class)) {
-		return;
-	}
+	try {
+		$repo = defined('IDC_GITHUB_THEME_REPO')
+			? IDC_GITHUB_THEME_REPO
+			: 'laerciohp/institutodrchao';
 
-	$repo = defined('IDC_GITHUB_THEME_REPO')
-		? IDC_GITHUB_THEME_REPO
-		: 'laerciohp/institutodrchao';
+		$checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+			'https://github.com/' . $repo . '/',
+			IDC_THEME_DIR . '/style.css',
+			'instituto-dr-chao'
+		);
 
-	$checker = \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
-		'https://github.com/' . $repo . '/',
-		IDC_THEME_DIR . '/style.css',
-		'instituto-dr-chao'
-	);
+		$checker->setBranch('main');
+		$checker->getVcsApi()->enableReleaseAssets();
 
-	$checker->setBranch('main');
-	$checker->getVcsApi()->enableReleaseAssets();
-
-	if (defined('IDC_GITHUB_TOKEN') && IDC_GITHUB_TOKEN) {
-		$checker->setAuthentication(IDC_GITHUB_TOKEN);
+		if (defined('IDC_GITHUB_TOKEN') && IDC_GITHUB_TOKEN) {
+			$checker->setAuthentication(IDC_GITHUB_TOKEN);
+		}
+	} catch (\Throwable $e) {
+		// Idem: falha no updater não deve gerar erro crítico no site.
 	}
 }
 add_action('after_setup_theme', 'idc_register_theme_updater', 20);
@@ -305,6 +320,12 @@ add_action('pre_get_posts', 'idc_exclude_odonto_from_blog');
 
 /**
  * Migração leve ao atualizar a Version do tema (flush CPT + sync Home page).
+ *
+ * Blindado com try/catch: se qualquer upgrade falhar, a versão instalada é
+ * marcada mesmo assim para não reexecutar (e refalhar) em TODA requisição —
+ * este hook roda em admin_init e init, ou seja, em toda página, wp-login,
+ * REST API e admin. Uma falha aqui sem esse guarda derruba o site inteiro
+ * em loop até a raiz ser corrigida.
  */
 function idc_maybe_run_theme_upgrade(): void {
 	$stored = (string) get_option('idc_theme_version_installed', '');
@@ -312,6 +333,24 @@ function idc_maybe_run_theme_upgrade(): void {
 		return;
 	}
 
+	try {
+		idc_run_theme_upgrade_steps();
+	} catch (\Throwable $e) {
+		if (function_exists('error_log')) {
+			error_log('[instituto-dr-chao] Falha no upgrade do tema (' . IDC_THEME_VERSION . '): ' . $e->getMessage());
+		}
+	}
+
+	update_option('idc_theme_version_installed', IDC_THEME_VERSION, false);
+}
+add_action('admin_init', 'idc_maybe_run_theme_upgrade', 5);
+add_action('init', 'idc_maybe_run_theme_upgrade', 20);
+
+/**
+ * Passos de migração propriamente ditos (extraído para poder ser
+ * envolvido em try/catch por idc_maybe_run_theme_upgrade).
+ */
+function idc_run_theme_upgrade_steps(): void {
 	flush_rewrite_rules(false);
 
 	// Sites que já passaram por 1.9.x não devem reexecutar seeds forçados (183–190).
@@ -328,19 +367,22 @@ function idc_maybe_run_theme_upgrade(): void {
 	idc_run_upgrade_once('110', 'idc_upgrade_110_layout_cms');
 	idc_run_upgrade_once('111', 'idc_upgrade_111_layout_cms');
 	idc_run_upgrade_once('112', 'idc_upgrade_112_layout_cms');
+	idc_run_upgrade_once('1124', 'idc_upgrade_1124_pillar_image');
+	idc_run_upgrade_once('1125', 'idc_upgrade_1125_home_figma_images');
+	idc_run_upgrade_once('1127', 'idc_upgrade_1127_pillar_attached');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
 	if ($front_id > 0 && function_exists('get_field') && function_exists('update_field')) {
 		$keys = [
 			'idc_hero_eyebrow',
-			'idc_hero_desde',
+			'idc_hero_since',
 			'idc_hero_title_before',
 			'idc_hero_title_accent',
 			'idc_hero_title_after',
 			'idc_hero_lead',
-			'idc_hero_primary_label',
-			'idc_hero_secondary_label',
+			'idc_hero_cta_primary',
+			'idc_hero_cta_secondary',
 			'idc_hero_secondary_url',
 			'idc_hero_image',
 			'idc_trust_items',
@@ -379,11 +421,7 @@ function idc_maybe_run_theme_upgrade(): void {
 			}
 		}
 	}
-
-	update_option('idc_theme_version_installed', IDC_THEME_VERSION, false);
 }
-add_action('admin_init', 'idc_maybe_run_theme_upgrade', 5);
-add_action('init', 'idc_maybe_run_theme_upgrade', 20);
 
 /**
  * v1.8.3 — republica Carreiras se estiver fora do ar e alinha títulos ACF ao Figma.
@@ -604,14 +642,10 @@ function idc_upgrade_188_layout_cms(): void {
 		update_field('idc_hub_cards', idc_default_hub_cards(), (int) $hub->ID);
 	}
 
-	// Prefer PNG de maior fidelidade quando existir no tema (Figma export).
+	// Prefer fill do hub (JPG). PNG legado diverge do Figma e foi movido para _aside.
 	$fisio = get_page_by_path('fisioterapia');
 	if ($fisio instanceof WP_Post) {
-		$png = IDC_THEME_DIR . '/assets/images/pages/hero-fisioterapia.png';
-		if (is_readable($png)) {
-			// Mantém ACF vazio para o template usar o fallback do tema (png/jpg).
-			update_field('idc_page_hero_image', null, (int) $fisio->ID);
-		}
+		update_field('idc_page_hero_image', null, (int) $fisio->ID);
 		$hero_fisio = idc_default_page_hero('fisioterapia');
 		if (is_array($hero_fisio)) {
 			foreach ($hero_fisio as $key => $value) {
@@ -822,7 +856,7 @@ function idc_upgrade_111_layout_cms(): void {
 }
 
 /**
- * v1.12.0 — nota do design system no painel (opção informativa).
+ * v1.12.0+ — nota do design system no painel (opção informativa).
  */
 function idc_upgrade_112_layout_cms(): void {
 	if (!function_exists('update_field') || !function_exists('get_field')) {
@@ -837,6 +871,113 @@ function idc_upgrade_112_layout_cms(): void {
 			"Tokens e componentes: docs/design-tokens.md e template-parts/components/.",
 			'option'
 		);
+	}
+}
+
+/**
+ * v1.12.4 — legado (já rodou no staging); mantido como no-op.
+ */
+function idc_upgrade_1124_pillar_image(): void {
+	// Intencionalmente vazio: a correção definitiva está em 1125.
+}
+
+/**
+ * v1.12.5 — pillar Home = fill Figma 133:407 (exame joelho), não hub anatômico.
+ */
+function idc_upgrade_1125_home_figma_images(): void {
+	if (!function_exists('update_field') || !function_exists('get_field')) {
+		return;
+	}
+
+	$canonical = idc_theme_image('assets/images/pillar-ortopedia', 'png');
+	$rewrite   = static function (array $cards) use ($canonical): array {
+		foreach ($cards as &$card) {
+			if (!is_array($card)) {
+				continue;
+			}
+			$img = $card['image'] ?? null;
+			$url = '';
+			if (is_array($img) && !empty($img['url'])) {
+				$url = (string) $img['url'];
+			} elseif (is_string($img)) {
+				$url = $img;
+			}
+			if ($url === '' || str_contains($url, 'hub-ortopedia') || str_contains($url, 'pillar-ortopedia')) {
+				$card['image'] = $canonical;
+			}
+		}
+		unset($card);
+		return $cards;
+	};
+
+	$targets = ['option'];
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$targets[] = $front_id;
+	}
+
+	foreach ($targets as $target) {
+		$cards = get_field('idc_pillars_cards', $target);
+		if (!is_array($cards) || $cards === []) {
+			update_field('idc_pillars_cards', idc_default_pillars_cards(), $target);
+			continue;
+		}
+		update_field('idc_pillars_cards', $rewrite($cards), $target);
+	}
+
+	// Hero / why: limpa overrides para voltar ao fallback do tema (fills Figma).
+	foreach ($targets as $target) {
+		update_field('idc_hero_image', null, $target);
+		update_field('idc_why_image', null, $target);
+	}
+
+	$hero = [
+		'idc_hero_title_before'    => 'A dor não precisa definir a',
+		'idc_hero_title_accent'    => 'sua vida.',
+		'idc_hero_title_after'     => '',
+		'idc_pillars_title_before' => 'Três pilares de',
+		'idc_pillars_title_accent' => 'cuidado',
+		'idc_pillars_title_after'  => '',
+	];
+	foreach ($targets as $target) {
+		foreach ($hero as $key => $value) {
+			update_field($key, $value, $target);
+		}
+	}
+}
+
+/**
+ * v1.12.7 — pillar Ortopedia = foto anexada (exame do joelho).
+ */
+function idc_upgrade_1127_pillar_attached(): void {
+	if (!function_exists('update_field') || !function_exists('get_field')) {
+		return;
+	}
+
+	$canonical = idc_theme_image('assets/images/pillar-ortopedia', 'png');
+	$targets   = ['option'];
+	$front_id  = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$targets[] = $front_id;
+	}
+
+	foreach ($targets as $target) {
+		$cards = get_field('idc_pillars_cards', $target);
+		if (!is_array($cards) || $cards === []) {
+			update_field('idc_pillars_cards', idc_default_pillars_cards(), $target);
+			continue;
+		}
+		foreach ($cards as &$card) {
+			if (!is_array($card)) {
+				continue;
+			}
+			$layout = (string) ($card['layout'] ?? '');
+			if ($layout === 'primary' || $layout === '') {
+				$card['image'] = $canonical;
+			}
+		}
+		unset($card);
+		update_field('idc_pillars_cards', $cards, $target);
 	}
 }
 

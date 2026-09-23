@@ -17,7 +17,7 @@ $lead   = (string) idc_page_field(
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
-	idc_theme_image('assets/images/pages/hub-integrativa')
+	idc_theme_image('assets/images/pages/hero-integrativa', 'jpg', true)
 );
 
 $grid_title = (string) idc_page_field('idc_integrativa_grid_title', __('Tratamentos Integrativos', 'instituto-dr-chao'));

@@ -377,8 +377,10 @@ function idc_register_acf_field_groups(): void {
 				'key'           => 'field_idc_hero_cta_secondary_url',
 				'label'         => 'URL CTA secundário',
 				'name'          => 'idc_hero_cta_secondary_url',
-				'type'          => 'url',
+				'type'          => 'text',
+				'instructions'  => 'Caminho relativo (/especialidades/) ou URL completa.',
 				'default_value' => '/especialidades/',
+				'placeholder'   => '/especialidades/',
 			],
 			[
 				'key'   => 'field_idc_hero_image',

@@ -43,6 +43,11 @@ $classes = 'idc-blog-card idc-blog-card--' . $variant;
 	<div class="idc-blog-card__media">
 		<?php if (has_post_thumbnail()) : ?>
 			<?php the_post_thumbnail('medium_large', ['loading' => 'lazy']); ?>
+		<?php else : ?>
+			<?php
+			$fallback = idc_blog_figma_fallback_image((string) get_post_field('post_name', get_the_ID()), (int) get_the_ID());
+			?>
+			<img src="<?php echo esc_url($fallback); ?>" alt="" loading="lazy" decoding="async" width="640" height="360">
 		<?php endif; ?>
 		<?php if ($is_home && $cat !== '') : ?>
 			<span class="idc-blog-card__cat idc-blog-card__cat--overlay"><?php echo esc_html($cat); ?></span>

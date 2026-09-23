@@ -170,10 +170,11 @@ function idc_register_acf_home_fields(): void {
 						'type'  => 'text',
 					],
 					[
-						'key'   => 'field_idc_pillar_link_url',
-						'label' => 'URL do link',
-						'name'  => 'link_url',
-						'type'  => 'url',
+						'key'          => 'field_idc_pillar_link_url',
+						'label'        => 'URL do link',
+						'name'         => 'link_url',
+						'type'         => 'text',
+						'instructions' => 'Caminho relativo ou URL completa.',
 					],
 					[
 						'key'           => 'field_idc_pillar_tone',
@@ -373,10 +374,11 @@ function idc_register_acf_home_fields(): void {
 				'default_value' => 'Conheça toda a equipe',
 			],
 			[
-				'key'   => 'field_idc_team_cta_url',
-				'label' => 'CTA URL',
-				'name'  => 'idc_team_cta_url',
-				'type'  => 'url',
+				'key'          => 'field_idc_team_cta_url',
+				'label'        => 'CTA URL',
+				'name'         => 'idc_team_cta_url',
+				'type'         => 'text',
+				'instructions' => 'Caminho relativo ou URL completa.',
 			],
 			[
 				'key'           => 'field_idc_team_count',
@@ -473,10 +475,12 @@ function idc_register_acf_home_fields(): void {
 				'default_value' => 'Dúvidas Frequentes',
 			],
 			[
-				'key'   => 'field_idc_cta_secondary_url',
-				'label' => 'URL CTA secundário',
-				'name'  => 'idc_cta_secondary_url',
-				'type'  => 'url',
+				'key'          => 'field_idc_cta_secondary_url',
+				'label'        => 'URL CTA secundário',
+				'name'         => 'idc_cta_secondary_url',
+				'type'         => 'text',
+				'instructions' => 'Caminho relativo (/contato/) ou URL completa.',
+				'placeholder'  => '/contato/',
 			],
 		],
 		'location' => [

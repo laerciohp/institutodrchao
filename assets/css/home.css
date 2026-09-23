@@ -1004,8 +1004,9 @@
 
 /* ——— Home mobile 390 — Figma 133:768 ——— */
 @media (max-width: 767px) {
+	/* A composição mobile é mantida alinhada ao override final do tema. */
 	.idc-hero {
-		padding: 48px 0 40px;
+		padding: 40px 0 48px;
 	}
 
 	.idc-hero__title {

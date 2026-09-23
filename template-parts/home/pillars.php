@@ -6,9 +6,9 @@
  */
 
 $eyebrow = (string) idc_option('idc_pillars_eyebrow', 'NOSSA ABORDAGEM');
-$before  = (string) idc_option('idc_pillars_title_before', 'Três pilares para');
-$accent  = (string) idc_option('idc_pillars_title_accent', 'uma recuperação');
-$after   = (string) idc_option('idc_pillars_title_after', 'completa');
+$before  = (string) idc_option('idc_pillars_title_before', 'Três pilares de');
+$accent  = (string) idc_option('idc_pillars_title_accent', 'cuidado');
+$after   = (string) idc_option('idc_pillars_title_after', '');
 $lead    = (string) idc_option(
 	'idc_pillars_lead',
 	'Não olhamos apenas para o sintoma. Atuamos com ortopedia de precisão, reabilitação física e medicina integrativa para restaurar sua qualidade de vida.'

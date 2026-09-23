@@ -36,7 +36,7 @@ function idc_default_pillars_cards(): array {
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
 			'tone'       => 'sand',
 			'icon'       => idc_asset('assets/icons/icon-ortopedia-figma.svg'),
-			'image'      => idc_theme_image('assets/images/pillar-ortopedia-figma', 'png'),
+			'image'      => idc_theme_image('assets/images/pillar-ortopedia', 'png'),
 		],
 		[
 			'layout'     => 'narrow',
@@ -140,6 +140,24 @@ function idc_default_testimonials(): array {
 }
 
 /**
+ * Troca paths legados de assets do tema pelas URLs canônicas atuais.
+ */
+function idc_normalize_theme_image_url(string $url): string {
+	// Hub/modelo anatômico não é o fill do card Home (exame do joelho anexado).
+	$canonical = idc_theme_image('assets/images/pillar-ortopedia', 'png');
+	$map       = [
+		'pages/hub-ortopedia.jpg',
+		'pages/hub-ortopedia.png',
+	];
+	foreach ($map as $needle) {
+		if ($canonical !== '' && str_contains($url, $needle)) {
+			return $canonical;
+		}
+	}
+	return $url;
+}
+
+/**
  * Resolve URL de imagem ACF ou string.
  *
  * @param mixed  $image
@@ -147,10 +165,10 @@ function idc_default_testimonials(): array {
  */
 function idc_image_url($image, string $fallback = ''): string {
 	if (is_array($image) && !empty($image['url'])) {
-		return (string) $image['url'];
+		return idc_normalize_theme_image_url((string) $image['url']);
 	}
 	if (is_string($image) && $image !== '') {
-		return $image;
+		return idc_normalize_theme_image_url($image);
 	}
 	return $fallback;
 }

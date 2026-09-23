@@ -25,9 +25,9 @@ $eyebrow = (string) idc_page_field('idc_page_eyebrow', (string) ($hero['idc_page
 
 $hero_fallback = match ($slug) {
 	'ortopedia-regenerativa' => idc_theme_image('assets/images/pages/hero-ortopedia'),
-	'fisioterapia'           => idc_theme_image('assets/images/pages/hero-fisioterapia'),
-	'medicina-integrativa'   => idc_theme_image('assets/images/pages/hub-integrativa'),
-	default                  => idc_theme_image('assets/images/pages/hub-ortopedia'),
+	'fisioterapia'           => idc_theme_image('assets/images/pages/hero-fisioterapia', 'jpg', true),
+	'medicina-integrativa'   => idc_theme_image('assets/images/pages/hero-integrativa', 'jpg', true),
+	default                  => idc_theme_image('assets/images/pages/hub-ortopedia', 'jpg', true),
 };
 $hero_image = idc_image_url(idc_page_field('idc_page_hero_image', null), $hero_fallback);
 $cta_label  = (string) idc_page_field('idc_page_hero_cta_label', __('Agendar Consulta', 'instituto-dr-chao'));
@@ -37,7 +37,11 @@ if (!is_array($blocks) || $blocks === []) {
 	$blocks = idc_default_specialty_layout_for_slug($slug);
 }
 
-$modifier = $slug === 'medicina-integrativa' ? 'integrativa' : '';
+$modifier = match ($slug) {
+	'medicina-integrativa' => 'integrativa',
+	'fisioterapia'         => 'fisioterapia',
+	default                => '',
+};
 ?>
 
 <main id="main" class="site-main site-main--page idc-specialty">
@@ -190,14 +194,10 @@ $modifier = $slug === 'medicina-integrativa' ? 'integrativa' : '';
 			break;
 		}
 	}
-	if (!$has_strip_block) {
+	// Figma Fisioterapia (133:1534) omite strip; Ortopedia/Integrativa mantêm.
+	if (!$has_strip_block && $slug !== 'fisioterapia') {
 		$strip_overrides = [];
-		if ($slug === 'ortopedia-regenerativa') {
-			$strip_overrides = [
-				'secondary_label' => (string) idc_page_field('idc_strip_secondary_label', __('Ver Fisioterapia Especializada', 'instituto-dr-chao')),
-				'secondary_url'   => (string) idc_page_field('idc_strip_secondary_url', home_url('/fisioterapia/')),
-			];
-		} elseif ($slug === 'medicina-integrativa') {
+		if ($slug === 'medicina-integrativa') {
 			$strip_overrides = [
 				'secondary_label' => (string) idc_page_field('idc_strip_secondary_label', __('Voltar para Ortopedia Regenerativa', 'instituto-dr-chao')),
 				'secondary_url'   => (string) idc_page_field('idc_strip_secondary_url', home_url('/ortopedia-regenerativa/')),

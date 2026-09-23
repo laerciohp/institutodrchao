@@ -4,7 +4,7 @@ Theme URI: https://github.com/laerciohp/institutodrchao
 Author: Hitechsp
 Author URI: https://hitechsp.com.br
 Description: Tema institucional do Instituto Dr. Chao — ortopedia, reabilitação e medicina integrativa. Desenvolvido por Hitechsp. Atualizações via GitHub Releases.
-Version: 1.12.0
+Version: 1.12.9
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 8.1
@@ -19,7 +19,7 @@ Update URI: false
 /*
  * Cabeçalho do tema (Version lida pelo WP e pelo updater).
  * Tokens e layout: assets/css/*.css + theme.json
- * Patch pixel-perfect v1.8.8 (overrides — carregado por último).
+ * Patch pixel-perfect v1.12.3 (overrides — carregado por último).
  */
 
 /* Hero Home */
@@ -222,6 +222,118 @@ Update URI: false
 	}
 	.idc-footer {
 		padding-top: 64px;
+	}
+}
+
+/* v1.12.3 — Fisioterapia 133:1534 (página curta ~1685) + Orto crop */
+@media (min-width: 1024px) {
+	.idc-page-hero--fisioterapia {
+		padding: 48px 0 40px;
+	}
+
+	.idc-phases.idc-specialty__block {
+		padding-top: 40px;
+		padding-bottom: 64px;
+	}
+
+	.idc-phases.idc-specialty__block:last-child {
+		padding-bottom: calc(64px + var(--idc-radius-lg));
+	}
+
+	.idc-phases__grid {
+		gap: 24px;
+	}
+
+	.idc-phases__card {
+		min-height: 0;
+		padding: 28px 24px;
+	}
+
+	.idc-phases__icon-wrap {
+		width: 56px;
+		height: 56px;
+		background: var(--idc-white);
+		box-shadow: 0 0 0 1px rgba(182, 135, 59, 0.18);
+	}
+
+	.idc-phases__icon {
+		width: 24px;
+		height: 24px;
+	}
+
+	.idc-specialty__block-header {
+		margin-bottom: 32px;
+	}
+}
+
+@media (max-width: 767px) {
+	.idc-page-hero--fisioterapia {
+		padding: 32px 0 24px;
+	}
+
+	.idc-phases.idc-specialty__block {
+		padding-top: 24px;
+	}
+}
+
+/* v1.12.2 — Ortopedia 133:1238 + hub/fisio refinements */
+.idc-page-hero {
+	background: var(--idc-cream); /* #FCF9F4 */
+}
+
+.idc-specialty .idc-page-hero--split .idc-page-hero__title-accent {
+	color: var(--idc-azul-900);
+	font-weight: 500;
+}
+
+.idc-specialty .idc-page-hero--split .idc-page-hero__eyebrow {
+	color: var(--idc-ouro);
+	letter-spacing: 0.08em;
+}
+
+@media (min-width: 1024px) {
+	.idc-specialty .idc-page-hero--split {
+		padding: 64px 0 80px;
+	}
+
+	.idc-treatment-faq.idc-specialty__block {
+		padding-top: 64px;
+		padding-bottom: 80px;
+	}
+
+	.idc-specialty .idc-strip-cta {
+		padding: 64px 0;
+	}
+}
+
+/* Hub cards — media 192 / radius 13 / sem overlay cinza */
+.idc-hub-card__media {
+	margin: 33px 33px 0;
+	height: 192px;
+	border-radius: 13px;
+	background: transparent;
+	overflow: hidden;
+}
+.idc-hub-card__media img {
+	border-radius: 13px;
+	object-fit: cover;
+}
+
+/* Fisio phases — gap estável 4-col */
+@media (min-width: 1024px) {
+	.idc-phases__grid {
+		gap: 32px;
+	}
+}
+
+/* v1.12.1 — refinamentos Figma (1280 / 390) */
+.idc-page-hero__eyebrow {
+	margin: 0 0 var(--idc-space-4);
+}
+
+@media (min-width: 1024px) {
+	.idc-page-hero--split .idc-page-hero__media {
+		border-radius: var(--idc-radius-lg);
 	}
 }
 

@@ -9,9 +9,11 @@ $eyebrow = (string) idc_option('idc_why_eyebrow', 'DIFERENCIAIS');
 $title   = (string) idc_option('idc_why_title', 'Por que escolher o Instituto Dr. Chao?');
 $lead    = (string) idc_option('idc_why_lead', 'Unimos a precisão da medicina moderna com o acolhimento humano em um só lugar.');
 $image   = idc_option('idc_why_image', null);
-$img_fallback = is_readable(IDC_THEME_DIR . '/assets/images/why-choose.png')
-	? idc_asset('assets/images/why-choose.png')
-	: idc_asset('assets/images/why-choose.jpg');
+$img_fallback = idc_theme_image('assets/images/why-choose', 'png');
+if (!is_readable(IDC_THEME_DIR . '/assets/images/why-choose.png')
+	&& !is_readable(IDC_THEME_DIR . '/assets/images/why-choose.jpg')) {
+	$img_fallback = idc_theme_image('assets/images/why-choose-figma', 'png');
+}
 $img_url = idc_image_url($image, $img_fallback);
 $img_alt = idc_image_alt($image, __('Reabilitação assistida no Instituto Dr. Chao', 'instituto-dr-chao'));
 

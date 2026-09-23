@@ -21,7 +21,7 @@ $lead = (string) idc_page_field(
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
-	idc_asset('assets/images/pages/hero-ortopedia-candidato.png')
+	idc_theme_image('assets/images/pages/hero-carreiras', 'jpg', true)
 );
 ?>
 

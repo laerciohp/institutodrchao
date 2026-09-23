@@ -17,7 +17,7 @@ $lead   = (string) idc_page_field(
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
-	idc_theme_image('assets/images/pages/hero-fisioterapia')
+	idc_theme_image('assets/images/pages/hero-fisioterapia', 'jpg', true)
 );
 $cta_label = (string) idc_page_field('idc_page_hero_cta_label', __('Agendar Consulta', 'instituto-dr-chao'));
 
@@ -49,6 +49,7 @@ if ($phases === []) {
 	<?php
 	get_template_part('template-parts/page/page-hero', null, [
 		'layout'           => 'split',
+		'modifier'         => 'fisioterapia',
 		'eyebrow'          => (string) idc_page_field('idc_page_eyebrow', __('ESPECIALIDADE', 'instituto-dr-chao')),
 		'title_before'     => $before,
 		'title_accent'     => $accent,
@@ -70,7 +71,6 @@ if ($phases === []) {
 		'title'  => $phases_title,
 		'phases' => $phases,
 	]);
-	get_template_part('template-parts/components/strip-cta', null, idc_strip_cta_args_for_page('fisioterapia'));
 	?>
 </main>
 

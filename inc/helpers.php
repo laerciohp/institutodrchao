@@ -19,15 +19,24 @@ function idc_asset(string $relative): string {
 }
 
 /**
- * Prefere PNG de export Figma quando existir; senão JPG/WebP informado.
+ * Prefere PNG de export Figma quando existir; senão extensão informada (jpg/webp).
+ *
+ * Passe $prefer_ext = true para forçar a extensão pedida (ex.: hub JPG quando PNG legado diverge).
  */
-function idc_theme_image(string $relative_without_ext, string $fallback_ext = 'jpg'): string {
+function idc_theme_image(string $relative_without_ext, string $fallback_ext = 'jpg', bool $prefer_ext = false): string {
 	$base = ltrim($relative_without_ext, '/');
-	$png  = IDC_THEME_DIR . '/' . $base . '.png';
+	$ext  = ltrim($fallback_ext, '.');
+	if ($prefer_ext) {
+		$forced = IDC_THEME_DIR . '/' . $base . '.' . $ext;
+		if (is_readable($forced)) {
+			return idc_asset($base . '.' . $ext);
+		}
+	}
+	$png = IDC_THEME_DIR . '/' . $base . '.png';
 	if (is_readable($png)) {
 		return idc_asset($base . '.png');
 	}
-	return idc_asset($base . '.' . ltrim($fallback_ext, '.'));
+	return idc_asset($base . '.' . $ext);
 }
 
 /**
@@ -296,4 +305,31 @@ function idc_blog_filter_categories(): array {
  */
 function idc_icon_url($icon, string $fallback = ''): string {
 	return idc_image_url($icon, $fallback);
+}
+
+/**
+ * Fallback de capa Figma para cards do blog (home/arquivo) sem featured image.
+ *
+ * @param string $slug  post_name
+ * @param int    $index índice do card na grade (ciclo 0–2)
+ */
+function idc_blog_figma_fallback_image(string $slug = '', int $index = 0): string {
+	$map = [
+		'o-que-e-a-ortopedia-regenerativa-e-como-ela-transforma-vidas' => 'assets/images/blog/figma-joelho-corrida.jpg',
+		'como-o-uso-do-celular-pode-piorar-a-sua-dor'                 => 'assets/images/blog/figma-acupuntura.jpg',
+		'8-dicas-para-aliviar-as-dores-musculares-apos-o-treino-na-academia' => 'assets/images/blog/figma-fisio-pos-op.jpg',
+		'medicina-integrativa-o-cuidado-que-enxerga-voce-por-inteiro' => 'assets/images/blog/figma-acupuntura.jpg',
+	];
+
+	if ($slug !== '' && isset($map[$slug])) {
+		return idc_asset($map[$slug]);
+	}
+
+	$cycle = [
+		'assets/images/blog/figma-joelho-corrida.jpg',
+		'assets/images/blog/figma-acupuntura.jpg',
+		'assets/images/blog/figma-fisio-pos-op.jpg',
+	];
+
+	return idc_asset($cycle[abs($index) % 3]);
 }
