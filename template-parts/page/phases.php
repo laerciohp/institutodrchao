@@ -18,6 +18,7 @@ if (!is_array($phases) || $phases === []) {
 	<div class="idc-container">
 		<header class="idc-specialty__block-header idc-specialty__block-header--center">
 			<h2 id="idc-phases-title" class="idc-specialty__block-title"><?php echo esc_html($title); ?></h2>
+			<span class="idc-specialty__block-rule" aria-hidden="true"></span>
 		</header>
 
 		<ol class="idc-phases__grid">

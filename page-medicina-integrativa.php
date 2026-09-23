@@ -59,6 +59,8 @@ if ($grid === []) {
 				'url'   => home_url('/especialidades/'),
 			],
 		],
+		'cta_label'        => (string) idc_page_field('idc_page_hero_cta_label', __('Agendar Consulta', 'instituto-dr-chao')),
+		'origem'           => 'medicina-integrativa',
 		'image'            => $hero_image,
 		'image_alt'        => __('Medicina Integrativa e Regenerativa — Instituto Dr. Chao', 'instituto-dr-chao'),
 	]);

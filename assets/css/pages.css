@@ -318,7 +318,12 @@
 	gap: var(--idc-space-5);
 }
 
-.idc-page-hero--overlay .idc-page-hero__title,
+.idc-page-hero--overlay .idc-page-hero__title {
+	color: var(--idc-white);
+	font-family: var(--idc-font-sans);
+	font-weight: 500;
+}
+
 .idc-page-hero--overlay .idc-page-hero__title-accent {
 	color: var(--idc-white);
 	font-family: var(--idc-font-serif);
@@ -400,12 +405,12 @@
 }
 
 .idc-hub-card__media {
-	margin: 33px 33px 0;
+	margin: 32px 32px 0;
 	height: 192px;
 	aspect-ratio: auto;
 	overflow: hidden;
 	background: var(--idc-sand);
-	border-radius: 16px;
+	border-radius: 24px;
 }
 
 .idc-hub-card__media img {
@@ -688,8 +693,8 @@
 .idc-instituto__card {
 	background: var(--idc-sand-warm);
 	border: 0;
-	border-radius: 16px;
-	padding: 25px;
+	border-radius: var(--idc-radius-lg);
+	padding: 41px;
 	min-height: 270px;
 	display: flex;
 	flex-direction: column;
@@ -821,9 +826,9 @@
 
 .idc-specialty__block-title {
 	font-size: clamp(24px, 3.2vw, 32px);
-	font-weight: 600;
+	font-weight: 700;
 	color: var(--idc-azul-900);
-	line-height: 1.25;
+	line-height: 40px;
 }
 
 .idc-specialty__block-rule {
@@ -1022,7 +1027,7 @@
 /* Phases — Fisioterapia (ícone + FASE N + watermark) */
 .idc-phases__grid {
 	display: grid;
-	gap: 24px;
+	gap: var(--idc-space-5);
 	grid-template-columns: 1fr;
 	list-style: none;
 	margin: 0;
@@ -1032,23 +1037,23 @@
 @media (min-width: 700px) {
 	.idc-phases__grid {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 24px;
+		gap: var(--idc-space-8);
 	}
 }
 
 @media (min-width: 1024px) {
 	.idc-phases__grid {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 24px;
+		gap: var(--idc-space-8);
 	}
 }
 
 .idc-phases__card {
 	position: relative;
-	background: var(--idc-white);
-	border: 1px solid var(--idc-border-soft);
-	border-radius: var(--idc-radius-md);
-	padding: 33px;
+	background: #f6f3ee;
+	border: 0;
+	border-radius: var(--idc-radius-lg);
+	padding: 41px 33px;
 	display: flex;
 	flex-direction: column;
 	gap: var(--idc-space-3);
@@ -1174,20 +1179,20 @@
 @media (min-width: 1024px) {
 	.idc-integrativa-grid__bento {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 24px;
+		gap: var(--idc-space-8);
 	}
 }
 
 .idc-integrativa-card {
-	background: var(--idc-white);
-	border: 1px solid var(--idc-border-soft);
-	border-radius: var(--idc-radius-md);
-	padding: 25px;
+	background: #f6f3ee;
+	border: 0;
+	border-radius: var(--idc-radius-lg);
+	padding: var(--idc-space-8);
 	display: flex;
 	flex-direction: column;
 	gap: var(--idc-space-3);
 	min-height: 206px;
-	box-shadow: 0 1px 0 rgba(20, 30, 48, 0.04);
+	box-shadow: none;
 }
 
 .idc-integrativa-card__mark {
@@ -1328,7 +1333,7 @@
 	min-height: 56px;
 	margin: 0;
 	padding: 0 var(--idc-space-4);
-	border-radius: var(--idc-radius-md);
+	border-radius: var(--idc-radius-pill);
 	border: 1px solid var(--idc-border);
 	font-family: var(--idc-font-sans);
 	font-weight: 600;
@@ -1613,7 +1618,7 @@
 	min-height: 56px;
 	padding: 0 32px;
 	border: 1px solid var(--idc-border);
-	border-radius: var(--idc-radius-md);
+	border-radius: var(--idc-radius-pill);
 	background: var(--idc-sand-warm);
 	color: var(--idc-azul-900);
 	font-family: var(--idc-font-sans);
@@ -1844,11 +1849,11 @@
 	font-size: var(--idc-text-sm);
 	font-weight: 600;
 	line-height: 1;
-	padding: 10px 16px;
-	border-radius: var(--idc-radius-md);
+	padding: 12px 24px;
+	border-radius: var(--idc-radius-pill);
 	cursor: pointer;
 	transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-	min-height: 38px;
+	min-height: 44px;
 }
 
 .idc-blog-filters__btn:hover {

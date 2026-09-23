@@ -42,6 +42,11 @@ $hero_image = idc_image_url(
 		'image_alt'              => __('Equipe e atendimento no Instituto Dr. Chao', 'instituto-dr-chao'),
 	]);
 	get_template_part('template-parts/page/carreiras-content');
+	get_template_part('template-parts/components/strip-cta', null, [
+		'origem' => 'carreiras',
+		'decor'  => true,
+		'align'  => 'center',
+	]);
 	?>
 </main>
 

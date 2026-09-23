@@ -19,12 +19,14 @@ $cta_sec   = (string) idc_option('idc_hero_cta_secondary', 'Conheça os tratamen
 $cta_sec_u = (string) idc_option('idc_hero_cta_secondary_url', home_url('/especialidades/'));
 $image     = idc_option('idc_hero_image', null);
 
-$image_url = idc_asset('assets/images/hero-photo.jpg');
+$image_url = idc_asset('assets/images/hero-photo.png');
 $image_alt = __('Paciente em ambiente acolhedor do Instituto Dr. Chao', 'instituto-dr-chao');
 
 if (is_array($image) && !empty($image['url'])) {
 	$image_url = $image['url'];
 	$image_alt = $image['alt'] ?: $image_alt;
+} elseif (!is_readable(IDC_THEME_DIR . '/assets/images/hero-photo.png')) {
+	$image_url = idc_asset('assets/images/hero-photo.jpg');
 }
 ?>
 <section class="idc-hero" aria-labelledby="idc-hero-title">

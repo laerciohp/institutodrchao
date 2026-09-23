@@ -49,7 +49,7 @@ if ($phases === []) {
 	<?php
 	get_template_part('template-parts/page/page-hero', null, [
 		'layout'           => 'split',
-		'eyebrow'          => (string) idc_page_field('idc_page_eyebrow', ''),
+		'eyebrow'          => (string) idc_page_field('idc_page_eyebrow', __('ESPECIALIDADE', 'instituto-dr-chao')),
 		'title_before'     => $before,
 		'title_accent'     => $accent,
 		'title_after'      => $after,

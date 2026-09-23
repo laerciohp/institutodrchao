@@ -73,12 +73,21 @@
 }
 
 .idc-hero__title {
+	font-family: var(--idc-font-sans);
 	font-size: clamp(32px, 5vw, 48px);
 	font-weight: 500;
 	line-height: 1.17;
 	letter-spacing: -0.02em;
 	color: var(--idc-azul-900);
 	max-width: 549px;
+}
+
+@media (min-width: 1024px) {
+	.idc-hero__title {
+		font-size: 48px;
+		line-height: 56px;
+		letter-spacing: -0.96px;
+	}
 }
 
 .idc-hero__title-accent {
