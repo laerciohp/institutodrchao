@@ -77,7 +77,7 @@ add_action('after_setup_theme', 'idc_setup');
 function idc_enqueue_assets(): void {
 	wp_enqueue_style(
 		'idc-fonts',
-		'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto+Serif:opsz,wght@8..144,800&display=swap',
+		'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto+Serif:opsz,wght@8..144,700;8..144,800&display=swap',
 		[],
 		null
 	);

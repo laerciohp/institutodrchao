@@ -26,7 +26,10 @@
 	--idc-white-80: rgba(255, 255, 255, 0.8);
 	--idc-border-soft: rgba(197, 198, 205, 0.2);
 
-	/* Tipografia */
+	/* Tipografia — Figma Dra Chao
+	 * Montserrat: UI, corpo, títulos (Regular/Medium/SemiBold/Bold)
+	 * Roboto Serif: SOMENTE spans de destaque nos títulos (.…__title-accent)
+	 */
 	--idc-font-sans: "Montserrat", system-ui, sans-serif;
 	--idc-font-serif: "Roboto Serif", Georgia, serif;
 

@@ -93,8 +93,8 @@
 
 .idc-hero__title-accent {
 	font-family: var(--idc-font-serif);
-	font-weight: 800;
-	color: var(--idc-ouro);
+	font-weight: 700;
+	color: var(--idc-terracota-700);
 	font-variation-settings: "GRAD" 0, "wdth" 100;
 }
 

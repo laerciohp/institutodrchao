@@ -144,7 +144,8 @@
 .idc-pillars__title-accent {
 	font-family: var(--idc-font-serif);
 	font-weight: 700;
-	color: var(--idc-ouro);
+	color: var(--idc-terracota-700);
+	font-variation-settings: "GRAD" 0, "wdth" 100;
 }
 
 .idc-pillars__lead {
@@ -988,6 +989,8 @@
 .idc-final-cta__title-accent {
 	font-family: var(--idc-font-serif);
 	font-weight: 700;
+	color: var(--idc-terracota-700);
+	font-variation-settings: "GRAD" 0, "wdth" 100;
 }
 
 .idc-final-cta__lead {

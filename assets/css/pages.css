@@ -18,7 +18,7 @@
 	gap: var(--idc-space-2);
 	font-family: var(--idc-font-sans);
 	font-size: var(--idc-text-sm);
-	font-weight: 500;
+	font-weight: 600;
 	line-height: 20px;
 }
 
@@ -28,7 +28,7 @@
 
 .idc-breadcrumb__item--current {
 	color: var(--idc-terracota-800);
-	font-weight: 600;
+	font-weight: 700;
 }
 
 .idc-breadcrumb__sep {
@@ -78,17 +78,19 @@
 }
 
 .idc-page-hero__title {
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: clamp(32px, 5vw, 48px);
 	font-weight: 500;
 	line-height: 1.15;
+	letter-spacing: -0.02em;
 	color: var(--idc-azul-900);
 }
 
 .idc-page-hero__title-accent {
 	font-family: var(--idc-font-serif);
 	font-weight: 700;
-	color: var(--idc-ouro);
+	font-variation-settings: "GRAD" 0, "wdth" 100;
+	color: var(--idc-terracota-700);
 }
 
 .idc-page-hero__lead {
@@ -361,7 +363,7 @@
 }
 
 .site-main--blog .idc-page-hero__title-accent {
-	color: var(--idc-ouro);
+	color: var(--idc-terracota-700);
 }
 
 .idc-page-hero--blog .idc-page-hero__inner {
@@ -937,7 +939,7 @@
 }
 
 .idc-treatment-faq-card__title {
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: clamp(22px, 2.4vw, 32px);
 	font-weight: 700;
 	line-height: 1.25;
@@ -981,9 +983,9 @@
 /* Accordion FAQ (single tratamento / especialidades) */
 .idc-specialty__faq-title {
 	margin: 0 0 var(--idc-space-6);
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: clamp(24px, 2.5vw, 32px);
-	font-weight: 800;
+	font-weight: 700;
 	line-height: 1.25;
 	color: var(--idc-azul-900);
 	text-align: center;
@@ -1129,7 +1131,7 @@
 	position: absolute;
 	right: -4px;
 	bottom: -6px;
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: 56px;
 	font-weight: 700;
 	line-height: 1;
@@ -1184,10 +1186,10 @@
 }
 
 .idc-phases__icon-wrap--num {
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: 20px;
 	font-weight: 700;
-	color: var(--idc-ouro);
+	color: var(--idc-terracota-700);
 }
 
 .idc-phases__icon {
@@ -2389,7 +2391,8 @@ a.idc-blog-filters__btn.is-active {
 }
 
 .idc-treatment-single__content :where(h2, h3) {
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
+	font-weight: 700;
 	color: var(--idc-azul-900);
 	line-height: 1.25;
 }
@@ -2506,10 +2509,11 @@ a.idc-blog-filters__btn.is-active {
 }
 
 .idc-single__title {
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: clamp(32px, 5vw, 48px);
-	font-weight: 700;
+	font-weight: 500;
 	line-height: 1.15;
+	letter-spacing: -0.02em;
 	margin: 0;
 	color: var(--idc-azul-900);
 }
@@ -2837,9 +2841,9 @@ a.idc-blog-filters__btn.is-active {
 }
 
 .idc-section-header__title {
-	font-family: var(--idc-font-serif);
+	font-family: var(--idc-font-sans);
 	font-size: var(--idc-text-3xl);
-	font-weight: 800;
+	font-weight: 700;
 	color: var(--idc-azul-900);
 	margin: 0 0 var(--idc-space-3);
 }
