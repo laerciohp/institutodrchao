@@ -543,25 +543,33 @@
 	transition: none;
 }
 
-
+/* Largura idêntica por breakpoint; altura vem do stretch do track */
 .idc-testimonials__slide {
 	flex: 0 0 100%;
+	width: 100%;
+	max-width: 100%;
 	min-width: 0;
-	scroll-snap-align: start;
-	display: flex;
+	min-height: 100%;
+	height: auto;
 	align-self: stretch;
+	scroll-snap-align: start;
+	box-sizing: border-box;
 }
 
 @media (min-width: 700px) {
 	.idc-testimonials__slide {
 		flex: 0 0 calc((100% - var(--idc-space-8)) / 2);
+		width: calc((100% - var(--idc-space-8)) / 2);
+		max-width: calc((100% - var(--idc-space-8)) / 2);
 	}
 }
 
 @media (min-width: 1024px) {
-	/* Figma 133:503 — 3 cards + gap 32px, sem corte na viewport */
+	/* Figma 133:503 — 3 cards + gap 32px */
 	.idc-testimonials__slide {
 		flex: 0 0 calc((100% - 2 * var(--idc-space-8)) / 3);
+		width: calc((100% - 2 * var(--idc-space-8)) / 3);
+		max-width: calc((100% - 2 * var(--idc-space-8)) / 3);
 	}
 }
 
@@ -573,8 +581,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--idc-space-6);
-	height: 100%;
-	min-height: 320px;
+	/* Não usar height:100% — impede align-items:stretch no carrossel */
+	height: auto;
+	min-height: 360px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -596,7 +605,7 @@
 	font-weight: 400;
 	line-height: 28px;
 	color: var(--idc-ink);
-	flex: 1;
+	flex: 1 1 auto;
 	margin: 0;
 }
 
@@ -604,6 +613,8 @@
 	display: flex;
 	align-items: center;
 	gap: var(--idc-space-4);
+	margin-top: auto;
+	flex-shrink: 0;
 }
 
 .idc-testimonial__avatar {
