@@ -19,7 +19,9 @@ require_once IDC_THEME_DIR . '/inc/helpers.php';
 require_once IDC_THEME_DIR . '/inc/defaults-home.php';
 require_once IDC_THEME_DIR . '/inc/cpt/profissional.php';
 require_once IDC_THEME_DIR . '/inc/cpt/tratamento.php';
-require_once IDC_THEME_DIR . '/inc/cpt/depoimento.php';
+if (is_readable(IDC_THEME_DIR . '/inc/cpt/depoimento.php')) {
+	require_once IDC_THEME_DIR . '/inc/cpt/depoimento.php';
+}
 require_once IDC_THEME_DIR . '/inc/cpt/form-submissions.php';
 require_once IDC_THEME_DIR . '/inc/crm/crm.php';
 require_once IDC_THEME_DIR . '/inc/acf/options.php';
