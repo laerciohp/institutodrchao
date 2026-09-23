@@ -12,10 +12,10 @@ Exportados em PNG 2× via Figma MCP `download_assets` (2026-04-23).
 | Pilares — ícone Ortopedia | `133:396` | `assets/icons/icon-ortopedia-figma.svg` | SVG |
 | Pilares — pattern CTA | `133:410` | `assets/icons/pillars-cta-pattern.svg` | SVG |
 | Por que escolher | `133:424` | `assets/images/why-choose.png` (+ `why-choose-figma.png`) | ~2× |
-| Hub Especialidades — Orto | `133:1042` (fill) | `assets/images/pages/hub-ortopedia.png` | 2528×1684 |
-| Hub Especialidades — Fisio | `133:1059` (fill) | `assets/images/pages/hub-fisio.png` | 2474×1728 |
-| Hub Especialidades — Integrativa | `133:1076` (fill) | `assets/images/pages/hub-integrativa.png` | 4096×2536 |
-| Blog Home — card 1 | `136:13078` | `assets/images/blog/figma-joelho-corrida.png` | fill |
-| Blog Home — card 2 | `136:13095` | `assets/images/blog/figma-acupuntura.png` | fill |
-| Blog Home — card 3 | `136:13112` | `assets/images/blog/figma-fisio-pos-op.png` | fill |
+| Hub Especialidades — Orto | `133:1042` (fill) | `assets/images/pages/hub-ortopedia.jpg` | fill JPEG |
+| Hub Especialidades — Fisio | `133:1059` (fill) | `assets/images/pages/hub-fisio.jpg` | fill JPEG |
+| Hub Especialidades — Integrativa | `133:1076` (fill) | `assets/images/pages/hub-integrativa.jpg` | fill JPEG |
+| Blog Home — card 1 | `136:13078` | `assets/images/blog/figma-joelho-corrida.jpg` | fill |
+| Blog Home — card 2 | `136:13095` | `assets/images/blog/figma-acupuntura.jpg` | fill |
+| Blog Home — card 3 | `136:13112` | `assets/images/blog/figma-fisio-pos-op.jpg` | fill |
 | Diferenciais — ícones | — | `assets/icons/diff-{1..4}-figma.svg` | SVG |

@@ -15,9 +15,9 @@ if (!is_array($cards) || $cards === []) {
 }
 
 $theme_fallbacks = [
-	idc_theme_image('assets/images/pages/hub-ortopedia'),
-	idc_theme_image('assets/images/pages/hub-fisio'),
-	idc_theme_image('assets/images/pages/hub-integrativa'),
+	idc_asset('assets/images/pages/hub-ortopedia.jpg'),
+	idc_asset('assets/images/pages/hub-fisio.jpg'),
+	idc_asset('assets/images/pages/hub-integrativa.jpg'),
 ];
 ?>
 <section class="idc-hub-cards" aria-label="<?php esc_attr_e('Nossas especialidades', 'instituto-dr-chao'); ?>">

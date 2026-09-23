@@ -23,7 +23,7 @@ function idc_default_hub_cards(): array {
 			'text'       => 'Foco em precisão e tecnologia avançada para tratar lesões e condições ortopédicas complexas, promovendo a regeneração tecidual e alívio da dor com intervenções minimamente invasivas.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
-			'image'      => idc_theme_image('assets/images/pages/hub-ortopedia'),
+			'image'      => idc_asset('assets/images/pages/hub-ortopedia.jpg'),
 			'tone'       => 'sand',
 		],
 		[
@@ -31,7 +31,7 @@ function idc_default_hub_cards(): array {
 			'text'       => 'Abordagem centrada no movimento e na recuperação funcional. Tratamentos personalizados para gerenciar e resolver quadros de dor aguda e crônica, restaurando a qualidade de vida.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/fisioterapia/'),
-			'image'      => idc_theme_image('assets/images/pages/hub-fisio'),
+			'image'      => idc_asset('assets/images/pages/hub-fisio.jpg'),
 			'tone'       => 'peach',
 		],
 		[
@@ -39,7 +39,7 @@ function idc_default_hub_cards(): array {
 			'text'       => 'Um olhar global sobre a sua saúde, buscando o equilíbrio do corpo e da mente. Terapias complementares que potencializam os resultados dos tratamentos principais e promovem o bem-estar sistêmico.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/medicina-integrativa/'),
-			'image'      => idc_theme_image('assets/images/pages/hub-integrativa'),
+			'image'      => idc_asset('assets/images/pages/hub-integrativa.jpg'),
 			'tone'       => 'cream',
 		],
 	];
