@@ -41,7 +41,20 @@ $total = count($items);
 							</div>
 							<p class="idc-testimonial__quote">&ldquo;<?php echo esc_html($quote); ?>&rdquo;</p>
 							<footer class="idc-testimonial__author">
-								<div class="idc-testimonial__avatar">
+								<?php
+								$initials = '';
+								if ($name !== '') {
+									$parts = preg_split('/\s+/u', trim($name)) ?: [];
+									$parts = array_values(array_filter($parts, static fn($p) => $p !== ''));
+									if ($parts !== []) {
+										$initials = mb_strtoupper(mb_substr($parts[0], 0, 1));
+										if (count($parts) > 1) {
+											$initials .= mb_strtoupper(mb_substr($parts[count($parts) - 1], 0, 1));
+										}
+									}
+								}
+								?>
+								<div class="idc-testimonial__avatar"<?php echo $photo === '' && $initials !== '' ? ' data-initials="' . esc_attr($initials) . '"' : ''; ?>>
 									<?php if ($photo !== '') : ?>
 										<img src="<?php echo esc_url($photo); ?>" alt="" width="48" height="48" loading="lazy" decoding="async">
 									<?php endif; ?>

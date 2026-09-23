@@ -19,6 +19,18 @@ function idc_asset(string $relative): string {
 }
 
 /**
+ * Prefere PNG de export Figma quando existir; senão JPG/WebP informado.
+ */
+function idc_theme_image(string $relative_without_ext, string $fallback_ext = 'jpg'): string {
+	$base = ltrim($relative_without_ext, '/');
+	$png  = IDC_THEME_DIR . '/' . $base . '.png';
+	if (is_readable($png)) {
+		return idc_asset($base . '.png');
+	}
+	return idc_asset($base . '.' . ltrim($fallback_ext, '.'));
+}
+
+/**
  * Lê campo ACF da Home (página Início) ou Options, com fallback.
  *
  * Prioridade: meta da front page → IDC Opções → $default.

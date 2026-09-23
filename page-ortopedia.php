@@ -18,7 +18,7 @@ $lead   = (string) idc_page_field(
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
-	idc_asset('assets/images/pages/hero-ortopedia.jpg')
+	idc_theme_image('assets/images/pages/hero-ortopedia')
 );
 $cta_label = (string) idc_page_field('idc_page_hero_cta_label', __('Agendar Consulta', 'instituto-dr-chao'));
 

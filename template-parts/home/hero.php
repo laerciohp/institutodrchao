@@ -7,9 +7,9 @@
 
 $eyebrow   = (string) idc_option('idc_hero_eyebrow', 'INSTITUTO DR. CHAO');
 $since     = (string) idc_option('idc_hero_since', 'DESDE 1987');
-$before    = (string) idc_option('idc_hero_title_before', 'Tratamos a');
-$accent    = (string) idc_option('idc_hero_title_accent', 'origem da dor.');
-$after     = (string) idc_option('idc_hero_title_after', 'Você sente a mudança.');
+$before    = (string) idc_option('idc_hero_title_before', 'A dor não precisa definir a');
+$accent    = (string) idc_option('idc_hero_title_accent', 'sua vida.');
+$after     = (string) idc_option('idc_hero_title_after', '');
 $lead      = (string) idc_option(
 	'idc_hero_lead',
 	"Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo."

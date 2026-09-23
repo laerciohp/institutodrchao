@@ -318,6 +318,7 @@ function idc_maybe_run_theme_upgrade(): void {
 	idc_upgrade_184_layout_cms();
 	idc_upgrade_186_layout_cms();
 	idc_upgrade_187_layout_cms();
+	idc_upgrade_188_layout_cms();
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -552,6 +553,72 @@ function idc_upgrade_187_layout_cms(): void {
 
 	if (function_exists('idc_setup_remove_footer_instalacoes_link')) {
 		idc_setup_remove_footer_instalacoes_link();
+	}
+}
+
+/**
+ * v1.8.8 — alinha Home (hero Figma) + Hub title split + limpa leads fora do frame.
+ */
+function idc_upgrade_188_layout_cms(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$hero = [
+		'idc_hero_title_before' => 'A dor não precisa definir a',
+		'idc_hero_title_accent' => 'sua vida.',
+		'idc_hero_title_after'  => '',
+		'idc_hero_lead'         => "Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo.",
+		'idc_hero_cta_primary'  => 'Agendar Consulta',
+		'idc_hero_cta_secondary'=> 'Conheça os tratamentos',
+	];
+
+	foreach ($hero as $key => $value) {
+		update_field($key, $value, 'option');
+	}
+
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		foreach ($hero as $key => $value) {
+			update_field($key, $value, $front_id);
+		}
+	}
+
+	$hub = get_page_by_path('especialidades');
+	if ($hub instanceof WP_Post) {
+		$hub_fields = idc_default_page_hero('especialidades');
+		if (is_array($hub_fields)) {
+			foreach ($hub_fields as $key => $value) {
+				update_field($key, $value, (int) $hub->ID);
+			}
+		}
+		update_field('idc_hub_cards', idc_default_hub_cards(), (int) $hub->ID);
+	}
+
+	// Prefer PNG de maior fidelidade quando existir no tema (Figma export).
+	$fisio = get_page_by_path('fisioterapia');
+	if ($fisio instanceof WP_Post) {
+		$png = IDC_THEME_DIR . '/assets/images/pages/hero-fisioterapia.png';
+		if (is_readable($png)) {
+			// Mantém ACF vazio para o template usar o fallback do tema (png/jpg).
+			update_field('idc_page_hero_image', null, (int) $fisio->ID);
+		}
+		$hero_fisio = idc_default_page_hero('fisioterapia');
+		if (is_array($hero_fisio)) {
+			foreach ($hero_fisio as $key => $value) {
+				update_field($key, $value, (int) $fisio->ID);
+			}
+		}
+	}
+
+	$orto = get_page_by_path('ortopedia-regenerativa');
+	if ($orto instanceof WP_Post) {
+		update_field('idc_page_hero_image', null, (int) $orto->ID);
+	}
+
+	$integrativa = get_page_by_path('medicina-integrativa');
+	if ($integrativa instanceof WP_Post) {
+		update_field('idc_page_hero_image', null, (int) $integrativa->ID);
 	}
 }
 

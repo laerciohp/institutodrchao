@@ -610,6 +610,23 @@
 		var(--idc-peach, #f1e1cc);
 }
 
+.idc-testimonial__avatar[data-initials]:not(:has(img)) {
+	background: var(--idc-peach, #f1e1cc);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--idc-font-sans);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: 0.02em;
+	color: var(--idc-azul-700);
+}
+
+.idc-testimonial__avatar[data-initials]:not(:has(img))::before {
+	content: attr(data-initials);
+}
+
 .idc-testimonial__avatar img {
 	width: 100%;
 	height: 100%;

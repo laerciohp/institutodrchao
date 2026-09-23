@@ -23,7 +23,7 @@ function idc_default_hub_cards(): array {
 			'text'       => 'Diagnóstico preciso e tratamentos cirúrgicos ou conservadores de alta complexidade, com foco na regeneração tecidual e recuperação funcional.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/ortopedia-regenerativa/'),
-			'image'      => idc_asset('assets/images/pages/hub-ortopedia.jpg'),
+			'image'      => idc_theme_image('assets/images/pages/hub-ortopedia'),
 			'tone'       => 'sand',
 		],
 		[
@@ -31,7 +31,7 @@ function idc_default_hub_cards(): array {
 			'text'       => 'Reabilitação física com protocolos personalizados para dor crônica e recuperação de movimento, em ambiente amplo e acolhedor.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/fisioterapia/'),
-			'image'      => idc_asset('assets/images/pages/hub-fisio.jpg'),
+			'image'      => idc_theme_image('assets/images/pages/hub-fisio'),
 			'tone'       => 'peach',
 		],
 		[
@@ -39,7 +39,7 @@ function idc_default_hub_cards(): array {
 			'text'       => 'Acupuntura, controle da dor e suporte nutricional. Olhamos para o corpo como um sistema interconectado, potencializando a cura.',
 			'link_label' => 'Saiba mais',
 			'link_url'   => home_url('/medicina-integrativa/'),
-			'image'      => idc_asset('assets/images/pages/hub-integrativa.jpg'),
+			'image'      => idc_theme_image('assets/images/pages/hub-integrativa'),
 			'tone'       => 'cream',
 		],
 	];

@@ -4,7 +4,7 @@ Theme URI: https://github.com/laerciohp/institutodrchao
 Author: Hitechsp
 Author URI: https://hitechsp.com.br
 Description: Tema institucional do Instituto Dr. Chao — ortopedia, reabilitação e medicina integrativa. Desenvolvido por Hitechsp. Atualizações via GitHub Releases.
-Version: 1.8.7
+Version: 1.8.8
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 8.1
@@ -19,7 +19,7 @@ Update URI: false
 /*
  * Cabeçalho do tema (Version lida pelo WP e pelo updater).
  * Tokens e layout: assets/css/*.css + theme.json
- * Patch pixel-perfect v1.8.7 (overrides — carregado por último).
+ * Patch pixel-perfect v1.8.8 (overrides — carregado por último).
  */
 
 /* Hero Home */
@@ -218,4 +218,21 @@ Update URI: false
 	.idc-footer {
 		padding-top: 64px;
 	}
+}
+
+/* v1.8.8 — avatares de depoimento com iniciais (Figma) */
+.idc-testimonial__avatar[data-initials]:not(:has(img)) {
+	background: var(--idc-peach, #f1e1cc);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--idc-font-sans);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: 0.02em;
+	color: var(--idc-azul-700);
+}
+.idc-testimonial__avatar[data-initials]:not(:has(img))::before {
+	content: attr(data-initials);
 }

@@ -17,7 +17,7 @@ $lead   = (string) idc_page_field(
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
-	idc_asset('assets/images/pages/instituto-interior.jpg')
+	idc_theme_image('assets/images/pages/instituto-interior')
 );
 ?>
 

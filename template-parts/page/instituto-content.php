@@ -23,7 +23,7 @@ if (!is_array($cards) || $cards === []) {
 }
 
 $image     = function_exists('get_field') ? get_field('idc_instituto_image') : null;
-$image_url = idc_image_url($image, idc_asset('assets/images/pages/instituto-interior.jpg'));
+$image_url = idc_image_url($image, idc_theme_image('assets/images/pages/instituto-interior'));
 $image_alt = idc_image_alt($image, __('Interior do Instituto Dr. Chao', 'instituto-dr-chao'));
 ?>
 <section class="idc-instituto" aria-labelledby="idc-instituto-essencia-title">
