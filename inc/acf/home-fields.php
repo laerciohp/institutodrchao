@@ -291,7 +291,8 @@ function idc_register_acf_home_fields(): void {
 				'label'         => 'Badge',
 				'name'          => 'idc_testimonials_badge',
 				'type'          => 'text',
-				'default_value' => '5.0 · 193 avaliações',
+				'default_value' => '5.0 Avaliação Média',
+				'instructions'  => 'Ex.: “5.0 Avaliação Média”. Os cards são gerenciados no menu Depoimentos.',
 			],
 			[
 				'key'           => 'field_idc_testimonials_title',
@@ -301,12 +302,21 @@ function idc_register_acf_home_fields(): void {
 				'default_value' => 'O que dizem nossos pacientes',
 			],
 			[
+				'key'     => 'field_idc_testimonials_hint',
+				'label'   => 'Cards de depoimento',
+				'name'    => 'idc_testimonials_hint',
+				'type'    => 'message',
+				'message' => 'Crie, edite e ordene depoimentos (com foto) em <strong>Depoimentos</strong> no menu lateral do painel. Use “Ordem” no editor para definir a sequência no carrossel.',
+			],
+			[
 				'key'          => 'field_idc_testimonials',
-				'label'        => 'Depoimentos',
+				'label'        => 'Depoimentos (legado)',
 				'name'         => 'idc_testimonials',
 				'type'         => 'repeater',
 				'layout'       => 'block',
 				'button_label' => 'Adicionar depoimento',
+				'instructions' => 'Campo legado — preferir o menu Depoimentos. Mantido só como fallback se o CPT estiver vazio.',
+				'wrapper'      => ['class' => 'idc-acf-legacy-hidden'],
 				'sub_fields'   => [
 					[
 						'key'           => 'field_idc_testimonial_rating',

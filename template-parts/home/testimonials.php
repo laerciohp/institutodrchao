@@ -1,15 +1,19 @@
 <?php
 /**
  * Depoimentos — carrossel (Figma 133:493).
+ * Fonte: CPT idc_depoimento (menu Depoimentos no painel).
  *
  * @package Instituto_Dr_Chao
  */
 
 $badge = (string) idc_option('idc_testimonials_badge', '5.0 Avaliação Média');
 $title = (string) idc_option('idc_testimonials_title', 'O que dizem nossos pacientes');
-$items = idc_option('idc_testimonials', []);
-if (!is_array($items) || $items === []) {
-	$items = idc_default_testimonials();
+
+$items = function_exists('idc_get_testimonials_from_cpt') ? idc_get_testimonials_from_cpt() : [];
+if ($items === []) {
+	// Fallback: repeater ACF legado ou defaults.
+	$legacy = idc_option('idc_testimonials', []);
+	$items  = is_array($legacy) && $legacy !== [] ? $legacy : idc_default_testimonials();
 }
 $total = count($items);
 ?>

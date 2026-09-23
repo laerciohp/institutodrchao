@@ -1330,7 +1330,7 @@
 	.idc-contato__grid {
 		grid-template-columns: 1fr 1fr;
 		gap: var(--idc-space-12);
-		align-items: start;
+		align-items: stretch;
 		margin-bottom: var(--idc-space-12);
 	}
 }
@@ -1339,6 +1339,10 @@
 .idc-contato__aside {
 	border-radius: 34px;
 	padding: var(--idc-space-5);
+	height: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
 }
 
 .idc-contato__form-wrap {
@@ -1347,11 +1351,34 @@
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
+.idc-contato__form {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.idc-contato__submit {
+	margin-top: auto;
+	background: var(--idc-terracota-700);
+	border-color: var(--idc-terracota-700);
+	color: #fff;
+}
+
+.idc-contato__submit:hover {
+	background: var(--idc-terracota-800, #7a4e26);
+	border-color: var(--idc-terracota-800, #7a4e26);
+	color: #fff;
+}
+
 /* Figma 133:2983 — card direto em #f3e9db */
 .idc-contato__aside {
 	background: var(--idc-sand-warm);
 	border: 1px solid rgba(229, 226, 221, 0.5);
 	box-shadow: none;
+}
+
+.idc-contato__aside .idc-contato__meta {
+	margin-top: auto;
 }
 
 @media (min-width: 600px) {
@@ -1381,18 +1408,6 @@
 	.idc-contato__submit {
 		width: 100%;
 	}
-}
-
-.idc-contato__submit {
-	background: var(--idc-terracota-700);
-	border-color: var(--idc-terracota-700);
-	color: #fff;
-}
-
-.idc-contato__submit:hover {
-	background: var(--idc-terracota-800, #7a4e26);
-	border-color: var(--idc-terracota-800, #7a4e26);
-	color: #fff;
 }
 
 .idc-contato__form-lead {
@@ -1589,66 +1604,105 @@
 	opacity: 0.85;
 }
 
+/* Figma 133:2909 — mapa ilustrado + card de vidro (compartilhado Contato/Carreiras) */
+.idc-map,
 .idc-contato__map {
 	position: relative;
+	display: block;
 	border-radius: 48px;
 	overflow: hidden;
 	border: 1px solid rgba(197, 198, 205, 0.2);
 	background: #f6f3ee;
 	min-height: 280px;
+	height: 280px;
+	text-decoration: none;
+	color: inherit;
+	isolation: isolate;
 }
 
+.idc-map__media,
+.idc-contato__map-frame {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.idc-map__img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 42%;
+}
+
+.idc-map__card,
 .idc-contato__map-card {
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 2;
-	width: min(272px, calc(100% - 32px));
-	padding: var(--idc-space-5);
-	background: rgba(255, 255, 255, 0.92);
+	width: min(272px, calc(100% - 48px));
+	padding: 25px;
+	background: rgba(255, 255, 255, 0.4);
 	backdrop-filter: blur(8px);
-	border-radius: var(--idc-radius-md);
-	box-shadow: 0 8px 24px rgba(20, 30, 48, 0.12);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	border-radius: 48px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	pointer-events: none;
+	box-sizing: border-box;
 }
 
+.idc-map__card-pin,
 .idc-contato__map-card-pin {
 	display: block;
-	width: 32px;
-	height: 32px;
-	margin: 0 auto var(--idc-space-2);
+	width: 20px;
+	height: 25px;
+	margin: 0 0 8px;
+	object-fit: contain;
 }
 
+.idc-map__card-title,
 .idc-contato__map-card-title {
 	display: block;
-	font-size: var(--idc-text-sm);
+	font-family: var(--idc-font-sans);
+	font-size: 24px;
 	font-weight: 700;
+	line-height: 32px;
 	color: var(--idc-azul-900);
-	margin-bottom: var(--idc-space-2);
+	margin: 0 0 4px;
 }
 
+.idc-map__card-addr,
 .idc-contato__map-card-addr {
 	margin: 0;
-	font-size: var(--idc-text-xs);
-	line-height: 1.45;
+	font-family: var(--idc-font-sans);
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 28px;
 	color: var(--idc-ink);
 }
 
-.idc-contato__map-frame {
-	display: block;
-	width: 100%;
-	height: 280px;
-	border: 0;
+.idc-map:hover .idc-map__card,
+.idc-contato__map:hover .idc-map__card,
+.idc-contato__map:hover .idc-contato__map-card {
+	background: rgba(255, 255, 255, 0.55);
 }
 
 @media (min-width: 768px) {
+	.idc-map,
 	.idc-contato__map {
 		min-height: 384px;
-	}
-
-	.idc-contato__map-frame {
 		height: 384px;
 	}
 }

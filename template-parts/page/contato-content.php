@@ -56,11 +56,6 @@ if ($form_lead === 'Preencha o formulário e retornaremos o mais breve possível
 	$form_lead = '';
 }
 
-$map_src = (string) idc_option(
-	'idc_map_embed',
-	'https://www.google.com/maps?q=Rua+Maria+C%C3%A2ndida,+1788,+Vila+Guilherme,+S%C3%A3o+Paulo&output=embed'
-);
-
 $assuntos_default = [
 	['value' => '', 'label' => __('Selecione um assunto', 'instituto-dr-chao')],
 	['value' => 'Agendar consulta', 'label' => __('Agendar consulta', 'instituto-dr-chao')],
@@ -196,19 +191,13 @@ if (is_array($assuntos_acf) && $assuntos_acf !== []) {
 			</aside>
 		</div>
 
-		<div class="idc-contato__map" aria-label="<?php esc_attr_e('Mapa de localização', 'instituto-dr-chao'); ?>">
-			<iframe
-				class="idc-contato__map-frame"
-				src="<?php echo esc_url($map_src); ?>"
-				loading="lazy"
-				referrerpolicy="no-referrer-when-downgrade"
-				title="<?php esc_attr_e('Mapa — Instituto Dr. Chao', 'instituto-dr-chao'); ?>"
-			></iframe>
-			<div class="idc-contato__map-card">
-				<img class="idc-contato__map-card-pin" src="<?php echo esc_url(idc_asset('assets/icons/icon-map-pin.svg')); ?>" alt="" width="32" height="32" decoding="async">
-				<strong class="idc-contato__map-card-title"><?php esc_html_e('Instituto Dr. Chao', 'instituto-dr-chao'); ?></strong>
-				<p class="idc-contato__map-card-addr"><?php echo nl2br(esc_html($endereco)); ?></p>
-			</div>
-		</div>
+		<?php
+		get_template_part('template-parts/components/map', null, [
+			'title'    => __('Instituto Dr. Chao', 'instituto-dr-chao'),
+			'subtitle' => __('Vila Guilherme, São Paulo', 'instituto-dr-chao'),
+			'endereco' => $endereco,
+			'class'    => 'idc-contato__map',
+		]);
+		?>
 	</div>
 </section>

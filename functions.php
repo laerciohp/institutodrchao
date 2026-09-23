@@ -19,6 +19,7 @@ require_once IDC_THEME_DIR . '/inc/helpers.php';
 require_once IDC_THEME_DIR . '/inc/defaults-home.php';
 require_once IDC_THEME_DIR . '/inc/cpt/profissional.php';
 require_once IDC_THEME_DIR . '/inc/cpt/tratamento.php';
+require_once IDC_THEME_DIR . '/inc/cpt/depoimento.php';
 require_once IDC_THEME_DIR . '/inc/cpt/form-submissions.php';
 require_once IDC_THEME_DIR . '/inc/crm/crm.php';
 require_once IDC_THEME_DIR . '/inc/acf/options.php';
@@ -373,6 +374,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11210', 'idc_upgrade_11210_testimonials_figma');
 	idc_run_upgrade_once('11211', 'idc_upgrade_11210_testimonials_figma');
 	idc_run_upgrade_once('11212', 'idc_upgrade_11212_contato_figma');
+	idc_run_upgrade_once('11213', 'idc_upgrade_11213_testimonials_cpt');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');

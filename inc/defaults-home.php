@@ -147,6 +147,14 @@ function idc_normalize_theme_image_url(string $url): string {
  * @param string $fallback
  */
 function idc_image_url($image, string $fallback = ''): string {
+	if (is_numeric($image) && (int) $image > 0) {
+		$url = wp_get_attachment_image_url((int) $image, 'medium');
+		return $url ? idc_normalize_theme_image_url($url) : $fallback;
+	}
+	if (is_array($image) && !empty($image['ID']) && empty($image['url'])) {
+		$url = wp_get_attachment_image_url((int) $image['ID'], 'medium');
+		return $url ? idc_normalize_theme_image_url($url) : $fallback;
+	}
 	if (is_array($image) && !empty($image['url'])) {
 		return idc_normalize_theme_image_url((string) $image['url']);
 	}
