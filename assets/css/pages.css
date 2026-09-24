@@ -361,9 +361,13 @@
 /* Contraste reforçado — blog archive (staging) */
 .site-main--blog .idc-page-hero__title {
 	color: var(--idc-azul-900);
+	font-family: var(--idc-font-sans);
 }
 
+/* Figma Blog 133:2534 — accent em Montserrat (só cor), não serif */
 .site-main--blog .idc-page-hero__title-accent {
+	font-family: var(--idc-font-sans);
+	font-weight: 500;
 	color: var(--idc-terracota-700);
 }
 

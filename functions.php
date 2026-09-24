@@ -383,6 +383,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11220', 'idc_upgrade_11220_parity_figma');
 	idc_run_upgrade_once('11220b', 'idc_upgrade_11220_parity_figma');
 	idc_run_upgrade_once('11221', 'idc_upgrade_11221_specialty_titles_figma');
+	idc_run_upgrade_once('11227', 'idc_upgrade_11227_blog_instituto_100');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1166,6 +1167,41 @@ function idc_upgrade_11221_specialty_titles_figma(): void {
 		} else {
 			update_field('idc_page_title_accent', '', $id);
 			update_field('idc_page_title_after', '', $id);
+		}
+	}
+}
+
+/**
+ * v1.12.27 — Blog 100% Figma (5 filtros + título) + Instituto sem strip.
+ */
+function idc_upgrade_11227_blog_instituto_100(): void {
+	if (function_exists('idc_setup_ensure_blog_categories')) {
+		idc_setup_ensure_blog_categories();
+	}
+
+	$map = idc_default_blog_post_category_map();
+	foreach ($map as $slug => $cat_slugs) {
+		$post = get_page_by_path($slug, OBJECT, 'post');
+		if (!$post instanceof WP_Post) {
+			continue;
+		}
+		wp_set_object_terms((int) $post->ID, $cat_slugs, 'category', false);
+	}
+
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$posts_page_id = (int) get_option('page_for_posts');
+	if ($posts_page_id > 0) {
+		update_field('idc_page_title_before', 'Conhecimento para o ', $posts_page_id);
+		update_field('idc_page_title_accent', 'seu cuidado.', $posts_page_id);
+		if (function_exists('delete_field')) {
+			delete_field('idc_page_title_after', $posts_page_id);
+			delete_field('idc_page_eyebrow', $posts_page_id);
+		} else {
+			update_field('idc_page_title_after', '', $posts_page_id);
+			update_field('idc_page_eyebrow', '', $posts_page_id);
 		}
 	}
 }

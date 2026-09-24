@@ -124,7 +124,8 @@ function idc_default_blog_posts_seed(): array {
 }
 
 /**
- * Categorias do blog alinhadas aos pilares Figma (Orto / Fisio / Integrativa).
+ * Categorias do blog — Figma Blog Desktop 133:2534
+ * (Todos + Ortopedia + Dor e Movimento + Fisioterapia + Medicina Integrativa).
  *
  * @return list<array{slug:string,name:string,description:string}>
  */
@@ -132,8 +133,13 @@ function idc_default_blog_categories(): array {
 	return [
 		[
 			'slug'        => 'ortopedia-regenerativa',
-			'name'        => 'Ortopedia Regenerativa',
+			'name'        => 'Ortopedia',
 			'description' => 'Artigos sobre ortopedia regenerativa, articulações e recuperação musculoesquelética.',
+		],
+		[
+			'slug'        => 'dor-e-movimento',
+			'name'        => 'Dor e Movimento',
+			'description' => 'Dor crônica, postura, prevenção e qualidade de movimento no dia a dia.',
 		],
 		[
 			'slug'        => 'fisioterapia',
@@ -156,9 +162,9 @@ function idc_default_blog_categories(): array {
 function idc_default_blog_post_category_map(): array {
 	return [
 		'o-que-e-a-ortopedia-regenerativa-e-como-ela-transforma-vidas' => ['ortopedia-regenerativa'],
-		'como-o-uso-do-celular-pode-piorar-a-sua-dor'                 => ['fisioterapia', 'ortopedia-regenerativa'],
-		'8-dicas-para-aliviar-as-dores-musculares-apos-o-treino-na-academia' => ['fisioterapia'],
-		'por-que-os-pes-sao-tao-importantes-para-a-movimentacao'      => ['ortopedia-regenerativa', 'fisioterapia'],
+		'como-o-uso-do-celular-pode-piorar-a-sua-dor'                 => ['dor-e-movimento', 'fisioterapia'],
+		'8-dicas-para-aliviar-as-dores-musculares-apos-o-treino-na-academia' => ['dor-e-movimento', 'fisioterapia'],
+		'por-que-os-pes-sao-tao-importantes-para-a-movimentacao'      => ['dor-e-movimento', 'ortopedia-regenerativa'],
 		'medicina-integrativa-o-cuidado-que-enxerga-voce-por-inteiro' => ['medicina-integrativa'],
 	];
 }

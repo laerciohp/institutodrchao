@@ -10,9 +10,10 @@ get_header();
 $posts_page_id = (int) get_option('page_for_posts');
 
 $eyebrow = '';
-$before  = '';
-$accent  = __('Conhecimento', 'instituto-dr-chao');
-$after   = __(' para o seu cuidado.', 'instituto-dr-chao');
+// Figma Blog 133:2534 — accent só em "seu cuidado." (Montserrat + terracota).
+$before  = __('Conhecimento para o ', 'instituto-dr-chao');
+$accent  = __('seu cuidado.', 'instituto-dr-chao');
+$after   = '';
 $lead    = __('Artigos, dicas e novidades sobre ortopedia, fisioterapia, medicina integrativa e bem-estar. Escritos por nossa equipe de especialistas para ajudar você a viver com mais movimento e menos dor.', 'instituto-dr-chao');
 
 if ($posts_page_id > 0 && function_exists('get_field')) {
@@ -39,10 +40,17 @@ if ($posts_page_id > 0 && function_exists('get_field')) {
 	}
 }
 
-// Garante título legível mesmo com ACF vazio / só espaços.
+// Garante título legível mesmo com ACF vazio / só espaços / seed antigo.
+$legacy_accent = __('Conhecimento', 'instituto-dr-chao');
+$legacy_after  = __(' para o seu cuidado.', 'instituto-dr-chao');
+if ($accent === $legacy_accent && ($after === $legacy_after || trim($after) === 'para o seu cuidado.')) {
+	$before = __('Conhecimento para o ', 'instituto-dr-chao');
+	$accent = __('seu cuidado.', 'instituto-dr-chao');
+	$after  = '';
+}
 if ($accent === '' && $before === '' && $after === '') {
-	$accent = __('Conhecimento', 'instituto-dr-chao');
-	$after  = __(' para o seu cuidado.', 'instituto-dr-chao');
+	$before = __('Conhecimento para o ', 'instituto-dr-chao');
+	$accent = __('seu cuidado.', 'instituto-dr-chao');
 }
 if ($lead === '') {
 	$lead = __('Artigos, dicas e novidades sobre ortopedia, fisioterapia, medicina integrativa e bem-estar. Escritos por nossa equipe de especialistas para ajudar você a viver com mais movimento e menos dor.', 'instituto-dr-chao');
