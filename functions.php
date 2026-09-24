@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Fun├º├Áes do tema Instituto Dr. Chao
  *
