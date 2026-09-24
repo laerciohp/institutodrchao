@@ -482,9 +482,9 @@ function idc_default_page_hero(string $slug): ?array {
 		],
 		'blog' => [
 			'idc_page_eyebrow'      => '',
-			'idc_page_title_before' => '',
-			'idc_page_title_accent' => 'Conhecimento',
-			'idc_page_title_after'  => ' para o seu cuidado.',
+			'idc_page_title_before' => 'Conhecimento para o ',
+			'idc_page_title_accent' => 'seu cuidado.',
+			'idc_page_title_after'  => '',
 			'idc_page_lead'         => 'Artigos, dicas e novidades sobre ortopedia, fisioterapia, medicina integrativa e bem-estar. Escritos por nossa equipe de especialistas para ajudar você a viver com mais movimento e menos dor.',
 		],
 	];

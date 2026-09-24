@@ -832,7 +832,7 @@ function idc_setup_seed_blog_posts(): void {
 }
 
 /**
- * Garante as 3 categorias dos pilares Figma.
+ * Garante categorias do blog Figma (cria + sincroniza nome/descrição).
  *
  * @return array<string,int> slug => term_id
  */
@@ -842,6 +842,12 @@ function idc_setup_ensure_blog_categories(): array {
 		$existing = get_category_by_slug($cat['slug']);
 		if ($existing instanceof WP_Term) {
 			$ids[$cat['slug']] = (int) $existing->term_id;
+			if ($existing->name !== $cat['name'] || $existing->description !== $cat['description']) {
+				wp_update_term((int) $existing->term_id, 'category', [
+					'name'        => $cat['name'],
+					'description' => $cat['description'],
+				]);
+			}
 			continue;
 		}
 		$result = wp_insert_term($cat['name'], 'category', [

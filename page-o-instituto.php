@@ -34,12 +34,7 @@ if ($lead === '' || $lead === $short_seed) {
 		'breadcrumb_label' => __('O Instituto', 'instituto-dr-chao'),
 	]);
 	get_template_part('template-parts/page/instituto-content');
-	// Strip CTA permanece (conversão); Figma 133:2168 vai direto ao footer.
-	get_template_part('template-parts/components/strip-cta', null, [
-		'origem' => 'o-instituto',
-		'decor'  => true,
-		'align'  => 'center',
-	]);
+	// Figma 133:2168 — conteúdo vai direto ao footer (sem strip CTA).
 	?>
 </main>
 
