@@ -1430,13 +1430,16 @@
 	color: var(--idc-ink);
 }
 
-/* Inputs Contato — Figma #f6f3ee + pill */
-.idc-contato .idc-form__label {
+/* Inputs Contato + Carreiras/Trabalhe Conosco — Figma #f6f3ee + pill (133:2944 / 242:17553) */
+.idc-contato .idc-form__label,
+.idc-carreiras .idc-form__label {
 	color: var(--idc-ink);
 }
 
 .idc-contato .idc-form__input,
-.idc-contato .idc-form__select {
+.idc-contato .idc-form__select,
+.idc-carreiras .idc-form__input,
+.idc-carreiras .idc-form__select {
 	background: #f6f3ee;
 	border: 1px solid transparent;
 	border-radius: var(--idc-radius-pill);
@@ -1445,7 +1448,8 @@
 	box-shadow: none;
 }
 
-.idc-contato .idc-form__textarea {
+.idc-contato .idc-form__textarea,
+.idc-carreiras .idc-form__textarea {
 	background: #f6f3ee;
 	border: 1px solid transparent;
 	border-radius: var(--idc-radius-md);
@@ -1456,9 +1460,25 @@
 
 .idc-contato .idc-form__input:focus,
 .idc-contato .idc-form__textarea:focus,
-.idc-contato .idc-form__select:focus {
+.idc-contato .idc-form__select:focus,
+.idc-carreiras .idc-form__input:focus,
+.idc-carreiras .idc-form__textarea:focus,
+.idc-carreiras .idc-form__select:focus {
 	border-color: var(--idc-terracota-700);
 	background: #f6f3ee;
+}
+
+/* Botão "Escolher arquivo" (upload de currículo) — Figma 242:17595 */
+.idc-carreiras .idc-form__file-btn {
+	background: var(--idc-azul-400);
+	border-color: transparent;
+	color: var(--idc-white);
+}
+
+.idc-carreiras .idc-form__file-btn:hover {
+	background: var(--idc-azul-700);
+	border-color: transparent;
+	color: var(--idc-white);
 }
 
 .idc-contato__form .idc-form__row--check {
