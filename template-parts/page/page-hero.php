@@ -20,10 +20,13 @@ $title_before      = (string) ($args['title_before'] ?? '');
 $title_accent      = (string) ($args['title_accent'] ?? '');
 $title_after       = (string) ($args['title_after'] ?? '');
 
-// Figma: Roboto Serif só no trecho de destaque. Se o H1 inteiro veio como
-// accent (ex.: "Ortopedia Regenerativa"), renderiza em Montserrat.
+// Figma: Roboto Serif só no trecho de destaque.
+// 1) H1 inteiro veio só como accent → Montserrat.
+// 2) before e accent iguais (ACF residual) → remove accent duplicado.
 if ($title_before === '' && $title_after === '' && $title_accent !== '') {
 	$title_before = $title_accent;
+	$title_accent = '';
+} elseif ($title_accent !== '' && $title_after === '' && trim($title_before) === trim($title_accent)) {
 	$title_accent = '';
 }
 
