@@ -235,9 +235,10 @@
 		min-height: 0;
 	}
 
-	/* Fisio — sessão PT landscape, crop estável */
+	/* Fisio — Figma 133:1563 foto 576×600 (quase portrait) */
 	.idc-page-hero--fisioterapia .idc-page-hero__media {
-		aspect-ratio: 4 / 3;
+		aspect-ratio: 576 / 600;
+		min-height: 520px;
 		border-radius: var(--idc-radius-lg);
 	}
 

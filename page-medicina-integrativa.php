@@ -10,10 +10,14 @@ get_header();
 $before = (string) idc_page_field('idc_page_title_before', 'Medicina ');
 $accent = (string) idc_page_field('idc_page_title_accent', 'Integrativa');
 $after  = (string) idc_page_field('idc_page_title_after', ' e Regenerativa.');
-$lead   = (string) idc_page_field(
-	'idc_page_lead',
-	'Uma abordagem que enxerga o paciente como um todo. A medicina integrativa atua em sinergia com os tratamentos ortopédicos, buscando equilibrar o organismo, reduzir inflamações sistêmicas e otimizar a capacidade natural de cura e regeneração celular do corpo.'
-);
+
+// Figma 133:1837 — lead do hero (seed/ACF antigo encurtava).
+$figma_lead = 'Uma abordagem que enxerga o paciente como um todo. A medicina integrativa atua em sinergia com os tratamentos ortopédicos, buscando equilibrar o organismo, reduzir inflamações sistêmicas e otimizar a capacidade natural de cura e regeneração celular do corpo.';
+$lead       = (string) idc_page_field('idc_page_lead', $figma_lead);
+$short_seed = 'Acupuntura, controle da dor crônica e suporte nutricional integrados ao seu plano de tratamento ortopédico e fisioterapêutico.';
+if ($lead === '' || $lead === $short_seed) {
+	$lead = $figma_lead;
+}
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
