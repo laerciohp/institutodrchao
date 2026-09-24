@@ -25,8 +25,11 @@ if (!is_array($cards) || $cards === []) {
 			<p class="idc-eyebrow idc-eyebrow--accent"><?php echo esc_html($eyebrow); ?></p>
 			<h2 id="idc-pillars-title" class="idc-pillars__title">
 				<?php echo esc_html($before); ?>
-				<span class="idc-pillars__title-accent"><?php echo esc_html($accent); ?></span>
-				<?php echo esc_html(' ' . $after); ?>
+				<span class="idc-pillars__title-accent"><?php echo esc_html($accent); ?></span><?php
+				if ($after !== '') {
+					echo esc_html(' ' . $after);
+				}
+				?>
 			</h2>
 			<p class="idc-pillars__lead"><?php echo esc_html($lead); ?></p>
 		</header>
