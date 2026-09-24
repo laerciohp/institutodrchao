@@ -133,13 +133,7 @@ $categories = idc_blog_filter_categories();
 		<?php endif; ?>
 	</section>
 
-	<?php
-	get_template_part('template-parts/components/strip-cta', null, [
-		'origem' => 'blog',
-		'decor'  => true,
-		'align'  => 'center',
-	]);
-	?>
+	<?php get_template_part('template-parts/blog/newsletter'); ?>
 </main>
 <?php
 get_footer();

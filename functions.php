@@ -384,6 +384,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11220b', 'idc_upgrade_11220_parity_figma');
 	idc_run_upgrade_once('11221', 'idc_upgrade_11221_specialty_titles_figma');
 	idc_run_upgrade_once('11227', 'idc_upgrade_11227_blog_instituto_100');
+	idc_run_upgrade_once('11228', 'idc_upgrade_11228_parity_100');
 
 	// Copia Options da Home para a p├ígina In├¡cio (se vazia), para ÔÇ£Editar p├íginaÔÇØ funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1248,4 +1249,103 @@ function idc_upgrade_11227_blog_instituto_100(): void {
 		}
 	}
 }
+
+/**
+ * v1.12.28 — Paridade Figma 100%: Orto H1 split, Fisio lead/eyebrow, Instituto accent.
+ */
+function idc_upgrade_11228_parity_100(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$orto = get_page_by_path('ortopedia-regenerativa');
+	if ($orto instanceof WP_Post) {
+		$id = (int) $orto->ID;
+		if (function_exists('delete_field')) {
+			delete_field('idc_page_title_before', $id);
+		} else {
+			update_field('idc_page_title_before', '', $id);
+		}
+		update_field('idc_page_title_accent', 'Ortopedia', $id);
+		update_field('idc_page_title_after', ' Regenerativa', $id);
+	}
+
+	$fisio = get_page_by_path('fisioterapia');
+	if ($fisio instanceof WP_Post) {
+		$id = (int) $fisio->ID;
+		if (function_exists('delete_field')) {
+			delete_field('idc_page_eyebrow', $id);
+			delete_field('idc_page_title_accent', $id);
+			delete_field('idc_page_title_after', $id);
+		} else {
+			update_field('idc_page_eyebrow', '', $id);
+			update_field('idc_page_title_accent', '', $id);
+			update_field('idc_page_title_after', '', $id);
+		}
+		update_field('idc_page_title_before', 'Fisioterapia Especializada em Dor', $id);
+		update_field(
+			'idc_page_lead',
+			'Nossa abordagem integra técnicas avançadas com um cuidado humanizado profundo. Através de uma jornada de 5 passos estruturada e 4 fases de recuperação distintas, desenhamos um caminho focado não apenas em tratar os sintomas, mas em restaurar a verdadeira função e o bem-estar do seu corpo.',
+			$id
+		);
+	}
+
+	$instituto = get_page_by_path('o-instituto');
+	if ($instituto instanceof WP_Post) {
+		$id = (int) $instituto->ID;
+		if (function_exists('delete_field')) {
+			delete_field('idc_page_eyebrow', $id);
+			delete_field('idc_page_title_after', $id);
+		} else {
+			update_field('idc_page_eyebrow', '', $id);
+			update_field('idc_page_title_after', '', $id);
+		}
+		update_field('idc_page_title_before', 'Existimos para que ninguém seja definido ', $id);
+		update_field('idc_page_title_accent', 'pela sua dor.', $id);
+	}
+}
+
+/**
+ * Newsletter do Blog (admin-post) — MVP sem Mailchimp.
+ */
+function idc_handle_blog_newsletter(): void {
+	$redirect = wp_get_referer() ?: home_url('/blog/');
+	$redirect = remove_query_arg('idc_nl', $redirect);
+
+	if (!isset($_POST['idc_nl_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash((string) $_POST['idc_nl_nonce'])), 'idc_blog_newsletter')) {
+		wp_safe_redirect(add_query_arg('idc_nl', 'err', $redirect));
+		exit;
+	}
+
+	$email = isset($_POST['email']) ? sanitize_email(wp_unslash((string) $_POST['email'])) : '';
+	if ($email === '' || !is_email($email)) {
+		wp_safe_redirect(add_query_arg('idc_nl', 'invalid', $redirect));
+		exit;
+	}
+
+	$list = get_option('idc_newsletter_emails', []);
+	if (!is_array($list)) {
+		$list = [];
+	}
+	$list[] = [
+		'email' => $email,
+		'at'    => current_time('mysql'),
+	];
+	$list = array_slice($list, -500);
+	update_option('idc_newsletter_emails', $list, false);
+
+	$admin = (string) get_option('admin_email');
+	if ($admin !== '') {
+		wp_mail(
+			$admin,
+			'[Instituto Dr. Chao] Nova inscrição newsletter',
+			sprintf("E-mail: %s\nData: %s\n", $email, current_time('mysql'))
+		);
+	}
+
+	wp_safe_redirect(add_query_arg('idc_nl', 'ok', $redirect));
+	exit;
+}
+add_action('admin_post_nopriv_idc_blog_newsletter', 'idc_handle_blog_newsletter');
+add_action('admin_post_idc_blog_newsletter', 'idc_handle_blog_newsletter');
 

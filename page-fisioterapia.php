@@ -7,13 +7,16 @@
 
 get_header();
 
-$before = (string) idc_page_field('idc_page_title_before', '');
-$accent = (string) idc_page_field('idc_page_title_accent', 'Fisioterapia Especializada em Dor');
+$before = (string) idc_page_field('idc_page_title_before', 'Fisioterapia Especializada em Dor');
+$accent = (string) idc_page_field('idc_page_title_accent', '');
 $after  = (string) idc_page_field('idc_page_title_after', '');
-$lead   = (string) idc_page_field(
-	'idc_page_lead',
-	'Nossa abordagem integra técnicas avançadas com um cuidado humanizado profundo. Através de 4 fases de recuperação distintas, desenhamos um caminho focado não apenas em tratar os sintomas, mas em restaurar a verdadeira função e o bem-estar do seu corpo.'
-);
+// Figma 133:1534 — lead com jornada de 5 passos + 4 fases.
+$figma_lead = 'Nossa abordagem integra técnicas avançadas com um cuidado humanizado profundo. Através de uma jornada de 5 passos estruturada e 4 fases de recuperação distintas, desenhamos um caminho focado não apenas em tratar os sintomas, mas em restaurar a verdadeira função e o bem-estar do seu corpo.';
+$lead       = (string) idc_page_field('idc_page_lead', $figma_lead);
+$short_lead = 'Nossa abordagem integra técnicas avançadas com um cuidado humanizado profundo. Através de 4 fases de recuperação distintas, desenhamos um caminho focado não apenas em tratar os sintomas, mas em restaurar a verdadeira função e o bem-estar do seu corpo.';
+if ($lead === '' || $lead === $short_lead) {
+	$lead = $figma_lead;
+}
 
 $hero_image = idc_image_url(
 	idc_page_field('idc_page_hero_image', null),
@@ -50,7 +53,8 @@ if ($phases === []) {
 	get_template_part('template-parts/page/page-hero', null, [
 		'layout'           => 'split',
 		'modifier'         => 'fisioterapia',
-		'eyebrow'          => (string) idc_page_field('idc_page_eyebrow', __('ESPECIALIDADE', 'instituto-dr-chao')),
+		// Figma Desktop: sem eyebrow (breadcrumb → H1 → lead).
+		'eyebrow'          => '',
 		'title_before'     => $before,
 		'title_accent'     => $accent,
 		'title_after'      => $after,

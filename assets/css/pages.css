@@ -2930,3 +2930,260 @@ section.idc-accordion {
 	padding: var(--idc-space-12) 0;
 }
 
+/* ——— v1.12.28 — Paridade Figma 100% (E1–E6) ——— */
+
+/* Orto hero — squircle mais suave (Figma) */
+.idc-specialty .idc-page-hero--split:not(.idc-page-hero--fisioterapia):not(.idc-page-hero--integrativa):not(.idc-page-hero--carreiras) .idc-page-hero__media {
+	border-radius: 28px;
+}
+
+.idc-specialty .idc-page-hero--split:not(.idc-page-hero--fisioterapia):not(.idc-page-hero--integrativa):not(.idc-page-hero--carreiras) .idc-page-hero__media img {
+	border-radius: 28px;
+}
+
+/* Fisio watermarks — tamanho/posição Figma */
+@media (min-width: 1024px) {
+	.idc-phases__watermark {
+		right: -8px;
+		bottom: -12px;
+		font-size: 96px;
+		opacity: 0.35;
+	}
+}
+
+/* Integrativa — gaps grid 3×3 */
+@media (min-width: 1024px) {
+	.idc-integrativa-grid__bento {
+		gap: 24px;
+	}
+
+	.idc-page-hero--integrativa .idc-page-hero__decor {
+		opacity: 0.55;
+		width: min(420px, 38vw);
+		height: min(420px, 38vw);
+	}
+}
+
+/* Contato — aside flat (sem card cream) */
+.idc-contato__aside {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+}
+
+@media (min-width: 1024px) {
+	.idc-contato__aside {
+		padding-top: 8px;
+	}
+}
+
+/* Carreiras — form cream full-bleed no container */
+.idc-carreiras__inner {
+	background: var(--idc-cream);
+	border-radius: 28px;
+	padding: 32px 24px;
+}
+
+@media (min-width: 768px) {
+	.idc-carreiras__inner {
+		padding: 40px 40px;
+	}
+}
+
+/* Instituto hero — Figma 133:2168 (diagonal cream + copy à direita) */
+.idc-page-hero--instituto {
+	position: relative;
+	overflow: hidden;
+	background: #f8f7f4;
+}
+
+.idc-page-hero--instituto::before {
+	content: "";
+	position: absolute;
+	inset: 12% -10% -20% -30%;
+	background: var(--idc-cream);
+	transform: skewY(-6deg);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.idc-page-hero--instituto > .idc-container,
+.idc-page-hero--instituto .idc-page-hero__inner {
+	position: relative;
+	z-index: 1;
+}
+
+.idc-page-hero--instituto.idc-page-hero--centered .idc-breadcrumb__list {
+	justify-content: flex-end;
+}
+
+.idc-page-hero--instituto.idc-page-hero--centered .idc-page-hero__inner {
+	margin-inline: 0 0;
+	margin-left: auto;
+	text-align: right;
+	align-items: flex-end;
+	max-width: 42rem;
+}
+
+.idc-page-hero--instituto .idc-page-hero__title {
+	font-weight: 500;
+}
+
+.idc-page-hero--instituto .idc-page-hero__lead {
+	max-width: 38rem;
+	margin-left: auto;
+}
+
+@media (max-width: 767px) {
+	.idc-page-hero--instituto.idc-page-hero--centered .idc-breadcrumb__list {
+		justify-content: flex-start;
+	}
+
+	.idc-page-hero--instituto.idc-page-hero--centered .idc-page-hero__inner {
+		margin-left: 0;
+		text-align: left;
+		align-items: flex-start;
+	}
+
+	.idc-page-hero--instituto .idc-page-hero__lead {
+		margin-left: 0;
+	}
+}
+
+/* Blog newsletter — Figma 133:2534 */
+.idc-blog-newsletter {
+	background: var(--idc-cream);
+	padding: 56px 0 64px;
+	overflow: hidden;
+}
+
+.idc-blog-newsletter__inner {
+	display: grid;
+	gap: 28px;
+	align-items: end;
+}
+
+@media (min-width: 900px) {
+	.idc-blog-newsletter__inner {
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+		gap: 48px;
+		align-items: center;
+	}
+}
+
+.idc-blog-newsletter__title {
+	margin: 0 0 12px;
+	font-family: var(--idc-font-sans);
+	font-size: clamp(28px, 4vw, 40px);
+	font-weight: 500;
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+	color: var(--idc-azul-900);
+}
+
+.idc-blog-newsletter__lead {
+	margin: 0;
+	max-width: 34rem;
+	color: var(--idc-ink);
+	font-size: var(--idc-text-md);
+	line-height: 1.55;
+}
+
+.idc-blog-newsletter__form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	width: 100%;
+}
+
+.idc-blog-newsletter__input {
+	flex: 1 1 220px;
+	min-height: 56px;
+	padding: 0 20px;
+	border: 1px solid var(--idc-border-soft, #e5e2dc);
+	border-radius: var(--idc-radius-pill);
+	background: #fff;
+	font-family: var(--idc-font-sans);
+	font-size: var(--idc-text-md);
+	color: var(--idc-azul-900);
+	box-sizing: border-box;
+}
+
+.idc-blog-newsletter__input:focus {
+	outline: 2px solid var(--idc-terracota-700);
+	outline-offset: 2px;
+}
+
+.idc-blog-newsletter__submit {
+	min-height: 56px;
+	min-width: 160px;
+	padding-inline: 28px;
+}
+
+.idc-blog-newsletter__notice {
+	grid-column: 1 / -1;
+	margin: 0;
+	font-size: var(--idc-text-sm);
+	color: var(--idc-azul-900);
+}
+
+@media (max-width: 767px) {
+	.idc-blog-newsletter {
+		padding: 40px 0 48px;
+	}
+
+	.idc-blog-newsletter__form {
+		flex-direction: column;
+	}
+
+	.idc-blog-newsletter__input,
+	.idc-blog-newsletter__submit {
+		width: 100%;
+	}
+}
+
+/* Mobile 390 — gutters / CTAs / overflow */
+@media (max-width: 767px) {
+	.site-main--page,
+	.site-main--blog {
+		overflow-x: clip;
+	}
+
+	.idc-page-hero__title {
+		font-size: 32px;
+		line-height: 40px;
+	}
+
+	.idc-specialty .idc-page-hero--split .idc-btn,
+	.idc-contato__submit,
+	.idc-carreiras__submit,
+	.idc-blog-newsletter__submit {
+		min-height: 56px;
+		width: 100%;
+	}
+
+	.idc-blog-filters {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 10px;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: thin;
+		margin-inline: calc(-1 * var(--idc-gutter-mobile, 20px));
+		padding-inline: var(--idc-gutter-mobile, 20px);
+	}
+
+	.idc-blog-filters .idc-blog-filters__btn,
+	.idc-blog-filters a {
+		flex: 0 0 auto;
+	}
+}
+
+/* Tablet — CTA header gap */
+@media (min-width: 768px) and (max-width: 1023px) {
+	.site-header__actions {
+		gap: 12px;
+	}
+}
+

@@ -8,9 +8,16 @@
 get_header();
 
 $eyebrow = (string) idc_page_field('idc_page_eyebrow', 'TRATAMENTOS · ESPECIALIDADE PRINCIPAL');
+// Figma 133:1238 — "Ortopedia" serif/terracota + "Regenerativa" Montserrat.
 $before = (string) idc_page_field('idc_page_title_before', '');
-$accent = (string) idc_page_field('idc_page_title_accent', 'Ortopedia Regenerativa');
-$after  = (string) idc_page_field('idc_page_title_after', '');
+$accent = (string) idc_page_field('idc_page_title_accent', 'Ortopedia');
+$after  = (string) idc_page_field('idc_page_title_after', ' Regenerativa');
+// Migra seed antigo (H1 inteiro em before/accent).
+if (($before === 'Ortopedia Regenerativa' && $accent === '') || $accent === 'Ortopedia Regenerativa') {
+	$before = '';
+	$accent = 'Ortopedia';
+	$after  = ' Regenerativa';
+}
 $lead   = (string) idc_page_field(
 	'idc_page_lead',
 	'Tratamentos que estimulam a recuperação das articulações, reduzem a dor e ajudam você a recuperar seus movimentos e sua qualidade de vida.'

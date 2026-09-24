@@ -426,9 +426,9 @@ function idc_default_page_hero(string $slug): ?array {
 		],
 		'ortopedia-regenerativa' => [
 			'idc_page_eyebrow'      => 'TRATAMENTOS · ESPECIALIDADE PRINCIPAL',
-			'idc_page_title_before' => 'Ortopedia Regenerativa',
-			'idc_page_title_accent' => '',
-			'idc_page_title_after'  => '',
+			'idc_page_title_before' => '',
+			'idc_page_title_accent' => 'Ortopedia',
+			'idc_page_title_after'  => ' Regenerativa',
 			'idc_page_lead'         => 'Tratamentos que estimulam a recuperação das articulações, reduzem a dor e ajudam você a recuperar seus movimentos e sua qualidade de vida.',
 		],
 		'fisioterapia' => [
@@ -436,7 +436,7 @@ function idc_default_page_hero(string $slug): ?array {
 			'idc_page_title_before' => 'Fisioterapia Especializada em Dor',
 			'idc_page_title_accent' => '',
 			'idc_page_title_after'  => '',
-			'idc_page_lead'         => 'Nossa abordagem integra técnicas avançadas com um cuidado humanizado profundo. Através de 4 fases de recuperação distintas, desenhamos um caminho focado não apenas em tratar os sintomas, mas em restaurar a verdadeira função e o bem-estar do seu corpo.',
+			'idc_page_lead'         => 'Nossa abordagem integra técnicas avançadas com um cuidado humanizado profundo. Através de uma jornada de 5 passos estruturada e 4 fases de recuperação distintas, desenhamos um caminho focado não apenas em tratar os sintomas, mas em restaurar a verdadeira função e o bem-estar do seu corpo.',
 		],
 		'medicina-integrativa' => [
 			'idc_page_eyebrow'      => '',
@@ -447,8 +447,8 @@ function idc_default_page_hero(string $slug): ?array {
 		],
 		'o-instituto' => [
 			'idc_page_eyebrow'      => '',
-			'idc_page_title_before' => '',
-			'idc_page_title_accent' => 'Existimos para que ninguém seja definido pela sua dor.',
+			'idc_page_title_before' => 'Existimos para que ninguém seja definido ',
+			'idc_page_title_accent' => 'pela sua dor.',
 			'idc_page_title_after'  => '',
 			'idc_page_lead'         => 'Desde 1987, o Instituto Dr. Chao vem transformando a maneira como olhamos para a ortopedia e reabilitação. Nossa história começou com a crença fundamental de que o tratamento médico deve transcender o sintoma, abraçando a complexidade do ser humano. Hoje, somos referência em cuidado integrado, unindo alta precisão técnica a uma escuta empática, garantindo que cada paciente encontre seu caminho único para o bem-estar duradouro e uma vida em movimento pleno.',
 		],

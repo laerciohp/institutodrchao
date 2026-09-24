@@ -82,13 +82,7 @@ $active_id  = ($term instanceof WP_Term) ? (string) $term->term_id : 'all';
 		<?php endif; ?>
 	</section>
 
-	<?php
-	get_template_part('template-parts/components/strip-cta', null, [
-		'origem' => 'blog-categoria',
-		'decor'  => true,
-		'align'  => 'center',
-	]);
-	?>
+	<?php get_template_part('template-parts/blog/newsletter'); ?>
 </main>
 <?php
 get_footer();
