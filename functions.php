@@ -382,6 +382,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11219', 'idc_upgrade_11219_diferenciais_figma');
 	idc_run_upgrade_once('11220', 'idc_upgrade_11220_parity_figma');
 	idc_run_upgrade_once('11220b', 'idc_upgrade_11220_parity_figma');
+	idc_run_upgrade_once('11221', 'idc_upgrade_11221_specialty_titles_figma');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -469,14 +470,14 @@ function idc_upgrade_183_layout_cms(): void {
 	$figma_titles = [
 		'ortopedia-regenerativa' => [
 			'idc_page_eyebrow'      => 'TRATAMENTOS · ESPECIALIDADE PRINCIPAL',
-			'idc_page_title_before' => '',
-			'idc_page_title_accent' => 'Ortopedia Regenerativa',
+			'idc_page_title_before' => 'Ortopedia Regenerativa',
+			'idc_page_title_accent' => '',
 			'idc_page_title_after'  => '',
 		],
 		'fisioterapia' => [
 			'idc_page_eyebrow'      => '',
-			'idc_page_title_before' => '',
-			'idc_page_title_accent' => 'Fisioterapia Especializada em Dor',
+			'idc_page_title_before' => 'Fisioterapia Especializada em Dor',
+			'idc_page_title_accent' => '',
 			'idc_page_title_after'  => '',
 		],
 		'medicina-integrativa' => [
@@ -1129,4 +1130,43 @@ function idc_redirect_trabalhe_conosco(): void {
 	}
 }
 add_action('template_redirect', 'idc_redirect_trabalhe_conosco', 1);
+
+/**
+ * v1.12.21 — Títulos Orto/Fisio em Montserrat (Figma), sem serif no H1 inteiro.
+ * Serif fica só em spans de destaque (ex.: "Integrativa", "seu cuidado?").
+ */
+function idc_upgrade_11221_specialty_titles_figma(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$pages = [
+		'ortopedia-regenerativa' => [
+			'idc_page_title_before' => 'Ortopedia Regenerativa',
+			'idc_page_title_accent' => '',
+			'idc_page_title_after'  => '',
+		],
+		'fisioterapia' => [
+			'idc_page_title_before' => 'Fisioterapia Especializada em Dor',
+			'idc_page_title_accent' => '',
+			'idc_page_title_after'  => '',
+		],
+	];
+
+	foreach ($pages as $slug => $fields) {
+		$page = get_page_by_path($slug);
+		if (!$page instanceof WP_Post) {
+			continue;
+		}
+		$id = (int) $page->ID;
+		update_field('idc_page_title_before', $fields['idc_page_title_before'], $id);
+		if (function_exists('delete_field')) {
+			delete_field('idc_page_title_accent', $id);
+			delete_field('idc_page_title_after', $id);
+		} else {
+			update_field('idc_page_title_accent', '', $id);
+			update_field('idc_page_title_after', '', $id);
+		}
+	}
+}
 
