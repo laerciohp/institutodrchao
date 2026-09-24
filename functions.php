@@ -380,6 +380,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11214', 'idc_upgrade_11214_testimonials_meta');
 	idc_run_upgrade_once('11216', 'idc_upgrade_11216_testimonials_prod');
 	idc_run_upgrade_once('11219', 'idc_upgrade_11219_diferenciais_figma');
+	idc_run_upgrade_once('11220', 'idc_upgrade_11220_parity_figma');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1078,4 +1079,48 @@ function idc_upgrade_11219_diferenciais_figma(): void {
 		update_field('idc_why_items', $why_items, $target);
 	}
 }
+
+/**
+ * v1.12.20 — Paridade Figma: título dos Pilares + redirect Trabalhe Conosco.
+ * Corrige "Três pilares de cuidado completa" (after residual no ACF).
+ */
+function idc_upgrade_11220_parity_figma(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$targets  = ['option'];
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$targets[] = $front_id;
+	}
+
+	$fields = [
+		'idc_pillars_title_before' => 'Três pilares de',
+		'idc_pillars_title_accent' => 'cuidado',
+		'idc_pillars_title_after'  => '',
+	];
+
+	foreach ($targets as $target) {
+		foreach ($fields as $key => $value) {
+			update_field($key, $value, $target);
+		}
+	}
+}
+
+/**
+ * Redirect canônico: /trabalhe-conosco/ → /carreiras/ (slug da página Figma).
+ */
+function idc_redirect_trabalhe_conosco(): void {
+	if (is_admin() || wp_doing_ajax() || wp_doing_cron()) {
+		return;
+	}
+
+	$path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+	if ($path === 'trabalhe-conosco') {
+		wp_safe_redirect(home_url('/carreiras/'), 301);
+		exit;
+	}
+}
+add_action('template_redirect', 'idc_redirect_trabalhe_conosco', 1);
 

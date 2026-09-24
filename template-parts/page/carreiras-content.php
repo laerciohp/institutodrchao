@@ -106,9 +106,16 @@ $endereco = function_exists('get_field') && get_field('idc_contato_endereco')
 						<input type="checkbox" name="lgpd" value="1" required>
 						<span>
 							<?php
-							printf(
-								esc_html__('Li e concordo com a %s.', 'instituto-dr-chao'),
-								'<a href="' . esc_url(home_url('/privacidade/')) . '">' . esc_html__('política de privacidade', 'instituto-dr-chao') . '</a>'
+							echo wp_kses(
+								sprintf(
+									__('Li e concordo com a %s.', 'instituto-dr-chao'),
+									'<a href="' . esc_url(home_url('/privacidade/')) . '">' . esc_html__('política de privacidade', 'instituto-dr-chao') . '</a>'
+								),
+								[
+									'a' => [
+										'href' => true,
+									],
+								]
 							);
 							?>
 						</span>

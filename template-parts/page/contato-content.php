@@ -130,10 +130,17 @@ if (is_array($assuntos_acf) && $assuntos_acf !== []) {
 							<input type="checkbox" name="lgpd" value="1" required>
 							<span>
 								<?php
-								printf(
-									/* translators: %s: privacy policy URL */
-									esc_html__('Li e concordo com a %s.', 'instituto-dr-chao'),
-									'<a href="' . esc_url(home_url('/privacidade/')) . '">' . esc_html__('política de privacidade', 'instituto-dr-chao') . '</a>'
+								echo wp_kses(
+									sprintf(
+										/* translators: %s: privacy policy link */
+										__('Li e concordo com a %s.', 'instituto-dr-chao'),
+										'<a href="' . esc_url(home_url('/privacidade/')) . '">' . esc_html__('política de privacidade', 'instituto-dr-chao') . '</a>'
+									),
+									[
+										'a' => [
+											'href' => true,
+										],
+									]
 								);
 								?>
 							</span>
