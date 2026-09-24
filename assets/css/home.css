@@ -51,6 +51,7 @@
 }
 
 .idc-trust__value {
+	font-family: var(--idc-font-serif);
 	font-size: var(--idc-text-2xl);
 	font-weight: 700;
 	line-height: 40px;
@@ -87,17 +88,18 @@
 
 .idc-trust__rating-value {
 	display: inline-flex;
-	align-items: center;
+	align-items: baseline;
 	justify-content: center;
-	min-width: 61px;
-	padding: 8px 10px;
-	border-radius: 8px;
-	background: var(--idc-white);
-	border: 1px solid var(--idc-border-soft);
-	font-size: 16px;
+	font-family: var(--idc-font-serif);
+	font-size: var(--idc-text-2xl);
 	font-weight: 700;
-	line-height: 1;
+	line-height: 40px;
 	color: var(--idc-azul-900);
+	background: transparent;
+	border: 0;
+	padding: 0;
+	min-width: 0;
+	border-radius: 0;
 }
 
 .idc-trust__item--rating .idc-trust__stars {
