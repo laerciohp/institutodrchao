@@ -19,6 +19,14 @@ $title_html        = (string) ($args['title_html'] ?? '');
 $title_before      = (string) ($args['title_before'] ?? '');
 $title_accent      = (string) ($args['title_accent'] ?? '');
 $title_after       = (string) ($args['title_after'] ?? '');
+
+// Figma: Roboto Serif só no trecho de destaque. Se o H1 inteiro veio como
+// accent (ex.: "Ortopedia Regenerativa"), renderiza em Montserrat.
+if ($title_before === '' && $title_after === '' && $title_accent !== '') {
+	$title_before = $title_accent;
+	$title_accent = '';
+}
+
 $lead              = (string) ($args['lead'] ?? '');
 $breadcrumb        = (string) ($args['breadcrumb_label'] ?? '');
 $breadcrumb_items  = $args['breadcrumb_items'] ?? [];
