@@ -169,7 +169,7 @@
 
 .idc-pillar {
 	border: 1px solid rgba(197, 198, 205, 0.12);
-	border-radius: var(--idc-radius-lg);
+	border-radius: var(--idc-radius-card);
 	padding: var(--idc-space-6);
 	display: flex;
 	flex-direction: column;
@@ -186,10 +186,11 @@
 	}
 }
 
-.idc-pillar--tone-sand { background: #f3e9db; }
-.idc-pillar--tone-mint { background: #e9f0ea; }
-.idc-pillar--tone-lavender { background: #eceaf3; }
-.idc-pillar--tone-cream { background: #f6f3ee; }
+/* Cores Figma 435:65 (Bento Grid): Ortopedia=sand-warm, Fisioterapia=cream, Medicina Integrativa=peach, CTA=cream-soft */
+.idc-pillar--tone-sand { background: var(--idc-sand-warm); }
+.idc-pillar--tone-mint { background: var(--idc-cream); }
+.idc-pillar--tone-lavender { background: var(--idc-peach); }
+.idc-pillar--tone-cream { background: var(--idc-cream-soft); }
 
 @media (min-width: 1024px) {
 	.idc-pillars__grid {
@@ -576,9 +577,9 @@
 
 .idc-testimonial {
 	background: var(--idc-white);
-	border-radius: 21px;
+	border-radius: var(--idc-radius-card);
 	padding: var(--idc-space-8);
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	box-shadow: var(--idc-shadow-sm);
 	display: flex;
 	flex-direction: column;
 	gap: var(--idc-space-6);

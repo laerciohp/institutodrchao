@@ -73,22 +73,22 @@ function idc_default_pillars_cards(): array {
 function idc_default_why_items(): array {
 	return [
 		[
-			'title' => 'Corpo Clínico Renomado',
-			'text'  => 'Especialistas formados nos maiores centros do país.',
+			'title' => 'Cuidado que começa pela escuta',
+			'text'  => 'Ouvimos antes de prescrever, a origem da sua dor só aparece quando você é ouvido.',
 			'icon'  => idc_asset('assets/icons/diff-1-figma.svg'),
 		],
 		[
-			'title' => 'Abordagem Individual',
+			'title' => 'Tratamento individualizado',
 			'text'  => 'Cada plano de tratamento é único, assim como você.',
 			'icon'  => idc_asset('assets/icons/diff-2-figma.svg'),
 		],
 		[
-			'title' => 'Estrutura Completa',
+			'title' => 'Técnica com acolhimento',
 			'text'  => 'Da consulta à reabilitação no mesmo local.',
 			'icon'  => idc_asset('assets/icons/diff-3-figma.svg'),
 		],
 		[
-			'title' => 'Atendimento Humanizado',
+			'title' => 'Compromisso com qualidade de vida',
 			'text'  => 'Nosso foco é o seu bem-estar integral.',
 			'icon'  => idc_asset('assets/icons/diff-4-figma.svg'),
 		],

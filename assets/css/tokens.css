@@ -21,6 +21,7 @@
 	--idc-sand: #e5e2dd;
 	--idc-sand-warm: #f3e9db;
 	--idc-peach: #f1e1cc;
+	--idc-cream-soft: #f6f3ee;
 	--idc-border: #c5c6cd;
 	--idc-white: #ffffff;
 	--idc-white-80: rgba(255, 255, 255, 0.8);
@@ -66,6 +67,7 @@
 	/* Raios */
 	--idc-radius-pill: 9999px;
 	--idc-radius-lg: 32px;
+	--idc-radius-card: 21px; /* Figma: cards de pilares, depoimentos, badges */
 	--idc-radius-md: 16px;
 	--idc-radius-sm: 8px;
 

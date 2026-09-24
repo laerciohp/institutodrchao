@@ -379,6 +379,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11213', 'idc_upgrade_11213_testimonials_cpt');
 	idc_run_upgrade_once('11214', 'idc_upgrade_11214_testimonials_meta');
 	idc_run_upgrade_once('11216', 'idc_upgrade_11216_testimonials_prod');
+	idc_run_upgrade_once('11219', 'idc_upgrade_11219_diferenciais_figma');
 
 	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1054,5 +1055,27 @@ function idc_upgrade_11212_contato_figma(): void {
 	update_field('idc_contato_label_email_btn', 'Enviar e-mail', $cid);
 	update_field('idc_contato_label_maps', 'Como chegar no Google Maps', $cid);
 	update_field('idc_contato_label_horario', 'Horário de Atendimento', $cid);
+}
+
+/**
+ * v1.12.19 — Auditoria pixel-perfect Figma SRIgo (frame 435:2, camada ativa):
+ * corrige títulos/textos de "Por que escolher" (Diferenciais) que estavam
+ * com copy antiga ("Corpo Clínico Renomado" etc.) divergente do Figma atual.
+ */
+function idc_upgrade_11219_diferenciais_figma(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$why_items = idc_default_why_items();
+	$targets   = ['option'];
+	$front_id  = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		$targets[] = $front_id;
+	}
+
+	foreach ($targets as $target) {
+		update_field('idc_why_items', $why_items, $target);
+	}
 }
 
