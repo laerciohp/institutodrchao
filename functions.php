@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 /**
- * Funções do tema Instituto Dr. Chao
+ * Fun├º├Áes do tema Instituto Dr. Chao
  *
  * @package Instituto_Dr_Chao
  */
@@ -64,9 +64,9 @@ function idc_setup(): void {
 
 	register_nav_menus([
 		'primary'              => __('Menu principal', 'instituto-dr-chao'),
-		'footer_tratamentos'   => __('Rodapé — Tratamentos', 'instituto-dr-chao'),
-		'footer_institucional' => __('Rodapé — Institucional', 'instituto-dr-chao'),
-		'footer_contato'       => __('Rodapé — Contato', 'instituto-dr-chao'),
+		'footer_tratamentos'   => __('Rodap├® ÔÇö Tratamentos', 'instituto-dr-chao'),
+		'footer_institucional' => __('Rodap├® ÔÇö Institucional', 'instituto-dr-chao'),
+		'footer_contato'       => __('Rodap├® ÔÇö Contato', 'instituto-dr-chao'),
 	]);
 }
 add_action('after_setup_theme', 'idc_setup');
@@ -179,13 +179,13 @@ function idc_nav_title_chevron(string $title, $item, $args, int $depth): string 
 add_filter('nav_menu_item_title', 'idc_nav_title_chevron', 10, 4);
 
 /**
- * Fallback do menu principal (quando ainda não há menu cadastrado).
+ * Fallback do menu principal (quando ainda n├úo h├í menu cadastrado).
  *
  * @param array<string,mixed> $args
  */
 function idc_nav_fallback(array $args = []): void {
 	$items = [
-		['label' => __('Início', 'instituto-dr-chao'), 'url' => home_url('/')],
+		['label' => __('In├¡cio', 'instituto-dr-chao'), 'url' => home_url('/')],
 		['label' => __('Especialidades', 'instituto-dr-chao'), 'url' => home_url('/especialidades/'), 'chevron' => true],
 		['label' => __('O Instituto', 'instituto-dr-chao'), 'url' => home_url('/o-instituto/')],
 		['label' => __('Blog', 'instituto-dr-chao'), 'url' => get_permalink(get_option('page_for_posts')) ?: home_url('/blog/')],
@@ -212,22 +212,22 @@ function idc_nav_fallback(array $args = []): void {
 }
 
 /**
- * Atualizações do tema via GitHub Releases.
+ * Atualiza├º├Áes do tema via GitHub Releases.
  *
  * Fluxo:
  * 1. Suba a Version em style.css (ex.: 1.0.1)
- * 2. Faça commit + push
- * 3. Crie um Release no GitHub com tag v1.0.1 (mesmo número da Version)
+ * 2. Fa├ºa commit + push
+ * 3. Crie um Release no GitHub com tag v1.0.1 (mesmo n├║mero da Version)
  * 4. O WP detecta e exibe "Atualizar tema"
  *
  * Defina IDC_GITHUB_THEME_REPO no wp-config.php se o slug do repo mudar:
  *   define('IDC_GITHUB_THEME_REPO', 'seu-usuario/instituto-dr-chao');
  */
 function idc_register_theme_updater(): void {
-	// Blindagem: outro plugin/tema pode já ter carregado a mesma biblioteca
-	// (Plugin Update Checker é embutida em muitos plugins). Requerer o
-	// bundle de novo nesse caso causa "Cannot redeclare class" → tela de
-	// erro crítico. Se a classe já existe, reaproveita-a sem requerer nada.
+	// Blindagem: outro plugin/tema pode j├í ter carregado a mesma biblioteca
+	// (Plugin Update Checker ├® embutida em muitos plugins). Requerer o
+	// bundle de novo nesse caso causa "Cannot redeclare class" ÔåÆ tela de
+	// erro cr├¡tico. Se a classe j├í existe, reaproveita-a sem requerer nada.
 	if (!class_exists('YahnisElsts\\PluginUpdateChecker\\v5\\PucFactory')) {
 		$bundled  = IDC_THEME_DIR . '/inc/plugin-update-checker/plugin-update-checker.php';
 		$autoload = IDC_THEME_DIR . '/vendor/autoload.php';
@@ -241,7 +241,7 @@ function idc_register_theme_updater(): void {
 				return;
 			}
 		} catch (\Throwable $e) {
-			// Nunca deixar o updater (recurso não essencial) derrubar o site.
+			// Nunca deixar o updater (recurso n├úo essencial) derrubar o site.
 			return;
 		}
 	}
@@ -268,13 +268,13 @@ function idc_register_theme_updater(): void {
 			$checker->setAuthentication(IDC_GITHUB_TOKEN);
 		}
 	} catch (\Throwable $e) {
-		// Idem: falha no updater não deve gerar erro crítico no site.
+		// Idem: falha no updater n├úo deve gerar erro cr├¡tico no site.
 	}
 }
 add_action('after_setup_theme', 'idc_register_theme_updater', 20);
 
 /**
- * Exclui posts odontológicos do arquivo do blog (escopo Figma: Orto/Fisio/Integrativa).
+ * Exclui posts odontol├│gicos do arquivo do blog (escopo Figma: Orto/Fisio/Integrativa).
  *
  * @param WP_Query $query
  */
@@ -322,13 +322,13 @@ function idc_exclude_odonto_from_blog(WP_Query $query): void {
 add_action('pre_get_posts', 'idc_exclude_odonto_from_blog');
 
 /**
- * Migração leve ao atualizar a Version do tema (flush CPT + sync Home page).
+ * Migra├º├úo leve ao atualizar a Version do tema (flush CPT + sync Home page).
  *
- * Blindado com try/catch: se qualquer upgrade falhar, a versão instalada é
- * marcada mesmo assim para não reexecutar (e refalhar) em TODA requisição —
- * este hook roda em admin_init e init, ou seja, em toda página, wp-login,
+ * Blindado com try/catch: se qualquer upgrade falhar, a vers├úo instalada ├®
+ * marcada mesmo assim para n├úo reexecutar (e refalhar) em TODA requisi├º├úo ÔÇö
+ * este hook roda em admin_init e init, ou seja, em toda p├ígina, wp-login,
  * REST API e admin. Uma falha aqui sem esse guarda derruba o site inteiro
- * em loop até a raiz ser corrigida.
+ * em loop at├® a raiz ser corrigida.
  */
 function idc_maybe_run_theme_upgrade(): void {
 	$stored = (string) get_option('idc_theme_version_installed', '');
@@ -350,16 +350,16 @@ add_action('admin_init', 'idc_maybe_run_theme_upgrade', 5);
 add_action('init', 'idc_maybe_run_theme_upgrade', 20);
 
 /**
- * Passos de migração propriamente ditos (extraído para poder ser
+ * Passos de migra├º├úo propriamente ditos (extra├¡do para poder ser
  * envolvido em try/catch por idc_maybe_run_theme_upgrade).
  */
 function idc_run_theme_upgrade_steps(): void {
 	flush_rewrite_rules(false);
 
-	// Sites que já passaram por 1.9.x não devem reexecutar seeds forçados (183–190).
+	// Sites que j├í passaram por 1.9.x n├úo devem reexecutar seeds for├ºados (183ÔÇô190).
 	idc_mark_legacy_upgrades_done_if_needed();
 
-	// Upgrades CMS: cada um roda no máximo uma vez (não sobrescreve edições a cada bump).
+	// Upgrades CMS: cada um roda no m├íximo uma vez (n├úo sobrescreve edi├º├Áes a cada bump).
 	idc_run_upgrade_once('183', 'idc_upgrade_183_layout_cms');
 	idc_run_upgrade_once('184', 'idc_upgrade_184_layout_cms');
 	idc_run_upgrade_once('186', 'idc_upgrade_186_layout_cms');
@@ -385,7 +385,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11221', 'idc_upgrade_11221_specialty_titles_figma');
 	idc_run_upgrade_once('11227', 'idc_upgrade_11227_blog_instituto_100');
 
-	// Copia Options da Home para a página Início (se vazia), para “Editar página” funcionar.
+	// Copia Options da Home para a p├ígina In├¡cio (se vazia), para ÔÇ£Editar p├íginaÔÇØ funcionar.
 	$front_id = (int) get_option('page_on_front');
 	if ($front_id > 0 && function_exists('get_field') && function_exists('update_field')) {
 		$keys = [
@@ -439,7 +439,7 @@ function idc_run_theme_upgrade_steps(): void {
 }
 
 /**
- * v1.8.3 — republica Carreiras se estiver fora do ar e alinha títulos ACF ao Figma.
+ * v1.8.3 ÔÇö republica Carreiras se estiver fora do ar e alinha t├¡tulos ACF ao Figma.
  */
 function idc_upgrade_183_layout_cms(): void {
 	$pages = get_posts([
@@ -470,7 +470,7 @@ function idc_upgrade_183_layout_cms(): void {
 
 	$figma_titles = [
 		'ortopedia-regenerativa' => [
-			'idc_page_eyebrow'      => 'TRATAMENTOS · ESPECIALIDADE PRINCIPAL',
+			'idc_page_eyebrow'      => 'TRATAMENTOS ┬À ESPECIALIDADE PRINCIPAL',
 			'idc_page_title_before' => 'Ortopedia Regenerativa',
 			'idc_page_title_accent' => '',
 			'idc_page_title_after'  => '',
@@ -492,7 +492,7 @@ function idc_upgrade_183_layout_cms(): void {
 			'idc_page_title_before' => '',
 			'idc_page_title_accent' => 'Conhecimento',
 			'idc_page_title_after'  => ' para o seu cuidado.',
-			'idc_page_lead'         => 'Artigos, dicas e novidades sobre ortopedia, fisioterapia, medicina integrativa e bem-estar. Escritos por nossa equipe de especialistas para ajudar você a viver com mais movimento e menos dor.',
+			'idc_page_lead'         => 'Artigos, dicas e novidades sobre ortopedia, fisioterapia, medicina integrativa e bem-estar. Escritos por nossa equipe de especialistas para ajudar voc├¬ a viver com mais movimento e menos dor.',
 		],
 	];
 
@@ -508,7 +508,7 @@ function idc_upgrade_183_layout_cms(): void {
 }
 
 /**
- * v1.8.4 — alinha Carreiras e archive de Tratamentos aos defaults do Figma.
+ * v1.8.4 ÔÇö alinha Carreiras e archive de Tratamentos aos defaults do Figma.
  */
 function idc_upgrade_184_layout_cms(): void {
 	if (!function_exists('update_field')) {
@@ -517,12 +517,12 @@ function idc_upgrade_184_layout_cms(): void {
 
 	$carreiras = get_page_by_path('carreiras');
 	if ($carreiras instanceof WP_Post) {
-		update_field('idc_page_title_before', 'Faça parte do ', (int) $carreiras->ID);
+		update_field('idc_page_title_before', 'Fa├ºa parte do ', (int) $carreiras->ID);
 		update_field('idc_page_title_accent', 'time', (int) $carreiras->ID);
 		update_field('idc_page_title_after', '', (int) $carreiras->ID);
 		update_field(
 			'idc_page_lead',
-			"No Instituto Dr. Chao, acreditamos que oferecer um atendimento excepcional começa por ter uma equipe movida por empatia, dedicação e excelência. Se você compartilha do nosso compromisso de acolher, cuidar e transformar a jornada de diagnóstico e reabilitação das pessoas, nós queremos conhecer você. Venha construir uma carreira com propósito.\n\nPreencha o formulário abaixo, anexe seu currículo e dê o primeiro passo para fazer a diferença em cada etapa do nosso trabalho.",
+			"No Instituto Dr. Chao, acreditamos que oferecer um atendimento excepcional come├ºa por ter uma equipe movida por empatia, dedica├º├úo e excel├¬ncia. Se voc├¬ compartilha do nosso compromisso de acolher, cuidar e transformar a jornada de diagn├│stico e reabilita├º├úo das pessoas, n├│s queremos conhecer voc├¬. Venha construir uma carreira com prop├│sito.\n\nPreencha o formul├írio abaixo, anexe seu curr├¡culo e d├¬ o primeiro passo para fazer a diferen├ºa em cada etapa do nosso trabalho.",
 			(int) $carreiras->ID
 		);
 		update_field('idc_carreiras_form_title', 'Envie uma mensagem', (int) $carreiras->ID);
@@ -531,7 +531,7 @@ function idc_upgrade_184_layout_cms(): void {
 }
 
 /**
- * v1.8.6 — sync Hub cards + strips Especialidades/Orto/Fisio/Integrativa ao Figma.
+ * v1.8.6 ÔÇö sync Hub cards + strips Especialidades/Orto/Fisio/Integrativa ao Figma.
  */
 function idc_upgrade_186_layout_cms(): void {
 	if (!function_exists('update_field')) {
@@ -570,7 +570,7 @@ function idc_upgrade_186_layout_cms(): void {
 }
 
 /**
- * v1.8.7 — sync lead/FAQ Orto, limpa footer Instalações (Figma).
+ * v1.8.7 ÔÇö sync lead/FAQ Orto, limpa footer Instala├º├Áes (Figma).
  */
 function idc_upgrade_187_layout_cms(): void {
 	if (!function_exists('update_field')) {
@@ -608,7 +608,7 @@ function idc_upgrade_187_layout_cms(): void {
 
 	$carreiras = get_page_by_path('carreiras');
 	if ($carreiras instanceof WP_Post) {
-		update_field('idc_page_title_before', 'Faça parte do ', (int) $carreiras->ID);
+		update_field('idc_page_title_before', 'Fa├ºa parte do ', (int) $carreiras->ID);
 		update_field('idc_page_title_accent', 'time', (int) $carreiras->ID);
 		update_field('idc_page_title_after', '', (int) $carreiras->ID);
 	}
@@ -619,7 +619,7 @@ function idc_upgrade_187_layout_cms(): void {
 }
 
 /**
- * v1.8.8 — alinha Home (hero Figma) + Hub title split + limpa leads fora do frame.
+ * v1.8.8 ÔÇö alinha Home (hero Figma) + Hub title split + limpa leads fora do frame.
  */
 function idc_upgrade_188_layout_cms(): void {
 	if (!function_exists('update_field')) {
@@ -627,12 +627,12 @@ function idc_upgrade_188_layout_cms(): void {
 	}
 
 	$hero = [
-		'idc_hero_title_before' => 'A dor não precisa definir a',
+		'idc_hero_title_before' => 'A dor n├úo precisa definir a',
 		'idc_hero_title_accent' => 'sua vida.',
 		'idc_hero_title_after'  => '',
-		'idc_hero_lead'         => "Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo.",
+		'idc_hero_lead'         => "Existimos para que ningu├®m seja definido pela sua dor.\nCombinamos vanguarda m├®dica e terapias integrativas em um ambiente pensado para a sua verdadeira recupera├º├úo e bem-estar cont├¡nuo.",
 		'idc_hero_cta_primary'  => 'Agendar Consulta',
-		'idc_hero_cta_secondary'=> 'Conheça os tratamentos',
+		'idc_hero_cta_secondary'=> 'Conhe├ºa os tratamentos',
 	];
 
 	foreach ($hero as $key => $value) {
@@ -681,14 +681,14 @@ function idc_upgrade_188_layout_cms(): void {
 }
 
 /**
- * v1.8.9 — badge depoimentos Figma + limpa override de imagem "Por que escolher".
+ * v1.8.9 ÔÇö badge depoimentos Figma + limpa override de imagem "Por que escolher".
  */
 function idc_upgrade_189_layout_cms(): void {
 	if (!function_exists('update_field')) {
 		return;
 	}
 
-	$badge = '4.9 · 742 avaliações';
+	$badge = '4.9 ┬À 742 avalia├º├Áes';
 	$title = 'O que dizem nossos pacientes';
 
 	update_field('idc_testimonials_badge', $badge, 'option');
@@ -712,7 +712,7 @@ function idc_upgrade_189_layout_cms(): void {
 }
 
 /**
- * v1.9.0 — Home Figma SRIgo (hero/pilares/why/hub) + Instituto essência.
+ * v1.9.0 ÔÇö Home Figma SRIgo (hero/pilares/why/hub) + Instituto ess├¬ncia.
  */
 function idc_upgrade_190_layout_cms(): void {
 	if (!function_exists('update_field')) {
@@ -722,10 +722,10 @@ function idc_upgrade_190_layout_cms(): void {
 	$hero = [
 		'idc_hero_title_before'  => 'Tratamos a',
 		'idc_hero_title_accent'  => 'origem da dor.',
-		'idc_hero_title_after'   => ' Você sente a mudança.',
-		'idc_hero_lead'          => "Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo.",
+		'idc_hero_title_after'   => ' Voc├¬ sente a mudan├ºa.',
+		'idc_hero_lead'          => "Existimos para que ningu├®m seja definido pela sua dor.\nCombinamos vanguarda m├®dica e terapias integrativas em um ambiente pensado para a sua verdadeira recupera├º├úo e bem-estar cont├¡nuo.",
 		'idc_hero_cta_primary'   => 'Agendar Consulta',
-		'idc_hero_cta_secondary' => 'Conheça os tratamentos',
+		'idc_hero_cta_secondary' => 'Conhe├ºa os tratamentos',
 	];
 
 	foreach ($hero as $key => $value) {
@@ -761,11 +761,11 @@ function idc_upgrade_190_layout_cms(): void {
 
 	$inst = get_page_by_path('o-instituto');
 	if ($inst instanceof WP_Post) {
-		update_field('idc_instituto_essencia_eyebrow', 'NOSSA ESSÊNCIA', (int) $inst->ID);
-		update_field('idc_instituto_essencia_title', 'Cuidado que une experiência, ciência e acolhimento', (int) $inst->ID);
+		update_field('idc_instituto_essencia_eyebrow', 'NOSSA ESS├èNCIA', (int) $inst->ID);
+		update_field('idc_instituto_essencia_title', 'Cuidado que une experi├¬ncia, ci├¬ncia e acolhimento', (int) $inst->ID);
 		update_field(
 			'idc_instituto_essencia_lead',
-			'Desde 1987, o Instituto Dr. Chao une precisão ortopédica, reabilitação e medicina integrativa para tratar a origem da dor — com ciência, escuta e acolhimento.',
+			'Desde 1987, o Instituto Dr. Chao une precis├úo ortop├®dica, reabilita├º├úo e medicina integrativa para tratar a origem da dor ÔÇö com ci├¬ncia, escuta e acolhimento.',
 			(int) $inst->ID
 		);
 		update_field('idc_instituto_cards', idc_default_instituto_cards(), (int) $inst->ID);
@@ -774,8 +774,8 @@ function idc_upgrade_190_layout_cms(): void {
 }
 
 /**
- * Marca upgrades 183–190 como concluídos se o site já estava em ≥1.9.0
- * (evita overwrite de conteúdo editorial no primeiro deploy com gates).
+ * Marca upgrades 183ÔÇô190 como conclu├¡dos se o site j├í estava em ÔëÑ1.9.0
+ * (evita overwrite de conte├║do editorial no primeiro deploy com gates).
  */
 function idc_mark_legacy_upgrades_done_if_needed(): void {
 	$stored = (string) get_option('idc_theme_version_installed', '');
@@ -791,7 +791,7 @@ function idc_mark_legacy_upgrades_done_if_needed(): void {
 }
 
 /**
- * v1.10.0 — seeds seguros (só se vazio) para archive de tratamentos.
+ * v1.10.0 ÔÇö seeds seguros (s├│ se vazio) para archive de tratamentos.
  */
 function idc_upgrade_110_layout_cms(): void {
 	if (!function_exists('update_field') || !function_exists('get_field')) {
@@ -799,8 +799,8 @@ function idc_upgrade_110_layout_cms(): void {
 	}
 	$pairs = [
 		'idc_tx_archive_eyebrow' => 'TRATAMENTOS',
-		'idc_tx_archive_title'   => 'Conheça nossos tratamentos',
-		'idc_tx_archive_lead'    => 'Protocolos regenerativos e de reabilitação orientados pela equipe do Instituto Dr. Chao — da avaliação ao acompanhamento contínuo.',
+		'idc_tx_archive_title'   => 'Conhe├ºa nossos tratamentos',
+		'idc_tx_archive_lead'    => 'Protocolos regenerativos e de reabilita├º├úo orientados pela equipe do Instituto Dr. Chao ÔÇö da avalia├º├úo ao acompanhamento cont├¡nuo.',
 	];
 	foreach ($pairs as $key => $default) {
 		$current = get_field($key, 'option');
@@ -811,7 +811,7 @@ function idc_upgrade_110_layout_cms(): void {
 }
 
 /**
- * v1.11.0 — migra especialidades para template flexível + seções ordenáveis da Home.
+ * v1.11.0 ÔÇö migra especialidades para template flex├¡vel + se├º├Áes orden├íveis da Home.
  */
 function idc_upgrade_111_layout_cms(): void {
 	if (!function_exists('update_field') || !function_exists('get_field')) {
@@ -842,7 +842,7 @@ function idc_upgrade_111_layout_cms(): void {
 				}
 			} elseif ($slug === 'fisioterapia') {
 				$existing = get_field('idc_fisio_phases', $pid);
-				$title    = (string) (get_field('idc_fisio_phases_title', $pid) ?: 'As 4 fases da recuperação');
+				$title    = (string) (get_field('idc_fisio_phases_title', $pid) ?: 'As 4 fases da recupera├º├úo');
 				if (is_array($existing) && $existing !== []) {
 					$seed = [['acf_fc_layout' => 'phases', 'section_title' => $title, 'phases' => $existing]];
 				}
@@ -871,7 +871,7 @@ function idc_upgrade_111_layout_cms(): void {
 }
 
 /**
- * v1.12.0+ — nota do design system no painel (opção informativa).
+ * v1.12.0+ ÔÇö nota do design system no painel (op├º├úo informativa).
  */
 function idc_upgrade_112_layout_cms(): void {
 	if (!function_exists('update_field') || !function_exists('get_field')) {
@@ -881,8 +881,8 @@ function idc_upgrade_112_layout_cms(): void {
 	if ($note === null || $note === false || $note === '') {
 		update_field(
 			'idc_design_guide_note',
-			"Edite Home e páginas pelos campos ACF do template (não invente layouts fora dos blocos).\n" .
-			"Especialidades: use o template «Especialidade» com blocos flexíveis.\n" .
+			"Edite Home e p├íginas pelos campos ACF do template (n├úo invente layouts fora dos blocos).\n" .
+			"Especialidades: use o template ┬½Especialidade┬╗ com blocos flex├¡veis.\n" .
 			"Tokens e componentes: docs/design-tokens.md e template-parts/components/.",
 			'option'
 		);
@@ -890,14 +890,14 @@ function idc_upgrade_112_layout_cms(): void {
 }
 
 /**
- * v1.12.4 — legado (já rodou no staging); mantido como no-op.
+ * v1.12.4 ÔÇö legado (j├í rodou no staging); mantido como no-op.
  */
 function idc_upgrade_1124_pillar_image(): void {
-	// Intencionalmente vazio: a correção definitiva está em 1125.
+	// Intencionalmente vazio: a corre├º├úo definitiva est├í em 1125.
 }
 
 /**
- * v1.12.5 — pillar Home = fill Figma 133:407 (exame joelho), não hub anatômico.
+ * v1.12.5 ÔÇö pillar Home = fill Figma 133:407 (exame joelho), n├úo hub anat├┤mico.
  */
 function idc_upgrade_1125_home_figma_images(): void {
 	if (!function_exists('update_field') || !function_exists('get_field')) {
@@ -947,10 +947,10 @@ function idc_upgrade_1125_home_figma_images(): void {
 	}
 
 	$hero = [
-		'idc_hero_title_before'    => 'A dor não precisa definir a',
+		'idc_hero_title_before'    => 'A dor n├úo precisa definir a',
 		'idc_hero_title_accent'    => 'sua vida.',
 		'idc_hero_title_after'     => '',
-		'idc_pillars_title_before' => 'Três pilares de',
+		'idc_pillars_title_before' => 'Tr├¬s pilares de',
 		'idc_pillars_title_accent' => 'cuidado',
 		'idc_pillars_title_after'  => '',
 	];
@@ -962,7 +962,7 @@ function idc_upgrade_1125_home_figma_images(): void {
 }
 
 /**
- * v1.12.7 — pillar Ortopedia = foto anexada (exame do joelho).
+ * v1.12.7 ÔÇö pillar Ortopedia = foto anexada (exame do joelho).
  */
 function idc_upgrade_1127_pillar_attached(): void {
 	if (!function_exists('update_field') || !function_exists('get_field')) {
@@ -997,7 +997,7 @@ function idc_upgrade_1127_pillar_attached(): void {
 }
 
 /**
- * v1.12.10/1.12.11 — Depoimentos alinhados ao Figma 133:493 (badge + 3 cards).
+ * v1.12.10/1.12.11 ÔÇö Depoimentos alinhados ao Figma 133:493 (badge + 3 cards).
  */
 function idc_upgrade_11210_testimonials_figma(): void {
 	if (function_exists('opcache_reset')) {
@@ -1007,7 +1007,7 @@ function idc_upgrade_11210_testimonials_figma(): void {
 		return;
 	}
 
-	$badge = '5.0 Avaliação Média';
+	$badge = '5.0 Avalia├º├úo M├®dia';
 	$items = idc_default_testimonials();
 	$targets = ['option'];
 	$front_id = (int) get_option('page_on_front');
@@ -1023,7 +1023,7 @@ function idc_upgrade_11210_testimonials_figma(): void {
 }
 
 /**
- * v1.12.12 — Contato alinhado ao Figma 133:2904 (labels dos botões).
+ * v1.12.12 ÔÇö Contato alinhado ao Figma 133:2904 (labels dos bot├Áes).
  */
 function idc_upgrade_11212_contato_figma(): void {
 	if (function_exists('opcache_reset')) {
@@ -1055,16 +1055,16 @@ function idc_upgrade_11212_contato_figma(): void {
 
 	update_field('idc_contato_whatsapp_label', 'Iniciar conversa no WhatsApp', $cid);
 	update_field('idc_contato_form_lead', '', $cid);
-	update_field('idc_contato_label_ligar', 'Ligar para clínica', $cid);
+	update_field('idc_contato_label_ligar', 'Ligar para cl├¡nica', $cid);
 	update_field('idc_contato_label_email_btn', 'Enviar e-mail', $cid);
 	update_field('idc_contato_label_maps', 'Como chegar no Google Maps', $cid);
-	update_field('idc_contato_label_horario', 'Horário de Atendimento', $cid);
+	update_field('idc_contato_label_horario', 'Hor├írio de Atendimento', $cid);
 }
 
 /**
- * v1.12.19 — Auditoria pixel-perfect Figma SRIgo (frame 435:2, camada ativa):
- * corrige títulos/textos de "Por que escolher" (Diferenciais) que estavam
- * com copy antiga ("Corpo Clínico Renomado" etc.) divergente do Figma atual.
+ * v1.12.19 ÔÇö Auditoria pixel-perfect Figma SRIgo (frame 435:2, camada ativa):
+ * corrige t├¡tulos/textos de "Por que escolher" (Diferenciais) que estavam
+ * com copy antiga ("Corpo Cl├¡nico Renomado" etc.) divergente do Figma atual.
  */
 function idc_upgrade_11219_diferenciais_figma(): void {
 	if (!function_exists('update_field')) {
@@ -1084,8 +1084,8 @@ function idc_upgrade_11219_diferenciais_figma(): void {
 }
 
 /**
- * v1.12.20 — Paridade Figma: título dos Pilares + redirect Trabalhe Conosco.
- * Corrige "Três pilares de cuidado completa" (after residual no ACF).
+ * v1.12.20 ÔÇö Paridade Figma: t├¡tulo dos Pilares + redirect Trabalhe Conosco.
+ * Corrige "Tr├¬s pilares de cuidado completa" (after residual no ACF).
  */
 function idc_upgrade_11220_parity_figma(): void {
 	if (!function_exists('update_field')) {
@@ -1099,7 +1099,7 @@ function idc_upgrade_11220_parity_figma(): void {
 	}
 
 	$fields = [
-		'idc_pillars_title_before' => 'Três pilares de',
+		'idc_pillars_title_before' => 'Tr├¬s pilares de',
 		'idc_pillars_title_accent' => 'cuidado',
 	];
 
@@ -1107,7 +1107,7 @@ function idc_upgrade_11220_parity_figma(): void {
 		foreach ($fields as $key => $value) {
 			update_field($key, $value, $target);
 		}
-		// ACF: string vazia nem sempre limpa meta — delete garante.
+		// ACF: string vazia nem sempre limpa meta ÔÇö delete garante.
 		if (function_exists('delete_field')) {
 			delete_field('idc_pillars_title_after', $target);
 		} else {
@@ -1117,7 +1117,7 @@ function idc_upgrade_11220_parity_figma(): void {
 }
 
 /**
- * Redirect canônico: /trabalhe-conosco/ → /carreiras/ (slug da página Figma).
+ * Redirect can├┤nico: /trabalhe-conosco/ ÔåÆ /carreiras/ (slug da p├ígina Figma).
  */
 function idc_redirect_trabalhe_conosco(): void {
 	if (is_admin() || wp_doing_ajax() || wp_doing_cron()) {
@@ -1133,8 +1133,8 @@ function idc_redirect_trabalhe_conosco(): void {
 add_action('template_redirect', 'idc_redirect_trabalhe_conosco', 1);
 
 /**
- * v1.12.21 — Títulos Orto/Fisio em Montserrat (Figma), sem serif no H1 inteiro.
- * Serif fica só em spans de destaque (ex.: "Integrativa", "seu cuidado?").
+ * v1.12.21 ÔÇö T├¡tulos Orto/Fisio em Montserrat (Figma), sem serif no H1 inteiro.
+ * Serif fica s├│ em spans de destaque (ex.: "Integrativa", "seu cuidado?").
  */
 function idc_upgrade_11221_specialty_titles_figma(): void {
 	if (!function_exists('update_field')) {
@@ -1172,30 +1172,30 @@ function idc_upgrade_11221_specialty_titles_figma(): void {
 }
 
 /**
- * v1.12.27 — Blog 100% Figma (5 filtros + título) + Instituto sem strip.
- * Autocontido (não depende de seed/setup já atualizados no servidor).
+ * v1.12.27 ÔÇö Blog 100% Figma (5 filtros + t├¡tulo) + Instituto sem strip.
+ * Autocontido (n├úo depende de seed/setup j├í atualizados no servidor).
  */
 function idc_upgrade_11227_blog_instituto_100(): void {
 	$cats = [
 		[
 			'slug'        => 'ortopedia-regenerativa',
 			'name'        => 'Ortopedia',
-			'description' => 'Artigos sobre ortopedia regenerativa, articulações e recuperação musculoesquelética.',
+			'description' => 'Artigos sobre ortopedia regenerativa, articula├º├Áes e recupera├º├úo musculoesquel├®tica.',
 		],
 		[
 			'slug'        => 'dor-e-movimento',
 			'name'        => 'Dor e Movimento',
-			'description' => 'Dor crônica, postura, prevenção e qualidade de movimento no dia a dia.',
+			'description' => 'Dor cr├┤nica, postura, preven├º├úo e qualidade de movimento no dia a dia.',
 		],
 		[
 			'slug'        => 'fisioterapia',
 			'name'        => 'Fisioterapia',
-			'description' => 'Reabilitação, dor, postura e prevenção.',
+			'description' => 'Reabilita├º├úo, dor, postura e preven├º├úo.',
 		],
 		[
 			'slug'        => 'medicina-integrativa',
 			'name'        => 'Medicina Integrativa',
-			'description' => 'Abordagens integrativas, regenerativas e de bem-estar sistêmico.',
+			'description' => 'Abordagens integrativas, regenerativas e de bem-estar sist├¬mico.',
 		],
 	];
 
