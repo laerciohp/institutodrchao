@@ -22,6 +22,10 @@ $accent = (string) idc_page_field('idc_page_title_accent', (string) ($hero['idc_
 $after  = (string) idc_page_field('idc_page_title_after', (string) ($hero['idc_page_title_after'] ?? ''));
 $lead   = (string) idc_page_field('idc_page_lead', (string) ($hero['idc_page_lead'] ?? ''));
 $eyebrow = (string) idc_page_field('idc_page_eyebrow', (string) ($hero['idc_page_eyebrow'] ?? ''));
+// Figma 133:1534 — Fisioterapia sem eyebrow ESPECIALIDADE
+if ($slug === 'fisioterapia') {
+	$eyebrow = '';
+}
 
 $hero_fallback = match ($slug) {
 	'ortopedia-regenerativa' => idc_theme_image('assets/images/pages/hero-ortopedia'),

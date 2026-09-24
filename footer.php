@@ -127,6 +127,7 @@ $idc_footer_menu_has_items = static function (string $location): bool {
 </footer>
 
 <?php get_template_part('template-parts/components/whatsapp-fab'); ?>
+<?php get_template_part('template-parts/team/modal'); ?>
 
 <?php
 $scripts_body = idc_option('idc_scripts_body', '');

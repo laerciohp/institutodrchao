@@ -1,7 +1,14 @@
 /**
  * Design tokens — Instituto Dr. Chao
  * Extraídos do Figma (Dra Chao / Azul / Terracota).
- * Grid: desktop 1280 / mobile 390.
+ * Frames Figma: mobile 390 / desktop 1280 (container).
+ *
+ * Breakpoints canônicos (literais nas @media — custom props não entram em MQ):
+ *   600  — forms 2 col / paddings médios
+ *   700  — carrosséis 2 slides
+ *   768  — tablet (stack + chrome mobile)
+ *   900  — footer 4 col / hub 3 col
+ *   1024 — nav desktop / heroes split / bento / gutters 32
  */
 
 :root {
@@ -19,9 +26,11 @@
 	/* Neutros */
 	--idc-ink: #45474c;
 	--idc-cream: #fcf9f4;
+	--idc-cream-warm: #f8f7f4; /* Instituto hero 133:2168 */
 	--idc-sand: #e5e2dd;
 	--idc-sand-warm: #f3e9db;
 	--idc-peach: #f1e1cc;
+	--idc-gold-soft: #ddb98c; /* CTA final Home */
 	--idc-cream-soft: #f6f3ee;
 	--idc-border: #c5c6cd;
 	--idc-white: #ffffff;
@@ -76,7 +85,9 @@
 	--idc-shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.05);
 	--idc-shadow-md: 0 1px 2px rgba(0, 0, 0, 0.05);
 
-	/* Breakpoints (referência — usar em media queries) */
-	--idc-bp-mobile: 390px;
-	--idc-bp-desktop: 1280px;
+	/* Breakpoints — referência documental (espelham os literais das @media) */
+	--idc-bp-mobile: 390px;   /* frame Figma */
+	--idc-bp-tablet: 768px;
+	--idc-bp-desktop: 1024px; /* nav + layouts split */
+	--idc-bp-wide: 1280px;    /* container max */
 }

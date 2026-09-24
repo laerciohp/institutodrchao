@@ -26,7 +26,7 @@ body.idc-nav-open {
 	padding-inline: var(--idc-gutter-mobile);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
 	.idc-header__inner {
 		padding-inline: var(--idc-gutter-desktop);
 	}

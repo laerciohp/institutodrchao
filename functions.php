@@ -1349,3 +1349,106 @@ function idc_handle_blog_newsletter(): void {
 add_action('admin_post_nopriv_idc_blog_newsletter', 'idc_handle_blog_newsletter');
 add_action('admin_post_idc_blog_newsletter', 'idc_handle_blog_newsletter');
 
+/**
+ * Submenu — inscritos da newsletter (lista local, sem Mailchimp).
+ */
+function idc_register_newsletter_admin(): void {
+	add_submenu_page(
+		'idc-opcoes',
+		__('Newsletter', 'instituto-dr-chao'),
+		__('Newsletter', 'instituto-dr-chao'),
+		'manage_options',
+		'idc-newsletter',
+		'idc_render_newsletter_admin'
+	);
+}
+add_action('admin_menu', 'idc_register_newsletter_admin', 20);
+
+/**
+ * Tela admin: listar / exportar / limpar inscritos.
+ */
+function idc_render_newsletter_admin(): void {
+	if (!current_user_can('manage_options')) {
+		return;
+	}
+
+	if (isset($_POST['idc_nl_admin_action']) && check_admin_referer('idc_nl_admin')) {
+		$action = sanitize_key((string) wp_unslash($_POST['idc_nl_admin_action']));
+		if ($action === 'clear') {
+			delete_option('idc_newsletter_emails');
+			echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Lista limpa.', 'instituto-dr-chao') . '</p></div>';
+		}
+	}
+
+	$list = get_option('idc_newsletter_emails', []);
+	if (!is_array($list)) {
+		$list = [];
+	}
+
+	if (isset($_GET['idc_nl_export']) && check_admin_referer('idc_nl_export')) {
+		nocache_headers();
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=idc-newsletter.csv');
+		$out = fopen('php://output', 'w');
+		if ($out) {
+			fputcsv($out, ['email', 'at'], ',', '"', '\\');
+			foreach ($list as $row) {
+				if (!is_array($row)) {
+					continue;
+				}
+				fputcsv(
+					$out,
+					[
+						(string) ($row['email'] ?? ''),
+						(string) ($row['at'] ?? ''),
+					],
+					',',
+					'"',
+					'\\'
+				);
+			}
+			fclose($out);
+		}
+		exit;
+	}
+
+	$export_url = wp_nonce_url(admin_url('admin.php?page=idc-newsletter&idc_nl_export=1'), 'idc_nl_export');
+	?>
+	<div class="wrap">
+		<h1><?php esc_html_e('Newsletter — inscritos', 'instituto-dr-chao'); ?></h1>
+		<p><?php esc_html_e('Inscrições capturadas no formulário do Blog (armazenamento local). Integração Mailchimp pode ser ligada depois.', 'instituto-dr-chao'); ?></p>
+		<p>
+			<a class="button button-primary" href="<?php echo esc_url($export_url); ?>"><?php esc_html_e('Exportar CSV', 'instituto-dr-chao'); ?></a>
+		</p>
+		<table class="widefat striped">
+			<thead>
+				<tr>
+					<th><?php esc_html_e('E-mail', 'instituto-dr-chao'); ?></th>
+					<th><?php esc_html_e('Data', 'instituto-dr-chao'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if ($list === []) : ?>
+					<tr><td colspan="2"><?php esc_html_e('Nenhuma inscrição ainda.', 'instituto-dr-chao'); ?></td></tr>
+				<?php else : ?>
+					<?php foreach (array_reverse($list) as $row) : ?>
+						<?php if (!is_array($row)) { continue; } ?>
+						<tr>
+							<td><?php echo esc_html((string) ($row['email'] ?? '')); ?></td>
+							<td><?php echo esc_html((string) ($row['at'] ?? '')); ?></td>
+						</tr>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</tbody>
+		</table>
+		<?php if ($list !== []) : ?>
+			<form method="post" style="margin-top:16px" onsubmit="return confirm('Limpar toda a lista?');">
+				<?php wp_nonce_field('idc_nl_admin'); ?>
+				<input type="hidden" name="idc_nl_admin_action" value="clear">
+				<button type="submit" class="button button-link-delete"><?php esc_html_e('Limpar lista', 'instituto-dr-chao'); ?></button>
+			</form>
+		<?php endif; ?>
+	</div>
+	<?php
+}
+

@@ -14,7 +14,13 @@
 	padding: var(--idc-space-16) var(--idc-gutter-mobile) calc(var(--idc-space-8) + 72px);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+	.idc-footer {
+		padding: var(--idc-space-20) var(--idc-gutter-mobile) var(--idc-space-8);
+	}
+}
+
+@media (min-width: 1024px) {
 	.idc-footer {
 		padding: var(--idc-space-30) var(--idc-gutter-desktop) var(--idc-space-8);
 	}
@@ -123,7 +129,11 @@
 	filter: none;
 }
 
-/* WhatsApp FAB */
+/*
+ * WhatsApp — duas intenções Figma (mantidas de propósito):
+ * - FAB global + strip CTA: verde #25d366 (marca WhatsApp / reconhecimento).
+ * - Contato “Fale diretamente” (133:2987): terracota #96602f (marca clínica).
+ */
 .idc-whatsapp-fab {
 	position: fixed;
 	z-index: 1100;

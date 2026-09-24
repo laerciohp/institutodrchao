@@ -428,6 +428,7 @@ function idc_setup_seed_options(): void {
 		'idc_horario'                  => 'Seg. à Sex. das 08h às 18h',
 		'idc_map_embed'                => 'https://www.google.com/maps?q=Rua+Maria+C%C3%A2ndida,+1788,+Vila+Guilherme,+S%C3%A3o+Paulo&output=embed',
 		'idc_instagram'                => 'https://www.instagram.com/institutodrchao/',
+		'idc_facebook'                 => 'https://www.facebook.com/Institutodrchao',
 		'idc_header_cta_label'         => 'Agendar Consulta',
 		'idc_footer_tagline'           => 'Precisão que acolhe. Excelência em ortopedia e reabilitação integrada desde 1987.',
 		'idc_footer_copy'              => 'Instituto Dr. Chao. Todos os direitos reservados.',

@@ -494,6 +494,48 @@ function idc_register_acf_field_groups(): void {
 				'name'  => 'idc_especialidade_txt',
 				'type'  => 'text',
 			],
+			[
+				'key'          => 'field_idc_bio_excerpt',
+				'label'        => 'Resumo da bio (card / modal)',
+				'name'         => 'idc_bio_excerpt',
+				'type'         => 'textarea',
+				'rows'         => 3,
+				'instructions' => 'Opcional. Se vazio, o tema usa os primeiros itens da bio (lista) ou um trecho do texto.',
+			],
+			[
+				'key'   => 'field_idc_prof_tab_contato',
+				'label' => 'Contato e redes (opcionais)',
+				'name'  => '',
+				'type'  => 'tab',
+			],
+			[
+				'key'          => 'field_idc_prof_email',
+				'label'        => 'E-mail',
+				'name'         => 'idc_prof_email',
+				'type'         => 'email',
+				'instructions' => 'Só aparece no modal se preenchido.',
+			],
+			[
+				'key'          => 'field_idc_prof_whatsapp',
+				'label'        => 'WhatsApp',
+				'name'         => 'idc_prof_whatsapp',
+				'type'         => 'text',
+				'instructions' => 'Somente dígitos com DDI (ex.: 5511999999999). Só aparece se preenchido.',
+			],
+			[
+				'key'          => 'field_idc_prof_instagram',
+				'label'        => 'Instagram (URL)',
+				'name'         => 'idc_prof_instagram',
+				'type'         => 'url',
+				'instructions' => 'Só aparece no modal se preenchido.',
+			],
+			[
+				'key'          => 'field_idc_prof_linkedin',
+				'label'        => 'LinkedIn (URL)',
+				'name'         => 'idc_prof_linkedin',
+				'type'         => 'url',
+				'instructions' => 'Só aparece no modal se preenchido.',
+			],
 		],
 		'location' => [
 			[

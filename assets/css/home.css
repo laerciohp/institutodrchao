@@ -196,9 +196,9 @@
 
 @media (min-width: 1024px) {
 	.idc-pillars__grid {
-		/* Figma 133:361 — rows 426 / 402, gap 24 */
-		grid-template-rows: 426px 402px;
-		align-items: start;
+		/* Figma 133:361 — rows ~426 / 402; minmax evita overflow com texto longo */
+		grid-template-rows: minmax(426px, auto) minmax(402px, auto);
+		align-items: stretch;
 	}
 
 	.idc-pillar--primary {
@@ -209,14 +209,14 @@
 		gap: var(--idc-space-8);
 		padding: 49px;
 		min-height: 426px;
-		height: 426px;
+		height: auto;
 		box-sizing: border-box;
 	}
 	.idc-pillar--narrow:nth-of-type(2) {
 		grid-column: 9 / span 4;
 		grid-row: 1;
 		min-height: 426px;
-		height: 426px;
+		height: auto;
 		box-sizing: border-box;
 		justify-content: space-between;
 	}
@@ -224,7 +224,7 @@
 		grid-column: 1 / span 4;
 		grid-row: 2;
 		min-height: 402px;
-		height: 402px;
+		height: auto;
 		box-sizing: border-box;
 		justify-content: space-between;
 	}
@@ -235,7 +235,7 @@
 		justify-content: center;
 		text-align: center;
 		min-height: 402px;
-		height: 402px;
+		height: auto;
 		box-sizing: border-box;
 		position: relative;
 		overflow: hidden;
@@ -529,6 +529,13 @@
 	cursor: grab;
 	touch-action: pan-y;
 	user-select: none;
+	-webkit-user-select: none;
+}
+
+.idc-testimonials__viewport img,
+.idc-testimonials__viewport a {
+	-webkit-user-drag: none;
+	user-drag: none;
 }
 
 .idc-testimonials__carousel.is-dragging .idc-testimonials__viewport {
@@ -558,6 +565,7 @@
 	align-self: stretch;
 	scroll-snap-align: start;
 	box-sizing: border-box;
+	margin: 0;
 }
 
 @media (min-width: 700px) {
@@ -590,6 +598,8 @@
 	min-height: 360px;
 	width: 100%;
 	box-sizing: border-box;
+	/* Reset UA de <blockquote> (margin 40px) — cortava o card no mobile */
+	margin: 0;
 }
 
 .idc-testimonial__stars {
@@ -751,6 +761,20 @@
 	cursor: grab;
 	touch-action: pan-y;
 	user-select: none;
+	-webkit-user-select: none;
+}
+
+.idc-team__viewport img,
+.idc-team__viewport a,
+.idc-team-card__link {
+	-webkit-user-drag: none;
+	user-drag: none;
+}
+
+.idc-team__slide,
+.idc-team-card,
+.idc-team-card__link {
+	touch-action: pan-y;
 }
 
 .idc-team__carousel.is-dragging .idc-team__viewport {
@@ -777,13 +801,14 @@
 
 @media (min-width: 700px) {
 	.idc-team__slide {
-		flex: 0 0 calc(50% - var(--idc-space-4));
+		flex: 0 0 calc((100% - var(--idc-space-8)) / 2);
 	}
 }
 
 @media (min-width: 1024px) {
+	/* 3 slides + gap 32px (igual fórmula depoimentos) */
 	.idc-team__slide {
-		flex: 0 0 calc(33.333% - var(--idc-space-6));
+		flex: 0 0 calc((100% - 2 * var(--idc-space-8)) / 3);
 	}
 }
 
@@ -870,9 +895,23 @@
 	color: var(--idc-ink);
 	margin-top: var(--idc-space-2);
 	display: -webkit-box;
-	-webkit-line-clamp: 8;
+	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+.idc-team-card__bio .idc-team-excerpt,
+.idc-team-card__bio ul {
+	margin: 0;
+	padding-left: 1.1em;
+}
+
+.idc-team-card__bio li + li {
+	margin-top: 4px;
+}
+
+.idc-team-card__bio p {
+	margin: 0;
 }
 
 /* ——— Blog preview ——— */
@@ -951,7 +990,7 @@
 
 /* ——— CTA final ——— */
 .idc-final-cta {
-	background: #ddb98c;
+	background: var(--idc-gold-soft);
 	padding: 80px 0 calc(100px + var(--idc-radius-lg));
 	text-align: center;
 	position: relative;
@@ -1023,7 +1062,36 @@
 	border-color: rgba(197, 198, 205, 0.3);
 }
 
-/* ——— Home mobile 390 — Figma 133:768 ——— */
+/* ——— Tablet 768–1023 — bento 2 col (primary/cta full-width) ——— */
+@media (min-width: 768px) and (max-width: 1023px) {
+	.idc-pillars__grid {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--idc-space-6);
+	}
+
+	.idc-pillar--primary,
+	.idc-pillar--cta {
+		grid-column: 1 / -1;
+	}
+
+	.idc-pillar--primary {
+		flex-direction: row;
+		align-items: center;
+		gap: var(--idc-space-6);
+	}
+
+	.idc-pillar__media {
+		flex: 0 0 42%;
+		max-width: 280px;
+	}
+
+	.idc-pillar--cta {
+		padding: 64px 40px;
+		min-height: 240px;
+	}
+}
+
+/* ——— Home mobile 390 — Figma 133:768 (fonte única; não espelhar em style.css) ——— */
 @media (max-width: 767px) {
 	/* A composição mobile é mantida alinhada ao override final do tema. */
 	.idc-hero {

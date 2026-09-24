@@ -1,10 +1,10 @@
-/*
+﻿/*
 Theme Name: Instituto Dr. Chao
 Theme URI: https://github.com/laerciohp/institutodrchao
 Author: Hitechsp
 Author URI: https://hitechsp.com.br
-Description: Tema institucional do Instituto Dr. Chao â€” ortopedia, reabilitaÃ§Ã£o e medicina integrativa. Desenvolvido por Hitechsp. AtualizaÃ§Ãµes via GitHub Releases.
-Version: 1.12.29
+Description: Tema institucional do Instituto Dr. Chao ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â ortopedia, reabilitaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e medicina integrativa. Desenvolvido por Hitechsp. AtualizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes via GitHub Releases.
+Version: 1.12.57
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 8.1
@@ -17,9 +17,9 @@ Update URI: false
 */
 
 /*
- * CabeÃ§alho do tema (Version lida pelo WP e pelo updater).
+ * CabeÃƒÆ’Ã‚Â§alho do tema (Version lida pelo WP e pelo updater).
  * Tokens e layout: assets/css/*.css + theme.json
- * Patch pixel-perfect v1.12.3 (overrides â€” carregado por Ãºltimo).
+ * Patch pixel-perfect v1.12.3 (overrides ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â carregado por ÃƒÆ’Ã‚Âºltimo).
  */
 
 /* Hero Home */
@@ -39,65 +39,9 @@ Update URI: false
 	.idc-trust { height: 162px; padding: 0; }
 }
 
-/* Pillars Figma 133:361 */
-@media (min-width: 1024px) {
-	.idc-pillars__grid {
-		grid-template-rows: 426px 402px;
-		align-items: start;
-	}
-	.idc-pillar--primary {
-		min-height: 426px;
-		height: 426px;
-		box-sizing: border-box;
-	}
-	.idc-pillar--narrow:nth-of-type(2) {
-		min-height: 426px;
-		height: 426px;
-		box-sizing: border-box;
-		justify-content: space-between;
-	}
-	.idc-pillar--narrow:nth-of-type(3) {
-		min-height: 402px;
-		height: 402px;
-		box-sizing: border-box;
-		justify-content: space-between;
-	}
-	.idc-pillar--cta {
-		min-height: 402px;
-		height: 402px;
-		box-sizing: border-box;
-		padding: 133px 41px;
-	}
-	.idc-pillar--cta .idc-pillar__cta-inner { padding: 0; }
-}
 .idc-pillar--cta .idc-pillar__text { font-size: var(--idc-text-md); }
 
-/* Testimonials Figma ~724px */
-@media (min-width: 1024px) {
-	.idc-testimonials { padding: var(--idc-space-20) 0; }
-}
-
-/* Home mobile 390 â€” Figma 133:768 */
-@media (max-width: 767px) {
-	.idc-hero { padding: 40px 0 48px; }
-	.idc-hero__title { font-size: 32px; line-height: 40px; letter-spacing: -0.64px; max-width: none; }
-	.idc-hero__lead { font-size: 16px; line-height: 28px; max-width: none; }
-	.idc-hero__media { max-height: none; aspect-ratio: 1 / 1; border-radius: 24px; }
-	.idc-trust { padding: 40px 0; height: auto; min-height: 0; }
-	.idc-trust__grid { gap: 32px 0; }
-	.idc-pillars { padding: 64px 0; }
-	.idc-pillars__intro { margin-bottom: 40px; text-align: left; max-width: none; }
-	.idc-pillars__title { font-size: 28px; line-height: 36px; }
-	.idc-pillar { min-height: 0; padding: 32px 24px; }
-	.idc-pillar--primary { flex-direction: column; align-items: stretch; }
-	.idc-pillar__media { width: 100%; border-radius: 24px; overflow: hidden; }
-	.idc-pillar--cta { padding: 48px 24px; min-height: 280px; }
-	.idc-final-cta { padding: 64px 0 calc(80px + var(--idc-radius-lg)); }
-	.idc-final-cta__actions { flex-direction: column; width: 100%; }
-	.idc-final-cta__actions .idc-btn { width: 100%; justify-content: center; }
-}
-
-/* Page heroes â€” Figma: Montserrat Medium + Roboto Serif sÃ³ no accent */
+/* Page heroes ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Figma: Montserrat Medium + Roboto Serif sÃƒÆ’Ã‚Â³ no accent */
 .idc-page-hero__title {
 	font-family: var(--idc-font-sans);
 	font-weight: 500;
@@ -108,19 +52,6 @@ Update URI: false
 	font-weight: 500;
 }
 
-/* Hub cards Figma 133:1040 â€” media 192 @33, radius 13 (sem overlay cinza) */
-.idc-hub-card__media {
-	margin: 33px 33px 0;
-	height: 192px;
-	border-radius: 13px;
-	background: transparent;
-}
-.idc-hub-card__media img {
-	border-radius: 13px;
-}
-@media (min-width: 1024px) {
-	.idc-hub-card { min-height: 646.5px; }
-}
 .idc-hub-card--cream { border: 0; }
 
 .idc-instituto__card {
@@ -128,13 +59,16 @@ Update URI: false
 	padding: 41px;
 }
 .idc-specialty__block-title { font-weight: 700; line-height: 40px; }
+/* Figma 133:1596 / 133:1887 Ã¢â‚¬â€ gap desk 24px (nÃƒÂ£o 32) */
 .idc-phases__grid { gap: var(--idc-space-5); }
+.idc-integrativa-grid__bento { gap: var(--idc-space-5); }
 @media (min-width: 700px) {
-	.idc-phases__grid { gap: var(--idc-space-8); }
+	.idc-phases__grid { gap: var(--idc-space-6); }
+	.idc-integrativa-grid__bento { gap: var(--idc-space-6); }
 }
 @media (min-width: 1024px) {
-	.idc-phases__grid { gap: var(--idc-space-8); }
-	.idc-integrativa-grid__bento { gap: var(--idc-space-8); }
+	.idc-phases__grid { gap: 24px; }
+	.idc-integrativa-grid__bento { gap: 24px; }
 }
 .idc-phases__card {
 	background: #f6f3ee;
@@ -162,7 +96,7 @@ Update URI: false
 	padding: 0 32px;
 }
 
-/* Orto treatment cards â€” Ã­cones Figma */
+/* Orto treatment cards ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â ÃƒÆ’Ã‚Â­cones Figma */
 .idc-treatment-faq-card__icon {
 	width: 48px;
 	height: 48px;
@@ -174,7 +108,7 @@ Update URI: false
 	height: 48px;
 }
 
-/* Contato/Carreiras: cream contÃ­nuo sob o footer sem strip */
+/* Contato/Carreiras: cream contÃƒÆ’Ã‚Â­nuo sob o footer sem strip */
 .site-main--contato,
 .site-main--carreiras {
 	padding-bottom: 0;
@@ -184,7 +118,7 @@ Update URI: false
 	padding-bottom: 112px;
 }
 
-/* PÃ¡ginas â€” mobile 390 (Figma page-hero 32/40) */
+/* PÃƒÆ’Ã‚Â¡ginas ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â mobile 390 (Figma page-hero 32/40) */
 @media (max-width: 767px) {
 	.idc-page-hero {
 		padding: 32px 0 40px;
@@ -225,9 +159,10 @@ Update URI: false
 	}
 }
 
-/* v1.12.3 â€” Fisioterapia 133:1534 (pÃ¡gina curta ~1685) + Orto crop */
+/* v1.12.3 Ã¢â‚¬â€ Fisioterapia 133:1534 (pÃƒÂ¡gina curta ~1685) + Orto crop */
 @media (min-width: 1024px) {
-	.idc-page-hero--fisioterapia {
+	/* Spec 3 classes Ã¢â‚¬â€ vence .idc-specialty .idc-page-hero--split (64/80) */
+	.idc-specialty .idc-page-hero--split.idc-page-hero--fisioterapia {
 		padding: 48px 0 40px;
 	}
 
@@ -276,9 +211,13 @@ Update URI: false
 	}
 }
 
-/* v1.12.2 â€” Ortopedia 133:1238 + hub/fisio refinements */
+/* v1.12.2 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Ortopedia 133:1238 + hub/fisio refinements */
 .idc-page-hero {
 	background: var(--idc-cream); /* #FCF9F4 */
+}
+/* Spec 2 classes Ã¢â‚¬â€ vence .idc-page-hero (style last); Figma 133:2168 */
+.idc-page-hero.idc-page-hero--instituto {
+	background: var(--idc-cream-warm);
 }
 
 /* Figma: accent serif/terracota (Orto "Ortopedia", Integrativa "Integrativa") */
@@ -308,27 +247,7 @@ Update URI: false
 	}
 }
 
-/* Hub cards â€” media 192 / radius 13 / sem overlay cinza */
-.idc-hub-card__media {
-	margin: 33px 33px 0;
-	height: 192px;
-	border-radius: 13px;
-	background: transparent;
-	overflow: hidden;
-}
-.idc-hub-card__media img {
-	border-radius: 13px;
-	object-fit: cover;
-}
-
-/* Fisio phases â€” gap estÃ¡vel 4-col */
-@media (min-width: 1024px) {
-	.idc-phases__grid {
-		gap: 32px;
-	}
-}
-
-/* v1.12.1 â€” refinamentos Figma (1280 / 390) */
+/* v1.12.1 Ã¢â‚¬â€ refinamentos Figma (1280 / 390) */
 .idc-page-hero__eyebrow {
 	margin: 0 0 var(--idc-space-4);
 }
@@ -339,7 +258,7 @@ Update URI: false
 	}
 }
 
-/* v1.8.8 â€” avatares de depoimento com iniciais (Figma) */
+/* v1.8.8 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â avatares de depoimento com iniciais (Figma) */
 .idc-testimonial__avatar[data-initials]:not(:has(img)) {
 	background: var(--idc-peach, #f1e1cc);
 	display: flex;
@@ -356,7 +275,7 @@ Update URI: false
 	content: attr(data-initials);
 }
 
-/* v1.12.27 â€” Blog Figma 133:2534: accent Montserrat (sÃ³ cor) */
+/* v1.12.27 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Blog Figma 133:2534: accent Montserrat (sÃƒÆ’Ã‚Â³ cor) */
 .site-main--blog .idc-page-hero__title {
 	font-family: var(--idc-font-sans);
 	color: var(--idc-azul-900);
@@ -365,4 +284,28 @@ Update URI: false
 	font-family: var(--idc-font-sans);
 	font-weight: 500;
 	color: var(--idc-terracota-700);
+}
+
+/* v1.12.56 â€” acordeÃ£o in-card: pill fechado, card aberto (evita cÃ¡psula) */
+.idc-accordion--in-card {
+	width: 100%;
+	gap: var(--idc-space-3);
+	margin-top: var(--idc-space-4);
+}
+.idc-accordion--in-card .idc-accordion__item {
+	width: 100%;
+	background: var(--idc-white);
+	border: 1px solid rgba(197, 198, 205, 0.35);
+	border-radius: var(--idc-radius-pill);
+	overflow: hidden;
+	transition: none;
+}
+.idc-accordion--in-card .idc-accordion__item:has(.idc-accordion__trigger[aria-expanded="true"]) {
+	border-radius: var(--idc-radius-md);
+}
+.idc-accordion--in-card .idc-accordion__trigger {
+	background: transparent;
+}
+.idc-accordion--in-card .idc-accordion__panel {
+	padding: 0 20px 16px;
 }

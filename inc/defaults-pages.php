@@ -581,7 +581,7 @@ function idc_default_profissionais_seed(): array {
 		[
 			'title'         => 'Dra. Dhebora Chao',
 			'slug'          => 'dra-dhebora-chao',
-			'content'       => "<ul>\n<li>Graduada em Medicina pela Universidade Nove de Julho</li>\n<li>Residência Médica em Ortopedia e Traumatologia no Hospital Antônio Giglio — SP</li>\n<li>Residência Médica (R4) em Ortopedia Pediátrica na Santa Casa de São Paulo — SP</li>\n<li>Residência Médica (R5) em Ortopedia Pediátrica na FMABC — SP</li>\n<li>Membro Titular da SBOT</li>\n<li>Pós-graduação em Ortomolecular, Nutrigenômica e Envelhecimento Saudável — FAPES SP</li>\n</ul>",
+			'content'       => "<ul>\n<li>Graduada em Medicina pela Universidade Nove de Julho</li>\n<li>Residência Médica em Ortopedia e Traumatologia no Hospital Antônio Giglio, SP</li>\n<li>Residência Médica (R4) em Ortopedia Pediátrica na Santa Casa de São Paulo, SP</li>\n<li>Residência Médica (R5) em Ortopedia Pediátrica na FMABC, SP</li>\n<li>Membro Titular da SBOT</li>\n<li>Pós-graduação em Ortomolecular, Nutrigenômica e Envelhecimento Saudável pela FAPES SP</li>\n</ul>",
 			'crm'           => 'CRM: 156716 / TEOT: 14625',
 			'especialidade' => 'Diretora e Responsável Técnica · Ortopedia / Ortopedia Pediátrica',
 			'image'         => 'assets/images/team/dra-dhebora-chao.jpg',
@@ -590,7 +590,7 @@ function idc_default_profissionais_seed(): array {
 		[
 			'title'         => 'Dra. Érica Luisada Troiano',
 			'slug'          => 'dra-erica',
-			'content'       => "<ul>\n<li>Graduação em Medicina pela Universidade Nove de Julho</li>\n<li>Residência médica em Ortopedia e Traumatologia — Hospital Municipal Campo Limpo</li>\n<li>Residência Médica em Cirurgia da Mão — Hospital Alvorada Moema</li>\n<li>Extensão universitária em Microcirurgia — UNIFESP</li>\n<li>Membro titular da SBOT</li>\n<li>Membro titular da Sociedade Brasileira de Cirurgia da Mão</li>\n</ul>",
+			'content'       => "<ul>\n<li>Graduação em Medicina pela Universidade Nove de Julho</li>\n<li>Residência médica em Ortopedia e Traumatologia no Hospital Municipal Campo Limpo</li>\n<li>Residência Médica em Cirurgia da Mão no Hospital Alvorada Moema</li>\n<li>Extensão universitária em Microcirurgia na UNIFESP</li>\n<li>Membro titular da SBOT</li>\n<li>Membro titular da Sociedade Brasileira de Cirurgia da Mão</li>\n</ul>",
 			'crm'           => 'CRM: 163550',
 			'especialidade' => 'Ortopedia e Traumatologia · Cirurgia da Mão',
 			'image'         => 'assets/images/team/dra-erica.jpg',
@@ -599,7 +599,7 @@ function idc_default_profissionais_seed(): array {
 		[
 			'title'         => 'Dr. Daniel Bechara Jacob Ferreira',
 			'slug'          => 'dr-daniel',
-			'content'       => "<ul>\n<li>Graduado em Medicina pela UNICAMP</li>\n<li>Residência em Ortopedia e Traumatologia — UNICAMP</li>\n<li>Residência em Cirurgia do Joelho — UNICAMP</li>\n<li>Pós-graduação em Medicina do Esporte</li>\n<li>Membro titular da SBOT e da SBMEE</li>\n</ul>",
+			'content'       => "<ul>\n<li>Graduado em Medicina pela UNICAMP</li>\n<li>Residência em Ortopedia e Traumatologia na UNICAMP</li>\n<li>Residência em Cirurgia do Joelho na UNICAMP</li>\n<li>Pós-graduação em Medicina do Esporte</li>\n<li>Membro titular da SBOT e da SBMEE</li>\n</ul>",
 			'crm'           => 'CRM: 107865 / TEOT: 10204',
 			'especialidade' => 'Ortopedia e Traumatologia · Cirurgia do Joelho · Medicina do Esporte',
 			'image'         => 'assets/images/team/dr-daniel.jpg',
@@ -617,7 +617,7 @@ function idc_default_profissionais_seed(): array {
 		[
 			'title'         => 'Dr. Thiago Castro Garcia Belaunde',
 			'slug'          => 'dr-thiago-belaunde',
-			'content'       => "<ul>\n<li>Graduado em Medicina pela Universidade Nove de Julho</li>\n<li>Residência em Ortopedia e Traumatologia — Hospital Nossa Senhora do Pari</li>\n<li>Residência em Cirurgia do Pé e Tornozelo — Hospital Nossa Senhora do Pari</li>\n<li>Membro Titular da SBOT e da Sociedade Brasileira de Cirurgia do Pé e Tornozelo</li>\n</ul>",
+			'content'       => "<ul>\n<li>Graduado em Medicina pela Universidade Nove de Julho</li>\n<li>Residência em Ortopedia e Traumatologia no Hospital Nossa Senhora do Pari</li>\n<li>Residência em Cirurgia do Pé e Tornozelo no Hospital Nossa Senhora do Pari</li>\n<li>Membro Titular da SBOT e da Sociedade Brasileira de Cirurgia do Pé e Tornozelo</li>\n</ul>",
 			'crm'           => 'CRM: 160897 / TEOT: 15707',
 			'especialidade' => 'Ortopedia e Traumatologia · Cirurgia do Pé e Tornozelo',
 			'image'         => 'assets/images/team/dr-thiago-belaunde.jpg',

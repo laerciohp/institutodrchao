@@ -333,3 +333,102 @@ function idc_blog_figma_fallback_image(string $slug = '', int $index = 0): strin
 
 	return idc_asset($cycle[abs($index) % 3]);
 }
+
+/**
+ * Meta/ACF de um profissional.
+ */
+function idc_profissional_meta(int $post_id, string $key): string {
+	if (function_exists('get_field')) {
+		$value = get_field($key, $post_id);
+		if ($value !== null && $value !== false && $value !== '') {
+			return is_string($value) ? trim($value) : trim((string) $value);
+		}
+	}
+	return trim((string) get_post_meta($post_id, $key, true));
+}
+
+/**
+ * Excerpt HTML limpo para card/modal (lista curta ou texto).
+ */
+function idc_profissional_excerpt_html(int $post_id, int $limit_items = 3): string {
+	$custom = idc_profissional_meta($post_id, 'idc_bio_excerpt');
+	if ($custom !== '') {
+		return wpautop(esc_html($custom));
+	}
+
+	$content = (string) get_post_field('post_content', $post_id);
+	if ($content === '') {
+		return '';
+	}
+
+	if (preg_match_all('/<li\b[^>]*>(.*?)<\/li>/is', $content, $matches) && !empty($matches[1])) {
+		$items = array_slice($matches[1], 0, max(1, $limit_items));
+		$html  = '<ul class="idc-team-excerpt">';
+		foreach ($items as $item) {
+			$html .= '<li>' . wp_kses_post($item) . '</li>';
+		}
+		$html .= '</ul>';
+		return $html;
+	}
+
+	$plain = wp_trim_words(wp_strip_all_tags($content), 36, '…');
+	return $plain !== '' ? '<p>' . esc_html($plain) . '</p>' : '';
+}
+
+/**
+ * Contatos/redes opcionais do profissional (só itens preenchidos).
+ *
+ * @return list<array{type:string,label:string,url:string,icon:string}>
+ */
+function idc_profissional_contacts(int $post_id): array {
+	$out = [];
+
+	$email = idc_profissional_meta($post_id, 'idc_prof_email');
+	if ($email !== '' && is_email($email)) {
+		$out[] = [
+			'type'  => 'email',
+			'label' => __('E-mail', 'instituto-dr-chao'),
+			'url'   => 'mailto:' . $email,
+			'icon'  => 'assets/icons/icon-email.svg',
+		];
+	}
+
+	$wa = preg_replace('/\D+/', '', idc_profissional_meta($post_id, 'idc_prof_whatsapp')) ?: '';
+	if ($wa !== '') {
+		$msg = rawurlencode(
+			sprintf(
+				/* translators: %s: professional name */
+				__('Olá, gostaria de falar com %s.', 'instituto-dr-chao'),
+				get_the_title($post_id)
+			)
+		);
+		$out[] = [
+			'type'  => 'whatsapp',
+			'label' => __('WhatsApp', 'instituto-dr-chao'),
+			'url'   => 'https://api.whatsapp.com/send?phone=' . $wa . '&text=' . $msg,
+			'icon'  => 'assets/icons/icon-whatsapp.svg',
+		];
+	}
+
+	$instagram = idc_profissional_meta($post_id, 'idc_prof_instagram');
+	if ($instagram !== '') {
+		$out[] = [
+			'type'  => 'instagram',
+			'label' => __('Instagram', 'instituto-dr-chao'),
+			'url'   => $instagram,
+			'icon'  => 'assets/icons/social-instagram.svg',
+		];
+	}
+
+	$linkedin = idc_profissional_meta($post_id, 'idc_prof_linkedin');
+	if ($linkedin !== '') {
+		$out[] = [
+			'type'  => 'linkedin',
+			'label' => __('LinkedIn', 'instituto-dr-chao'),
+			'url'   => $linkedin,
+			'icon'  => 'assets/icons/social-linkedin.svg',
+		];
+	}
+
+	return $out;
+}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Card de profissional (home / archive).
+ * Card de profissional (home / archive) — abre modal em carrossel.
  *
  * @package Instituto_Dr_Chao
  *
@@ -10,16 +10,23 @@
 $excerpt  = !empty($args['excerpt']);
 $class    = trim('idc-team-card ' . (string) ($args['class'] ?? ''));
 $carousel = !empty($args['carousel']);
+$post_id  = (int) get_the_ID();
 
-$crm  = function_exists('get_field')
-	? (string) get_field('idc_crm')
-	: (string) get_post_meta(get_the_ID(), 'idc_crm', true);
-$spec = function_exists('get_field')
-	? (string) get_field('idc_especialidade_txt')
-	: (string) get_post_meta(get_the_ID(), 'idc_especialidade_txt', true);
+$crm  = idc_profissional_meta($post_id, 'idc_crm');
+$spec = idc_profissional_meta($post_id, 'idc_especialidade_txt');
+$bio  = $excerpt ? idc_profissional_excerpt_html($post_id, 3) : '';
 ?>
-<article class="<?php echo esc_attr($class); ?>"<?php echo $carousel ? ' data-idc-carousel-slide' : ''; ?>>
-	<a class="idc-team-card__link" href="<?php the_permalink(); ?>">
+<article
+	class="<?php echo esc_attr($class); ?>"
+	<?php echo $carousel ? ' data-idc-carousel-slide' : ''; ?>
+	data-idc-team-id="<?php echo esc_attr((string) $post_id); ?>"
+>
+	<a
+		class="idc-team-card__link"
+		href="<?php the_permalink(); ?>"
+		data-idc-team-modal-open="<?php echo esc_attr((string) $post_id); ?>"
+		aria-haspopup="dialog"
+	>
 		<figure class="idc-team-card__photo">
 			<?php if (has_post_thumbnail()) : ?>
 				<?php the_post_thumbnail('large', ['loading' => 'lazy']); ?>
@@ -32,8 +39,9 @@ $spec = function_exists('get_field')
 		<?php if ($crm !== '') : ?>
 			<p class="idc-team-card__crm"><?php echo esc_html($crm); ?></p>
 		<?php endif; ?>
-		<?php if ($excerpt) : ?>
-			<div class="idc-team-card__bio"><?php echo wp_kses_post(wp_trim_words(get_the_content(), 55)); ?></div>
+		<?php if ($bio !== '') : ?>
+			<div class="idc-team-card__bio"><?php echo wp_kses_post($bio); ?></div>
+			<span class="idc-team-card__more"><?php esc_html_e('Continuar lendo', 'instituto-dr-chao'); ?></span>
 		<?php endif; ?>
 	</a>
 </article>
