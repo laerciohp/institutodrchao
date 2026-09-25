@@ -114,13 +114,14 @@
 	overflow: hidden;
 }
 
+/* Figma lines.svg — faixas onduladas full-bleed (alpha no SVG) */
 .idc-page-hero__decor {
 	position: absolute;
-	inset: auto -8% -20% auto;
-	width: min(520px, 70vw);
-	height: min(380px, 55vw);
-	background: url("../icons/decor-organic.svg") no-repeat center / contain;
-	opacity: 0.15;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../icons/hero-bg-pattern.svg") no-repeat center / cover;
+	opacity: 1;
 	pointer-events: none;
 	z-index: 0;
 }
@@ -133,10 +134,10 @@
 
 .idc-page-hero--default .idc-page-hero__decor,
 .idc-page-hero--blog .idc-page-hero__decor {
-	inset: -12% -8% auto auto;
-	width: min(800px, 75vw);
-	height: min(800px, 75vw);
-	opacity: 0.12;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
 }
 
 .idc-page-hero--default .idc-container,
@@ -151,10 +152,10 @@
 }
 
 .idc-page-hero--integrativa .idc-page-hero__decor {
-	inset: 0 0 0 50%;
-	width: 50%;
+	inset: 0;
+	width: 100%;
 	height: 100%;
-	opacity: 0.22;
+	opacity: 1;
 	background-size: cover;
 }
 
@@ -256,9 +257,7 @@
 
 @media (max-width: 1023px) {
 	.idc-page-hero__decor {
-		opacity: 0.1;
-		width: 280px;
-		height: 200px;
+		opacity: 1;
 	}
 
 	/* Split: imagem full-width abaixo do texto, altura controlada */
@@ -847,10 +846,11 @@
 }
 
 .idc-specialty__decor--organic {
-	inset: -10% auto auto -6%;
-	width: min(420px, 65vw);
-	height: min(320px, 50vw);
-	background: url("../icons/decor-organic.svg") no-repeat center / contain;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../icons/hero-bg-pattern.svg") no-repeat center / cover;
+	opacity: 1;
 }
 
 .idc-specialty__block .idc-container {
@@ -1339,11 +1339,11 @@
 
 .idc-contato__decor {
 	position: absolute;
-	inset: -10% auto auto -15%;
-	width: min(640px, 80vw);
-	height: min(640px, 80vw);
-	background: url("../icons/decor-organic.svg") no-repeat center / contain;
-	opacity: 0.12;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../icons/hero-bg-pattern.svg") no-repeat center / cover;
+	opacity: 1;
 	pointer-events: none;
 	z-index: 0;
 }
@@ -1791,11 +1791,11 @@
 
 .idc-carreiras__decor {
 	position: absolute;
-	inset: -8% auto auto -12%;
-	width: min(640px, 80vw);
-	height: min(640px, 80vw);
-	background: url("../icons/decor-organic.svg") no-repeat center / contain;
-	opacity: 0.1;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../icons/hero-bg-pattern.svg") no-repeat center / cover;
+	opacity: 1;
 	pointer-events: none;
 	z-index: 0;
 }
@@ -2124,8 +2124,8 @@
 }
 
 .idc-page-hero__decor--blog {
-	inset: auto -6% -25% auto;
-	opacity: 0.14;
+	inset: 0;
+	opacity: 1;
 }
 
 .idc-blog-archive {
@@ -2510,12 +2510,13 @@ a.idc-blog-filters__btn.is-active {
 
 .idc-tratamentos-archive__decor {
 	position: absolute;
-	inset: auto -8% -20% auto;
-	width: min(420px, 55vw);
-	height: min(420px, 55vw);
-	border-radius: 50%;
-	background: radial-gradient(circle, rgba(182, 135, 59, 0.12), transparent 70%);
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../icons/hero-bg-pattern.svg") no-repeat center / cover;
+	opacity: 1;
 	pointer-events: none;
+	border-radius: 0;
 }
 
 .idc-tratamentos-archive__grid {
@@ -3605,9 +3606,10 @@ section.idc-accordion {
 	}
 
 	.idc-page-hero--integrativa .idc-page-hero__decor {
-		opacity: 0.55;
-		width: min(420px, 38vw);
-		height: min(420px, 38vw);
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 1;
 	}
 }
 
@@ -3635,12 +3637,12 @@ section.idc-accordion {
 	z-index: 1;
 }
 
-/* Decor orgânico full-bleed (Figma Image layer opacity ~0.5 → ~0.28 local) */
+/* Figma 133:2171 — lines.svg full-bleed (alpha no SVG) */
 .idc-page-hero--instituto .idc-page-hero__decor {
-	inset: -5% -5% -10% -5%;
-	width: auto;
-	height: auto;
-	opacity: 0.28;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
 	background-size: cover;
 	background-position: center;
 }

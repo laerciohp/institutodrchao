@@ -1,11 +1,22 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="1280" height="832" viewBox="0 0 1280 832" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="image" clip-path="url(#clip0_0_4)">
-<path id="Vector" d="M-100 200C150 100 300 400 600 250C900 100 900 100 1200 300" stroke="#593400" stroke-opacity="0.1"/>
-<path id="Vector_2" d="M-50 400C200 350 400 150 700 300C1000 450 1000 500 1300 200" stroke="#333D4F" stroke-opacity="0.05"/>
-</g>
-<defs>
-<clipPath id="clip0_0_4">
-<rect width="1280" height="832" fill="white"/>
-</clipPath>
-</defs>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_2" data-name="Camada 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1450.64 220.13">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: rgba(51, 61, 79, .05);
+      }
+
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: rgba(89, 52, 0, .1);
+      }
+    </style>
+  </defs>
+  <g id="Camada_1-2" data-name="Camada 1">
+    <path class="cls-2" d="M.19,57.59c250.09-100.28,400.14,200.56,700.25,50.14,300.11-150.42,373.33-88.66,673.44,111.9"/>
+    <path class="cls-1" d="M100.28,200.35c250-50,450-250,750-100C1150.28,250.35,1150.28,300.35,1450.28.35"/>
+  </g>
 </svg>

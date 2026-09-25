@@ -385,6 +385,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11221', 'idc_upgrade_11221_specialty_titles_figma');
 	idc_run_upgrade_once('11227', 'idc_upgrade_11227_blog_instituto_100');
 	idc_run_upgrade_once('11228', 'idc_upgrade_11228_parity_100');
+	idc_run_upgrade_once('11260', 'idc_upgrade_11260_home_figma_gaps');
 
 	// Copia Options da Home para a p├ígina In├¡cio (se vazia), para ÔÇ£Editar p├íginaÔÇØ funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1302,6 +1303,43 @@ function idc_upgrade_11228_parity_100(): void {
 		}
 		update_field('idc_page_title_before', 'Existimos para que ninguém seja definido ', $id);
 		update_field('idc_page_title_accent', 'pela sua dor.', $id);
+	}
+}
+
+/**
+ * v1.12.60 — Home Figma 133:309/361: H1 “Tratamos a origem da dor…” + limpa lead Instituto.
+ */
+function idc_upgrade_11260_home_figma_gaps(): void {
+	if (!function_exists('update_field')) {
+		return;
+	}
+
+	$hero = [
+		'idc_hero_title_before' => 'Tratamos a ',
+		'idc_hero_title_accent' => 'origem da dor.',
+		'idc_hero_title_after'  => ' Você sente a mudança.',
+	];
+
+	foreach ($hero as $key => $value) {
+		update_field($key, $value, 'option');
+	}
+
+	$front_id = (int) get_option('page_on_front');
+	if ($front_id > 0) {
+		foreach ($hero as $key => $value) {
+			update_field($key, $value, $front_id);
+		}
+	}
+
+	// Lead da essência não existe no Figma 133:2197.
+	$instituto = get_page_by_path('o-instituto');
+	if ($instituto instanceof WP_Post) {
+		$id = (int) $instituto->ID;
+		if (function_exists('delete_field')) {
+			delete_field('idc_instituto_essencia_lead', $id);
+		} else {
+			update_field('idc_instituto_essencia_lead', '', $id);
+		}
 	}
 }
 

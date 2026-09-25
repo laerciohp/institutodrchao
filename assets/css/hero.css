@@ -22,12 +22,13 @@
 	z-index: 0;
 }
 
+/* Figma 133:310 — lines.svg (strokes já com alpha; sem opacity extra) */
 .idc-hero__bg img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: center top;
-	opacity: 0.28;
+	object-position: center;
+	opacity: 1;
 }
 
 .idc-hero__grid {

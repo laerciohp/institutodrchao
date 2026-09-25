@@ -457,9 +457,9 @@ function idc_setup_seed_home_options(): void {
 	$scalars = [
 		'idc_hero_eyebrow'           => 'INSTITUTO DR. CHAO',
 		'idc_hero_since'             => 'DESDE 1987',
-		'idc_hero_title_before'      => 'A dor não precisa definir a',
-		'idc_hero_title_accent'      => 'sua vida.',
-		'idc_hero_title_after'       => '',
+		'idc_hero_title_before'      => 'Tratamos a ',
+		'idc_hero_title_accent'      => 'origem da dor.',
+		'idc_hero_title_after'       => ' Você sente a mudança.',
 		'idc_hero_lead'              => "Existimos para que ninguém seja definido pela sua dor.\nCombinamos vanguarda médica e terapias integrativas em um ambiente pensado para a sua verdadeira recuperação e bem-estar contínuo.",
 		'idc_hero_cta_primary'       => 'Agendar Consulta',
 		'idc_hero_cta_secondary'     => 'Conheça os tratamentos',
