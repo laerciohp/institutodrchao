@@ -386,6 +386,7 @@ function idc_run_theme_upgrade_steps(): void {
 	idc_run_upgrade_once('11227', 'idc_upgrade_11227_blog_instituto_100');
 	idc_run_upgrade_once('11228', 'idc_upgrade_11228_parity_100');
 	idc_run_upgrade_once('11260', 'idc_upgrade_11260_home_figma_gaps');
+	idc_run_upgrade_once('11260b', 'idc_upgrade_11260_home_figma_gaps');
 
 	// Copia Options da Home para a p├ígina In├¡cio (se vazia), para ÔÇ£Editar p├íginaÔÇØ funcionar.
 	$front_id = (int) get_option('page_on_front');
@@ -1327,7 +1328,12 @@ function idc_upgrade_11260_home_figma_gaps(): void {
 	$front_id = (int) get_option('page_on_front');
 	if ($front_id > 0) {
 		foreach ($hero as $key => $value) {
+			// Força sobrescrita do ACF na página Início (fonte preferida por idc_option).
+			if (function_exists('delete_field')) {
+				delete_field($key, $front_id);
+			}
 			update_field($key, $value, $front_id);
+			update_post_meta($front_id, $key, $value);
 		}
 	}
 
