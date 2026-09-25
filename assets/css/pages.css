@@ -694,10 +694,11 @@
 }
 
 .idc-instituto__title {
-	font-size: clamp(28px, 4vw, 36px);
-	font-weight: 600;
+	/* Figma 133:2203 — Montserrat Bold 32/40 */
+	font-size: clamp(28px, 4vw, 32px);
+	font-weight: 700;
 	color: var(--idc-azul-900);
-	line-height: 1.2;
+	line-height: 40px;
 }
 
 .idc-instituto__lead {
@@ -740,14 +741,16 @@
 }
 
 .idc-instituto__card {
-	background: var(--idc-sand-warm);
-	border: 0;
-	border-radius: var(--idc-radius-lg);
-	padding: 41px;
+	/* Figma 133:2205 — bg #f6f3ee, borda sutil, radius 21px, pad 25px */
+	background: var(--idc-cream-soft);
+	border: 1px solid rgba(197, 198, 205, 0.3);
+	border-radius: var(--idc-radius-card);
+	padding: 25px;
 	min-height: 270px;
 	display: flex;
 	flex-direction: column;
-	gap: var(--idc-space-3);
+	gap: var(--idc-space-4);
+	box-sizing: border-box;
 }
 
 .idc-instituto__card-icon {
@@ -756,8 +759,9 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border-radius: 50%;
-	background: var(--idc-white);
+	border-radius: var(--idc-radius-pill);
+	background: var(--idc-gold-soft); /* Figma Terracota/300 #ddb98c */
+	flex-shrink: 0;
 }
 
 .idc-instituto__card-icon img {
@@ -767,27 +771,28 @@
 }
 
 .idc-instituto__card-title {
-	font-size: var(--idc-text-md);
-	font-weight: 600;
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 28px;
 	color: var(--idc-azul-900);
 }
 
 .idc-instituto__card-text {
-	font-size: var(--idc-text-sm);
-	line-height: 22px;
+	font-size: 16px;
+	line-height: 28px;
 	color: var(--idc-ink);
 }
 
 .idc-instituto__media {
-	border-radius: var(--idc-radius-lg);
+	/* Figma 133:2196 — radius 48px + offset sand */
+	border-radius: 48px;
 	overflow: hidden;
 	margin: 0;
 	aspect-ratio: 576 / 600;
-	background: var(--idc-sand);
+	background: var(--idc-sand-warm);
 	min-height: 240px;
-	/* Reserva espaço da sombra offset para não gerar scroll horizontal */
 	max-width: calc(100% - 16px);
-	box-shadow: 16px 16px 0 0 var(--idc-sand);
+	box-shadow: 16px 16px 0 0 var(--idc-sand-warm);
 }
 
 .idc-instituto__media img {
@@ -801,7 +806,7 @@
 @media (max-width: 1023px) {
 	.idc-instituto__media {
 		max-width: calc(100% - 8px);
-		box-shadow: 8px 8px 0 0 var(--idc-sand);
+		box-shadow: 8px 8px 0 0 var(--idc-cream-soft);
 		min-height: 220px;
 		max-height: 420px;
 	}
@@ -3617,21 +3622,11 @@ section.idc-accordion {
 	}
 }
 
-/* Instituto hero — Figma 133:2168 (diagonal cream + copy à direita) */
+/* Instituto hero — Figma 133:2168 (cream + tipografia CENTRALIZADA) */
 .idc-page-hero--instituto {
 	position: relative;
 	overflow: hidden;
-	background: var(--idc-cream-warm);
-}
-
-.idc-page-hero--instituto::before {
-	content: "";
-	position: absolute;
-	inset: 12% -10% -20% -30%;
-	background: var(--idc-cream);
-	transform: skewY(-6deg);
-	pointer-events: none;
-	z-index: 0;
+	background: var(--idc-cream); /* #fcf9f4 */
 }
 
 .idc-page-hero--instituto > .idc-container,
@@ -3640,25 +3635,41 @@ section.idc-accordion {
 	z-index: 1;
 }
 
+/* Decor orgânico full-bleed (Figma Image layer opacity ~0.5 → ~0.28 local) */
+.idc-page-hero--instituto .idc-page-hero__decor {
+	inset: -5% -5% -10% -5%;
+	width: auto;
+	height: auto;
+	opacity: 0.28;
+	background-size: cover;
+	background-position: center;
+}
+
 .idc-page-hero--instituto.idc-page-hero--centered .idc-breadcrumb__list {
-	justify-content: flex-end;
+	justify-content: center;
 }
 
 .idc-page-hero--instituto.idc-page-hero--centered .idc-page-hero__inner {
-	margin-inline: 0 0;
-	margin-left: auto;
-	text-align: right;
-	align-items: flex-end;
-	max-width: 42rem;
+	margin-inline: auto;
+	text-align: center;
+	align-items: center;
+	max-width: 896px;
 }
 
 .idc-page-hero--instituto .idc-page-hero__title {
 	font-weight: 500;
+	font-size: clamp(32px, 4.5vw, 48px);
+	line-height: 1.167; /* 56/48 */
+	letter-spacing: -0.02em;
+	max-width: 780px;
 }
 
 .idc-page-hero--instituto .idc-page-hero__lead {
-	max-width: 38rem;
-	margin-left: auto;
+	max-width: 768px;
+	margin-inline: auto;
+	font-size: 18px;
+	line-height: 29px;
+	text-align: center;
 }
 
 @media (max-width: 767px) {
@@ -3667,13 +3678,15 @@ section.idc-accordion {
 	}
 
 	.idc-page-hero--instituto.idc-page-hero--centered .idc-page-hero__inner {
-		margin-left: 0;
 		text-align: left;
 		align-items: flex-start;
 	}
 
 	.idc-page-hero--instituto .idc-page-hero__lead {
-		margin-left: 0;
+		text-align: left;
+		margin-inline: 0;
+		font-size: 16px;
+		line-height: 26px;
 	}
 }
 

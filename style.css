@@ -4,7 +4,7 @@ Theme URI: https://github.com/laerciohp/institutodrchao
 Author: Hitechsp
 Author URI: https://hitechsp.com.br
 Description: Tema institucional do Instituto Dr. Chao ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â ortopedia, reabilitaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o e medicina integrativa. Desenvolvido por Hitechsp. AtualizaÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Âµes via GitHub Releases.
-Version: 1.12.57
+Version: 1.12.58
 Requires at least: 6.4
 Tested up to: 6.7
 Requires PHP: 8.1
@@ -55,8 +55,8 @@ Update URI: false
 .idc-hub-card--cream { border: 0; }
 
 .idc-instituto__card {
-	border-radius: var(--idc-radius-lg);
-	padding: 41px;
+	border-radius: var(--idc-radius-card);
+	padding: 25px;
 }
 .idc-specialty__block-title { font-weight: 700; line-height: 40px; }
 /* Figma 133:1596 / 133:1887 Ã¢â‚¬â€ gap desk 24px (nÃƒÂ£o 32) */
@@ -215,9 +215,9 @@ Update URI: false
 .idc-page-hero {
 	background: var(--idc-cream); /* #FCF9F4 */
 }
-/* Spec 2 classes Ã¢â‚¬â€ vence .idc-page-hero (style last); Figma 133:2168 */
+/* Spec 2 classes — vence .idc-page-hero (style last); Figma 133:2168 cream */
 .idc-page-hero.idc-page-hero--instituto {
-	background: var(--idc-cream-warm);
+	background: var(--idc-cream);
 }
 
 /* Figma: accent serif/terracota (Orto "Ortopedia", Integrativa "Integrativa") */

@@ -13,10 +13,7 @@ $essencia_title = function_exists('get_field') && get_field('idc_instituto_essen
 	? (string) get_field('idc_instituto_essencia_title')
 	: 'Cuidado que une experiência, ciência e acolhimento';
 
-$essencia_lead = function_exists('get_field') && get_field('idc_instituto_essencia_lead')
-	? (string) get_field('idc_instituto_essencia_lead')
-	: 'Desde 1987, o Instituto Dr. Chao une precisão ortopédica, reabilitação e medicina integrativa para tratar a origem da dor — com ciência, escuta e acolhimento.';
-
+/* Figma 133:2197 — sem lead sob o H2 (só eyebrow + título + cards). */
 $cards = function_exists('get_field') ? get_field('idc_instituto_cards') : null;
 if (!is_array($cards) || $cards === []) {
 	$cards = idc_default_instituto_cards();
@@ -37,9 +34,6 @@ $image_alt = idc_image_alt($image, __('Interior do Instituto Dr. Chao', 'institu
 				<header class="idc-instituto__intro">
 					<p class="idc-eyebrow idc-eyebrow--accent"><?php echo esc_html($essencia_eyebrow !== '' ? $essencia_eyebrow : 'NOSSA ESSÊNCIA'); ?></p>
 					<h2 id="idc-instituto-essencia-title" class="idc-instituto__title"><?php echo esc_html($essencia_title !== '' ? $essencia_title : 'Cuidado que une experiência, ciência e acolhimento'); ?></h2>
-					<?php if ($essencia_lead !== '') : ?>
-						<p class="idc-instituto__lead"><?php echo esc_html($essencia_lead); ?></p>
-					<?php endif; ?>
 				</header>
 
 				<div class="idc-instituto__cards">
